@@ -6,7 +6,11 @@ const t = getTranslations(locale);
 import { profile } from '@/content/profile';
 ---
 
-<footer class="border-t border-line">
+<footer
+  class="border-t border-line"
+  transition:name="site-footer"
+  transition:animate="none"
+>
   <div
     class="shell flex flex-col justify-between gap-4 py-7 text-[11px] text-muted sm:flex-row"
   >

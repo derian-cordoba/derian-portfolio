@@ -1,8 +1,12 @@
 ---
 import '@/styles/global.css';
+import '@/styles/transitions.css';
+import { ClientRouter } from 'astro:transitions';
 import SiteHeader from '@/components/layout/SiteHeader.astro';
 import SiteFooter from '@/components/layout/SiteFooter.astro';
 import ThemeInit from '@/components/layout/ThemeInit.astro';
+import PageNavigation from '@/components/layout/PageNavigation.astro';
+import { pageTransition } from '@/presentation/transitions';
 import { profile } from '@/content/profile';
 import { locales } from '@/domain/locale';
 import { getTranslations } from '@/i18n';
@@ -35,7 +39,7 @@ const person = {
 ---
 
 <!doctype html>
-<html lang={locale}>
+<html lang={locale} transition:animate="none">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -51,6 +55,8 @@ const person = {
       media="(prefers-color-scheme: dark)"
     />
     <ThemeInit />
+    <PageNavigation />
+    <ClientRouter fallback="animate" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -94,7 +100,13 @@ const person = {
       >{t.skipContent}</a
     >
     <SiteHeader />
-    <main id="main"><slot /></main>
+    <main
+      id="main"
+      transition:name="page-content"
+      transition:animate={pageTransition}
+    >
+      <slot />
+    </main>
     <SiteFooter />
   </body>
 </html>

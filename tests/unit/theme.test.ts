@@ -44,6 +44,7 @@ describe('theme preferences', () => {
     });
     expect(readThemePreference()).toBeUndefined();
     expect(() => saveThemePreference('dark')).not.toThrow();
+    expect(readThemePreference()).toBe('dark');
   });
 
   it('provides localized actions and a stable toggle state', () => {

@@ -16,6 +16,9 @@ const links = [
 ---
 
 <header
+  data-site-header
+  transition:name="site-header"
+  transition:animate="none"
   class="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur-md"
 >
   <div class="shell flex h-20 items-center justify-between gap-4">
@@ -81,17 +84,3 @@ const links = [
     </div>
   </div>
 </header>
-<script>
-  const menu = document.querySelector<HTMLDetailsElement>('[data-mobile-menu]');
-  menu?.addEventListener('click', (event) => {
-    if (event.target instanceof Element && event.target.closest('a')) {
-      menu.open = false;
-    }
-  });
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && menu?.open) {
-      menu.open = false;
-      menu.querySelector('summary')?.focus();
-    }
-  });
-</script>

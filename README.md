@@ -53,9 +53,15 @@ UI strings are in `src/i18n/en.ts` and `src/i18n/es.ts`. Spanish dictionaries mu
 
 Document language, canonical and alternate language URLs, Open Graph metadata, social images, accessibility labels, error pages, diagrams, and downloadable CVs are localized. `/404.html` is the static host's default English error document; `/es/404/` is the translated error page. Configuring a host to use the Spanish document for unknown `/es/*` paths is a hosting concern.
 
+## Page transitions
+
+Every page uses Astro's `ClientRouter` through `BaseLayout`, including both homepages, all ten case-study/project pages, and both error pages. Page content fades and rises briefly; the header and footer remain stationary. The animation definitions are in `src/presentation/transitions.ts`, with keyframes in `src/styles/transitions.css`.
+
+The router uses an animation fallback when native View Transitions are unavailable and respects reduced-motion preferences. Delegated navigation handlers work after every body swap, while custom elements reconnect with lifecycle cleanup. The active theme is applied to the incoming document before swapping to avoid a light-theme flash. Language switching preserves the query and fragment before the router reads the link. External links and downloads retain their browser behavior. Without JavaScript, links load their static HTML pages normally.
+
 ## Light and dark themes
 
-The header's sun/moon button switches between light and dark palettes. The initial theme follows the system preference unless a visitor has saved a choice. That choice is stored locally under `portfolio-theme` and persists across pages and languages. System changes are observed while no explicit choice exists; changes from other tabs are synchronized. If storage is unavailable, the toggle still works on the current page.
+The header's sun/moon button switches between light and dark palettes. The initial theme follows the system preference unless a visitor has saved a choice. That choice is stored locally under `portfolio-theme` and persists across pages and languages. System changes are observed while no explicit choice exists; changes from other tabs are synchronized. If storage is unavailable, the choice remains available during internal navigation for the current session. A full reload returns to the system preference.
 
 A small head script selects the saved theme before the body renders. Without JavaScript, CSS still follows the system color scheme and hides the inactive control. Semantic colors in `src/styles/global.css` use `light-dark()`; update both values when changing the palette. Action backgrounds and foregrounds are separate from link colors to preserve contrast. Diagrams use theme-aware surface and text tokens.
 

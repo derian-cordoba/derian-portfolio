@@ -1,0 +1,25 @@
+/* Page animations are applied globally through BaseLayout and ClientRouter. */
+@keyframes portfolio-page-leave {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes portfolio-page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

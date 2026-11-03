@@ -31,15 +31,3 @@ const t = getTranslations(locale);
     ))
   }
 </nav>
-<script>
-  for (const link of document.querySelectorAll<HTMLAnchorElement>(
-    '[data-language-switch]',
-  )) {
-    link.addEventListener('click', () => {
-      const target = new URL(link.href);
-      target.hash = window.location.hash;
-      target.search = window.location.search;
-      link.href = target.href;
-    });
-  }
-</script>

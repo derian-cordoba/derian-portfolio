@@ -25,7 +25,10 @@ test('all fourteen generated pages include localized content and document metada
   for (const filename of files) {
     const html = readFileSync(filename, 'utf8');
     const locale = filename.startsWith(join(output, 'es') + '/') ? 'es' : 'en';
-    assert.ok(html.includes(`<html lang="${locale}">`), filename);
+    assert.ok(
+      html.match(/<html\b[^>]*>/u)?.[0].includes(`lang="${locale}"`),
+      filename,
+    );
     assert.equal([...html.matchAll(/<h1[\s>]/gu)].length, 1, filename);
     assert.match(html, /<title>[^<]+<\/title>/u, filename);
     assert.match(html, /<meta name="description" content="[^"]+"/u, filename);
@@ -35,6 +38,16 @@ test('all fourteen generated pages include localized content and document metada
     assert.match(html, /hreflang="x-default"/u, filename);
     assert.ok(html.includes('data-theme-init'), filename);
     assert.ok(html.includes('<theme-toggle'), filename);
+    assert.match(
+      html,
+      /name="astro-view-transitions-enabled" content="true"/u,
+      filename,
+    );
+    assert.match(
+      html,
+      /name="astro-view-transitions-fallback" content="animate"/u,
+      filename,
+    );
   }
 });
 
