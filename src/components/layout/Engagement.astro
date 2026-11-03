@@ -1,5 +1,17 @@
 ---
 const source = import.meta.env['PUBLIC_PLAUSIBLE_SCRIPT_URL']?.trim();
+const measurementHost =
+  import.meta.env['PUBLIC_ANALYTICS_HOSTNAME']?.trim() || Astro.site?.hostname;
+
+if (
+  measurementHost &&
+  new URL(`https://${measurementHost}`).hostname !== measurementHost
+) {
+  throw new Error(
+    'PUBLIC_ANALYTICS_HOSTNAME must contain only the public hostname to measure.',
+  );
+}
+
 if (source && !/^https:\/\/plausible\.io\/js\/pa-[\w-]+\.js$/u.test(source)) {
   throw new Error(
     'PUBLIC_PLAUSIBLE_SCRIPT_URL must be the HTTPS script URL supplied by Plausible.',
@@ -12,7 +24,7 @@ if (source && !/^https:\/\/plausible\.io\/js\/pa-[\w-]+\.js$/u.test(source)) {
     <meta
       name="portfolio-analytics"
       content={source}
-      data-host={Astro.site?.hostname}
+      data-host={measurementHost}
     />
   )
 }

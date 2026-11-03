@@ -6,6 +6,7 @@ import ActionLink from '@/components/ui/ActionLink.astro';
 import { getFeatureCopy } from '@/i18n/features';
 import { localizePath } from '@/i18n/routing';
 import type { NoteViewModel } from '@/presentation/view-models/note-view-model';
+import NoteByline from '@/components/notes/NoteByline.astro';
 interface Props {
   note: NoteViewModel;
 }
@@ -28,10 +29,7 @@ const { Content } = await render(entry);
     description={note.description}
   />
   <div class="shell pb-24">
-    <p class="mb-8 text-xs text-muted">
-      Derian Córdoba · {note.readingTime}
-      {copy.minute}
-    </p>
+    <div class="mb-8"><NoteByline note={note} /></div>
     <article class="case-prose max-w-2xl"><Content /></article>
     <ActionLink
       href={localizePath('/notes/', note.locale)}

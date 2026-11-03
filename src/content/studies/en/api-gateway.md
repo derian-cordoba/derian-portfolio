@@ -3,7 +3,7 @@ locale: en
 studyId: api-gateway
 kind: project
 order: 3
-title: The front door to your services.
+title: 'TypeScript API Gateway: Routing and Resilience'
 description: A configuration-driven API gateway bringing routing, resilience, and observability into one system.
 organization: Independent open source
 role: Project author
@@ -11,6 +11,7 @@ period: Open-source engineering
 tags: [TypeScript, Node.js, Next.js]
 result: Route. Protect. Observe.
 resultLabel: configuration-driven traffic management
+relatedNotes: [failure-controls]
 visual: gateway
 repository: https://github.com/derian-cordoba/api-gateway
 ---

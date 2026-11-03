@@ -13,7 +13,7 @@ test('Spanish language switching preserves the project and fragment', async ({
   await expect(page).toHaveURL(/\/es\/projects\/api-gateway\/#main$/u);
   await expect(page.locator('html')).toHaveAttribute('lang', 'es');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'La puerta de entrada a tus servicios.',
+    'API Gateway en TypeScript: enrutamiento y resiliencia',
   );
   await page
     .getByRole('button', { name: 'Simular fallo del servicio de destino' })

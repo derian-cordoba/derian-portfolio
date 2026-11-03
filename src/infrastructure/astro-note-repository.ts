@@ -6,8 +6,14 @@ export class AstroNoteRepository implements NoteRepository {
   async findAll(): Promise<readonly Note[]> {
     const entries = await getCollection('notes');
     return entries.map(({ id, data, body }) => {
-      const { noteId, ...fields } = data;
-      return { ...fields, id: noteId, contentId: id, body: body ?? '' };
+      const { noteId, updatedAt, ...fields } = data;
+      return {
+        ...fields,
+        id: noteId,
+        contentId: id,
+        body: body ?? '',
+        ...(updatedAt && { updatedAt }),
+      };
     });
   }
 }

@@ -3,7 +3,7 @@ locale: en
 studyId: saas-modernization
 kind: experience
 order: 1
-title: Faster flows. A more maintainable SaaS.
+title: 'Laravel SaaS Performance Optimization'
 description: Improving critical Laravel processing paths through backend refactoring and database optimization.
 organization: Go Local Interactive
 role: Senior Software Engineer II
@@ -36,7 +36,7 @@ Maintainability matters alongside speed. A localized improvement should leave th
 
 My CV records **up to 80% performance improvement in key Laravel processing flows**, achieved through backend refactoring, SQL optimization, and application-path tuning.
 
-That figure applies to selected processing flows. This public summary does not include internal benchmarks or a claim about overall site speed.
+The figure is a CV-reported outcome for selected flows. The underlying metric, baseline, workload, and measurement procedure are not published here, so it should not be interpreted as a verified reduction in execution time or an application-wide benchmark.
 
 ## What this work represents
 

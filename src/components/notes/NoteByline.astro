@@ -1,0 +1,27 @@
+---
+import type { NoteViewModel } from '@/presentation/view-models/note-view-model';
+import { getFeatureCopy } from '@/i18n/features';
+import { profile } from '@/content/profile';
+interface Props {
+  note: NoteViewModel;
+}
+const { note } = Astro.props;
+const copy = getFeatureCopy(note.locale);
+---
+
+<div class="flex flex-wrap gap-x-5 gap-y-2 text-xs leading-relaxed text-muted">
+  <span>{profile.name}</span>
+  <span>{note.readingTime} {copy.minute}</span>
+  <span
+    >{copy.publishedOn}
+    <time datetime={note.publishedAt}>{note.publishedLabel}</time></span
+  >
+  {
+    note.updatedLabel && (
+      <span>
+        {copy.updatedOn}{' '}
+        <time datetime={note.updatedAt}>{note.updatedLabel}</time>
+      </span>
+    )
+  }
+</div>

@@ -3,9 +3,12 @@ locale: en
 noteId: consistent-experiments
 title: 'Keep experiment assignment consistent from server to browser.'
 description: 'Why server-owned assignment and explicit exposure events make experiments easier to trust.'
+publishedAt: '2026-11-03'
 order: 2
 tags: [Experiments, SSR]
 ---
+
+Resolve an experiment assignment once on the server and pass that decision to the browser. The browser should render the assigned variant rather than choose again. Define exposure separately from assignment so that receiving a variant is not automatically counted as seeing it.
 
 ## Choose one assignment authority
 

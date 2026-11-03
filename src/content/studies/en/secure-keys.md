@@ -3,7 +3,7 @@ locale: en
 studyId: secure-keys
 kind: project
 order: 5
-title: A repeatable path from config to build.
+title: 'Secure Keys: iOS Configuration Automation'
 description: A Ruby CLI for generating iOS configuration frameworks from local and CI secret sources.
 organization: Independent open source
 role: Project author

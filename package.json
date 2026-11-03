@@ -17,7 +17,8 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "validate": "npm run check && npm run lint && npm run format:check && npm test && npm run build && npm run test:static",
-    "test:static": "node --test tests/integration/static-output.test.ts"
+    "test:static": "node --test tests/integration/static-output.test.ts",
+    "test:deployed": "node --test --test-concurrency=1 tests/deployment/*.test.ts"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

@@ -1,0 +1,33 @@
+name: Public deployment checks
+
+on:
+  workflow_dispatch:
+    inputs:
+      deployment_url:
+        description: Public deployment URL to inspect
+        required: true
+        default: https://derian-cordoba-portfolio.netlify.app
+      submit_test_inquiries:
+        description: Send one clearly marked diagnostic inquiry in each language
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  deployed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      DEPLOYMENT_URL: ${{ inputs.deployment_url }}
+      SUBMIT_TEST_INQUIRIES: ${{ inputs.submit_test_inquiries }}
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "26.3.0"
+
+      - run: npm run test:deployed

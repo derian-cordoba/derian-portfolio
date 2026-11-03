@@ -3,9 +3,12 @@ locale: es
 noteId: consistent-experiments
 title: 'Mantener la asignación de experimentos entre servidor y navegador.'
 description: 'Por qué asignar en el servidor y definir las exposiciones ayuda a interpretar los experimentos.'
+publishedAt: '2026-11-03'
 order: 2
 tags: [Experimentos, SSR]
 ---
+
+Resuelve la asignación del experimento una sola vez en el servidor y comparte esa decisión con el navegador. El navegador debe mostrar la variante asignada en lugar de elegir otra vez. Define la exposición por separado: recibir una variante no significa automáticamente haberla visto.
 
 ## Elige una sola autoridad de asignación
 

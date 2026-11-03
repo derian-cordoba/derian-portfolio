@@ -3,7 +3,7 @@ locale: en
 studyId: agricultural-platform
 kind: experience
 order: 2
-title: One platform. Many business workflows.
+title: 'Backend Platform for Agricultural Businesses'
 description: Designing backend services and data structures for a web and mobile agricultural platform.
 organization: Quality Service Nicaragua
 role: Software Engineer III

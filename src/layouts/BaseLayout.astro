@@ -3,6 +3,7 @@ import '@/styles/global.css';
 import '@/styles/transitions.css';
 import { ClientRouter } from 'astro:transitions';
 import SiteHeader from '@/components/layout/SiteHeader.astro';
+import SearchVerification from '@/components/layout/SearchVerification.astro';
 import SiteFooter from '@/components/layout/SiteFooter.astro';
 import ThemeInit from '@/components/layout/ThemeInit.astro';
 import Engagement from '@/components/layout/Engagement.astro';
@@ -61,6 +62,7 @@ const person = {
     <ClientRouter fallback="animate" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <SearchVerification />
     <link rel="canonical" href={canonical} />
     {
       locales.map((language) => (

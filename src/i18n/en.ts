@@ -27,7 +27,7 @@ export const en = {
   heroTitle: 'Good systems.',
   heroAccent: 'Better outcomes.',
   heroDescription:
-    'I’m Derian. I build reliable backend systems, thoughtful full-stack applications, and tools that help teams ship better.',
+    'I’m Derian Córdoba, a senior software engineer specializing in backend systems and full-stack applications. I build reliable services and practical tools that help teams ship better software.',
   exploreWork: 'Explore my work',
   letsTalk: 'Let’s talk',
   heroNote: 'Built to work. Designed to last.',

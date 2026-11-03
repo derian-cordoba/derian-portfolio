@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import type { Note } from '@/domain/note';
-import { createNotesViewModel } from '@/presentation/view-models/note-view-model';
+import {
+  createNotesViewModel,
+  createNoteViewModel,
+  createRelatedNotesViewModel,
+} from '@/presentation/view-models/note-view-model';
 import { createWalkthroughViewModel } from '@/presentation/view-models/walkthrough-view-model';
 import { createEngagementContext } from '@/domain/engagement';
 
@@ -12,12 +16,48 @@ function note(id: string, order: number, locale: 'en' | 'es'): Note {
     contentId: `${locale}/${id}`,
     title: id,
     description: id,
+    publishedAt: '2026-11-03',
     tags: ['Design'],
     body: 'word '.repeat(201),
   };
 }
 
 describe('engineering notes', () => {
+  it('formats editorial dates consistently and only shows a distinct update date', () => {
+    expect(createNoteViewModel(note('first', 1, 'en')).publishedLabel).toBe(
+      'November 3, 2026',
+    );
+    const spanish = createNoteViewModel({
+      ...note('first', 1, 'es'),
+      updatedAt: '2026-11-04',
+    });
+    expect(spanish.publishedLabel).toBe('3 de noviembre de 2026');
+    expect(spanish.updatedLabel).toBe('4 de noviembre de 2026');
+    expect(
+      createNoteViewModel({
+        ...note('first', 1, 'en'),
+        updatedAt: '2026-11-03',
+      }).updatedLabel,
+    ).toBeUndefined();
+  });
+
+  it('resolves related notes in the study locale and rejects a missing translation', async () => {
+    const repository = {
+      findAll: async () => [note('first', 1, 'en'), note('first', 1, 'es')],
+    };
+    const related = await createRelatedNotesViewModel(repository, {
+      locale: 'es',
+      relatedNotes: ['first'],
+    });
+    expect(related.map((entry) => entry.href)).toEqual(['/es/notes/first/']);
+    await expect(
+      createRelatedNotesViewModel(repository, {
+        locale: 'es',
+        relatedNotes: ['missing'],
+      }),
+    ).rejects.toThrow('Missing es translation');
+  });
+
   it('filters translated content, keeps stable routes, and leaves repository ordering intact', async () => {
     const notes = Object.freeze([
       note('second', 2, 'es'),

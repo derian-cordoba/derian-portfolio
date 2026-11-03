@@ -20,6 +20,7 @@ export interface Study {
   readonly resultLabel: string;
   readonly visual: StudyVisual;
   readonly repository?: string;
+  readonly relatedNotes?: readonly string[];
   readonly media?: {
     readonly src: string;
     readonly alt: string;

@@ -3,7 +3,7 @@ locale: es
 studyId: agricultural-platform
 kind: experience
 order: 2
-title: Una plataforma. Muchos flujos de negocio.
+title: 'Plataforma backend para empresas agrícolas'
 description: Diseño de servicios backend y estructuras de datos para una plataforma agrícola web y móvil.
 organization: Quality Service Nicaragua
 role: Ingeniero de software III

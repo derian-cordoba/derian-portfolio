@@ -6,6 +6,8 @@ export interface Note {
   readonly locale: Locale;
   readonly title: string;
   readonly description: string;
+  readonly publishedAt: string;
+  readonly updatedAt?: string;
   readonly order: number;
   readonly tags: readonly string[];
   readonly body: string;

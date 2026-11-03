@@ -7,10 +7,17 @@ import GatewayWalkthrough from '@/components/work/GatewayWalkthrough.astro';
 import StudyEvidence from '@/components/work/StudyEvidence.astro';
 import GatewayDemo from '@/components/interactive/GatewayDemo.astro';
 import Contact from '@/components/sections/Contact.astro';
+import RelatedNotes from '@/components/notes/RelatedNotes.astro';
+import { AstroNoteRepository } from '@/infrastructure/astro-note-repository';
+import { createRelatedNotesViewModel } from '@/presentation/view-models/note-view-model';
 interface Props {
   study: StudyViewModel;
 }
 const { study } = Astro.props;
+const relatedNotes = await createRelatedNotesViewModel(
+  new AstroNoteRepository(),
+  study,
+);
 ---
 
 <BaseLayout
@@ -31,7 +38,9 @@ const { study } = Astro.props;
             </Fragment>
           )
         }
-      </div><StudySidebar study={study} />
+        <RelatedNotes notes={relatedNotes} locale={study.locale} />
+      </div>
+      <StudySidebar study={study} />
     </div>
   </div>
   <Contact />

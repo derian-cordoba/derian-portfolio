@@ -3,7 +3,7 @@ locale: es
 studyId: api-gateway
 kind: project
 order: 3
-title: La puerta de entrada a tus servicios.
+title: 'API Gateway en TypeScript: enrutamiento y resiliencia'
 description: Un gateway de API configurable que reúne enrutamiento, resiliencia y observabilidad.
 organization: Proyecto independiente de código abierto
 role: Autor del proyecto
@@ -11,6 +11,7 @@ period: Desarrollo de código abierto
 tags: [TypeScript, Node.js, Next.js]
 result: Enrutar. Proteger. Observar.
 resultLabel: gestión del tráfico mediante configuración
+relatedNotes: [failure-controls]
 visual: gateway
 repository: https://github.com/derian-cordoba/api-gateway
 ---

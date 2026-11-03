@@ -39,7 +39,7 @@ Provider setup: [Netlify Forms documentation](https://docs.netlify.com/manage/fo
 
 External tracking is **off** unless `PUBLIC_PLAUSIBLE_SCRIPT_URL` is configured. In Plausible, add the production domain and copy the site-specific script URL from its installation snippet (`https://plausible.io/js/pa-….js`). Set that URL as the Netlify production build variable and redeploy. The URL is a public configuration value, not an API token.
 
-The adapter disables automatic pageview capture and sends one pageview on each `astro:page-load`, including client navigation. It queues calls while the provider script loads, strips query strings and fragments, and skips previews whose hostname differs from `SITE_URL`. It also respects Do Not Track and Global Privacy Control. No contact field values, visitor identifiers, or outbound destination URLs are included in custom event properties. Plausible still processes the normal request metadata described by its service; this integration does not claim zero data collection.
+The adapter disables automatic pageview capture and sends one pageview on each `astro:page-load`, including client navigation. It queues calls while the provider script loads, strips query strings and fragments, and skips hosts outside the configured measurement hostname (`PUBLIC_ANALYTICS_HOSTNAME`, falling back to `SITE_URL`). It also respects Do Not Track and Global Privacy Control. No contact field values, visitor identifiers, or outbound destination URLs are included in custom event properties. Plausible still processes the normal request metadata described by its service; this integration does not claim zero data collection.
 
 Create matching custom-event goals in Plausible:
 

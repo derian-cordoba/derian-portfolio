@@ -29,7 +29,7 @@ export const es = {
   heroTitle: 'Buenos sistemas.',
   heroAccent: 'Mejores resultados.',
   heroDescription:
-    'Soy Derian. Desarrollo sistemas backend confiables, aplicaciones full-stack bien pensadas y herramientas que ayudan a los equipos a entregar mejor software.',
+    'Soy Derian Córdoba, ingeniero de software sénior especializado en sistemas backend y aplicaciones full-stack. Desarrollo servicios confiables y herramientas prácticas que ayudan a los equipos a entregar mejor software.',
   exploreWork: 'Conoce mi trabajo',
   letsTalk: 'Hablemos',
   heroNote: 'Creado para funcionar. Diseñado para durar.',

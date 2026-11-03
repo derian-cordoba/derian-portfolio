@@ -3,9 +3,12 @@ locale: es
 noteId: failure-controls
 title: 'Los tiempos de espera, reintentos y cortacircuitos tienen funciones distintas.'
 description: 'Una forma práctica de razonar sobre los límites de fallo sin multiplicar la carga.'
+publishedAt: '2026-11-03'
 order: 1
 tags: [Resiliencia, TypeScript]
 ---
+
+Un tiempo de espera limita cuánto puede esperar un intento. Un reintento repite una operación. Un cortacircuitos evita llamadas cuando los fallos indican que una dependencia no está disponible. Combinarlos requiere un presupuesto de tiempo explícito, reintentos seguros y una política de recuperación definida.
 
 ## Comienza por el presupuesto de la solicitud
 

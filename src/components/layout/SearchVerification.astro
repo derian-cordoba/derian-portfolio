@@ -1,0 +1,10 @@
+---
+// Public ownership-verification value supplied by Google Search Console.
+const verification = import.meta.env['PUBLIC_GOOGLE_SITE_VERIFICATION']?.trim();
+---
+
+{
+  verification && (
+    <meta name="google-site-verification" content={verification} />
+  )
+}

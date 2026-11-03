@@ -25,6 +25,9 @@ const studies = defineCollection({
       'secure-keys',
     ]),
     repository: z.url().optional(),
+    relatedNotes: z
+      .array(z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/u))
+      .default([]),
     media: z
       .object({
         src: z.string().startsWith('/'),
@@ -40,14 +43,21 @@ const studies = defineCollection({
 
 const notes = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/notes' }),
-  schema: z.object({
-    locale: z.enum(['en', 'es']),
-    noteId: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/u),
-    title: z.string().min(1),
-    description: z.string().min(1),
-    order: z.number().int().positive(),
-    tags: z.array(z.string()).min(1),
-  }),
+  schema: z
+    .object({
+      locale: z.enum(['en', 'es']),
+      noteId: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/u),
+      title: z.string().min(1),
+      description: z.string().min(1),
+      publishedAt: z.iso.date(),
+      updatedAt: z.iso.date().optional(),
+      order: z.number().int().positive(),
+      tags: z.array(z.string()).min(1),
+    })
+    .refine((data) => !data.updatedAt || data.updatedAt >= data.publishedAt, {
+      message: 'A note update cannot precede its publication date.',
+      path: ['updatedAt'],
+    }),
 });
 
 export const collections = { studies, notes };

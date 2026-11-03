@@ -3,9 +3,12 @@ locale: en
 noteId: failure-controls
 title: 'Timeouts, retries, and circuit breakers have different jobs.'
 description: 'A practical way to reason about failure boundaries without multiplying load.'
+publishedAt: '2026-11-03'
 order: 1
 tags: [Reliability, TypeScript]
 ---
+
+A timeout bounds how long an attempt can wait. A retry repeats an attempt. A circuit breaker suppresses calls after failures indicate that a dependency is unhealthy. Combining them requires an explicit request budget, safe retry semantics, and a defined recovery policy.
 
 ## Begin with the request budget
 

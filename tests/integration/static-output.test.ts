@@ -3,8 +3,17 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { runInNewContext } from 'node:vm';
+import { parseEnv } from 'node:util';
 
 const output = resolve('dist');
+// Match production build-file precedence; explicit shell/CI variables take priority.
+const buildEnvironment = Object.assign(
+  {},
+  ...['.env', '.env.local', '.env.production', '.env.production.local']
+    .filter((filename) => existsSync(filename))
+    .map((filename) => parseEnv(readFileSync(filename, 'utf8'))),
+  process.env,
+) as Record<string, string | undefined>;
 
 function htmlFiles(directory: string): string[] {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -235,7 +244,7 @@ test('hiring, notes, and evidence are complete static documents in both language
 });
 
 test('optional inquiries use native Netlify POST handling and localized success pages', () => {
-  const enabled = process.env['PUBLIC_CONTACT_FORM_ENABLED'] === 'true';
+  const enabled = buildEnvironment['PUBLIC_CONTACT_FORM_ENABLED'] === 'true';
   for (const prefix of ['', 'es/']) {
     const html = readFileSync(
       join(output, prefix, 'hiring/index.html'),
@@ -257,4 +266,75 @@ test('the production sitemap omits confirmation and error pages', () => {
   assert.ok(!sitemap.includes('/thanks/'));
   assert.ok(!sitemap.includes('/404/'));
   assert.ok(sitemap.includes('/notes/failure-controls/'));
+});
+
+test('project subjects, dated note openings, and reciprocal references survive static rendering', () => {
+  for (const prefix of ['', 'es/']) {
+    for (const [path, subject] of [
+      ['projects/api-gateway', 'API Gateway'],
+      ['projects/experimentation', 'Laravel'],
+      ['projects/secure-keys', 'Secure Keys'],
+      ['work/saas-modernization', 'Laravel'],
+    ] as const) {
+      const html = readFileSync(
+        join(output, prefix, path, 'index.html'),
+        'utf8',
+      );
+      assert.ok(
+        html.match(/<title>([^<]*)<\/title>/u)?.[1]?.includes(subject),
+        path,
+      );
+      assert.ok(
+        html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/u)?.[1]?.includes(subject),
+        path,
+      );
+    }
+    for (const [project, note] of [
+      ['api-gateway', 'failure-controls'],
+      ['experimentation', 'consistent-experiments'],
+    ] as const) {
+      const html = readFileSync(
+        join(output, prefix, `notes/${note}/index.html`),
+        'utf8',
+      );
+      assert.match(html, /<time datetime="2026-11-03">/u);
+      const article =
+        html.match(/<article\b[^>]*>([\s\S]*?)<\/article>/u)?.[1] ?? '';
+      assert.match(article.trimStart(), /^<p>/u);
+      assert.ok(article.indexOf('</p>') < article.indexOf('<h2'), note);
+      const projectHtml = readFileSync(
+        join(output, prefix, `projects/${project}/index.html`),
+        'utf8',
+      );
+      assert.ok(
+        projectHtml.includes(`href="/${prefix}notes/${note}/"`),
+        project,
+      );
+      assert.ok(html.includes(`href="/${prefix}projects/${project}/`), note);
+    }
+  }
+});
+
+test('the optional Search Console verification value is emitted only when configured', () => {
+  const html = readFileSync(join(output, 'index.html'), 'utf8');
+  const enabled = Boolean(
+    buildEnvironment['PUBLIC_GOOGLE_SITE_VERIFICATION']?.trim(),
+  );
+  assert.equal(html.includes('name="google-site-verification"'), enabled);
+});
+
+test('optional analytics can select the public deployment host independently of canonical metadata', () => {
+  const html = readFileSync(join(output, 'index.html'), 'utf8');
+  const enabled = Boolean(
+    buildEnvironment['PUBLIC_PLAUSIBLE_SCRIPT_URL']?.trim(),
+  );
+  assert.equal(html.includes('name="portfolio-analytics"'), enabled);
+  if (enabled) {
+    const canonical = html.match(/rel="canonical" href="([^"]+)"/u)?.[1];
+    assert.ok(canonical);
+    const host =
+      buildEnvironment['PUBLIC_ANALYTICS_HOSTNAME']?.trim() ||
+      new URL(canonical).hostname;
+    assert.ok(html.includes(`data-host="${host}"`));
+  }
 });

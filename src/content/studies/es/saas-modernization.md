@@ -3,7 +3,7 @@ locale: es
 studyId: saas-modernization
 kind: experience
 order: 1
-title: Flujos más rápidos. Un SaaS más mantenible.
+title: 'Optimización del rendimiento de un SaaS con Laravel'
 description: Mejora de rutas críticas de procesamiento en Laravel mediante refactorización backend y optimización de bases de datos.
 organization: Go Local Interactive
 role: Ingeniero de software sénior II
@@ -36,7 +36,7 @@ La mantenibilidad importa tanto como la velocidad. Una mejora localizada debe de
 
 Mi currículum documenta **hasta un 80 % de mejora de rendimiento en flujos clave de procesamiento en Laravel**, mediante refactorización backend, optimización SQL y ajustes en las rutas de procesamiento de la aplicación.
 
-La cifra corresponde a flujos seleccionados. Este resumen público no incluye mediciones internas ni afirma una mejora equivalente de la velocidad de todo el sitio.
+La cifra es un resultado reportado en mi currículum para flujos seleccionados. Aquí no se publican la métrica, la referencia inicial, la carga de trabajo ni el procedimiento de medición; por eso no debe interpretarse como una reducción verificada del tiempo de ejecución ni como una medición de toda la aplicación.
 
 ## Lo que representa este trabajo
 

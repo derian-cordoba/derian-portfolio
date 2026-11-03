@@ -3,7 +3,7 @@ locale: en
 studyId: experimentation
 kind: project
 order: 4
-title: Consistent experiments, server to browser.
+title: 'Laravel A/B Testing and TypeScript Integration'
 description: Typed Laravel experimentation primitives with a TypeScript companion for consistent client hydration.
 organization: Independent open source
 role: Project author
@@ -11,6 +11,7 @@ period: Open-source engineering
 tags: [Laravel, TypeScript, React & Vue]
 result: One assignment
 resultLabel: shared by the server and browser
+relatedNotes: [consistent-experiments]
 visual: experimentation
 repository: https://github.com/derian-cordoba/laravel-ab-testing
 media:

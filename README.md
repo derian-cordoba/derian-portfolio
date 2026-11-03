@@ -95,3 +95,7 @@ The tracked `.openai/hosting.json` identifies the private Sites deployment. Publ
 The API Gateway case study includes three native, no-JavaScript failure-path disclosures with real configuration, pinned source/test links, and architectural tradeoffs. The experimentation project includes an attributed dashboard screenshot. Optional `media` metadata supports future case-study evidence without changing the page layout.
 
 GitHub Actions runs the complete validation command and Chromium desktop/mobile browser checks on pushes and pull requests. Test traces and reports are retained for failures. External provider delivery and analytics activation require the account configuration described in [deployment](docs/deployment.md).
+
+## SEO and measurement
+
+See [SEO content and measurement](docs/seo.md) for editorial dates, Search Console verification, optional analytics on the active Netlify host, and interpretation of contact/CV signals. Public HTTP checks run separately from source validation using `DEPLOYMENT_URL=... npm run test:deployed`, or the manually triggered Public deployment checks workflow.

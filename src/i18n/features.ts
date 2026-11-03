@@ -36,6 +36,9 @@ const en = {
   professional: 'Professional case studies',
   openSource: 'Open-source engineering',
   notes: 'Engineering notes',
+  relatedNotes: 'Related engineering notes',
+  publishedOn: 'Published',
+  updatedOn: 'Updated',
   notesTitle: 'Decisions behind the implementation.',
   notesDescription:
     'Practical notes on service reliability, experiments, and the tradeoffs behind software design.',
@@ -139,6 +142,9 @@ const es = {
   professional: 'Casos de experiencia profesional',
   openSource: 'Ingeniería de código abierto',
   notes: 'Notas de ingeniería',
+  relatedNotes: 'Notas de ingeniería relacionadas',
+  publishedOn: 'Publicado el',
+  updatedOn: 'Actualizado el',
   notesTitle: 'Las decisiones detrás de la implementación.',
   notesDescription:
     'Notas prácticas sobre resiliencia de servicios, experimentos y decisiones de diseño de software.',

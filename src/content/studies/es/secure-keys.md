@@ -3,7 +3,7 @@ locale: es
 studyId: secure-keys
 kind: project
 order: 5
-title: Un proceso repetible, de la configuración a la compilación.
+title: 'Secure Keys: automatización de configuración para iOS'
 description: Una herramienta de Ruby para generar frameworks de configuración de iOS a partir de secretos locales y de integración continua.
 organization: Proyecto independiente de código abierto
 role: Autor del proyecto

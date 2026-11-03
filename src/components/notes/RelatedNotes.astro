@@ -1,0 +1,42 @@
+---
+import type { NoteViewModel } from '@/presentation/view-models/note-view-model';
+import type { Locale } from '@/domain/locale';
+import { getFeatureCopy } from '@/i18n/features';
+import Link from '@/components/ui/Link.astro';
+import Icon from '@/components/ui/Icon.astro';
+interface Props {
+  notes: readonly NoteViewModel[];
+  locale: Locale;
+}
+const { notes, locale } = Astro.props;
+const copy = getFeatureCopy(locale);
+---
+
+{
+  notes.length > 0 && (
+    <aside
+      class="mt-12 border-t border-line pt-8"
+      aria-labelledby="related-notes-heading"
+    >
+      <h2 id="related-notes-heading" class="eyebrow text-blue">
+        {copy.relatedNotes}
+      </h2>
+      <ul class="mt-5 space-y-4">
+        {notes.map((note) => (
+          <li class="rounded-lg border border-line bg-surface p-5">
+            <Link
+              href={note.href}
+              class="flex min-h-11 items-center justify-between gap-4 font-display font-semibold text-ink hover:text-blue"
+            >
+              <span>{note.title}</span>
+              <Icon name="arrow-right" class="size-4 shrink-0" />
+            </Link>
+            <p class="mt-2 text-sm leading-relaxed text-muted">
+              {note.description}
+            </p>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  )
+}
