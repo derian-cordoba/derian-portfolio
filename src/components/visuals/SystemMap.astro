@@ -1,0 +1,64 @@
+---
+import Icon from '../ui/Icon.astro';
+---
+
+<div
+  class="technical-grid relative overflow-hidden rounded-xl border border-white/10 bg-navy p-6 text-white shadow-[0_20px_60px_-35px_#132c4980] sm:p-8"
+>
+  <div class="mb-9 flex items-center justify-between">
+    <span class="eyebrow text-blue-200">Systems, with intent</span>
+    <span class="flex items-center gap-2 font-mono text-[9px] text-blue-100"
+      ><span class="size-1.5 rounded-full bg-emerald-300"></span>ARCHITECTURE
+      SKETCH</span
+    >
+  </div>
+  <div
+    class="mx-auto flex max-w-xs flex-col items-center"
+    aria-label="Conceptual architecture: web and mobile clients connect through an API layer to services and a database"
+    role="img"
+  >
+    <div class="flex w-full justify-center gap-3">
+      <div
+        class="flex w-28 items-center justify-center gap-2 rounded-md border border-white/20 bg-white/5 py-3 text-[11px]"
+      >
+        <Icon name="code" />Web
+      </div>
+      <div
+        class="flex w-28 items-center justify-center gap-2 rounded-md border border-white/20 bg-white/5 py-3 text-[11px]"
+      >
+        <Icon name="layers" />Mobile
+      </div>
+    </div>
+    <div class="h-7 w-px bg-blue-200/40"></div>
+    <div
+      class="w-full rounded-md border border-blue-300/60 bg-blue-300/10 px-5 py-4"
+    >
+      <div class="flex items-center justify-between">
+        <span class="font-mono text-xs">API LAYER</span><Icon
+          name="arrow-right"
+          class="size-4 text-blue-200"
+        />
+      </div>
+      <p class="mt-2 text-[10px] text-blue-100">
+        Validate · Route · Protect · Observe
+      </p>
+    </div>
+    <div class="h-7 w-px bg-blue-200/40"></div>
+    <div class="grid w-full grid-cols-3 gap-2">
+      {
+        ['Services', 'Jobs', 'Data'].map((label) => (
+          <div class="rounded-md border border-white/20 bg-white/5 px-2 py-3 text-center font-mono text-[10px]">
+            {label}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+  <div
+    class="mt-9 flex items-center justify-between border-t border-white/15 pt-4 font-mono text-[9px] text-blue-100/80"
+  >
+    <span>Clear boundaries. Shared contracts.</span><span
+      >01 / SYSTEM DESIGN</span
+    >
+  </div>
+</div>

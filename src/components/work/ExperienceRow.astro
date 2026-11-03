@@ -1,0 +1,32 @@
+---
+import type { Experience } from '@/domain/profile';
+interface Props {
+  experience: Experience;
+}
+const { experience } = Astro.props;
+---
+
+<li
+  class="grid gap-3 border-t border-line py-7 md:grid-cols-[1fr_1.7fr] md:gap-10"
+>
+  <div>
+    <h3 class="font-display text-lg font-semibold tracking-tight">
+      {experience.company}
+    </h3><p class="mt-1.5 font-mono text-[10px] text-muted">
+      {experience.period}
+    </p>
+  </div>
+  <div>
+    <p class="text-sm font-medium">{experience.role}</p><p
+      class="mt-2 max-w-lg text-sm leading-relaxed text-muted"
+    >
+      {experience.description}
+    </p><div class="mt-3 flex flex-wrap gap-2">
+      {
+        experience.technologies.map((technology) => (
+          <span class="tag">{technology}</span>
+        ))
+      }
+    </div>
+  </div>
+</li>

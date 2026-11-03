@@ -1,0 +1,29 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { StudyViewModel } from '@/presentation/view-models/study-view-model';
+import StudyHeader from '@/components/work/StudyHeader.astro';
+import StudySidebar from '@/components/work/StudySidebar.astro';
+import GatewayDemo from '@/components/interactive/GatewayDemo.astro';
+import Contact from '@/components/sections/Contact.astro';
+interface Props {
+  study: StudyViewModel;
+}
+const { study } = Astro.props;
+---
+
+<BaseLayout
+  title={`${study.title} — Derian Córdoba`}
+  description={study.description}
+>
+  <StudyHeader study={study} />
+  <div class="border-t border-line">
+    <div class="shell grid gap-12 py-16 lg:grid-cols-[1fr_280px] lg:gap-20">
+      <div class="min-w-0">
+        <article class="case-prose max-w-2xl"><slot /></article>{
+          study.visual === 'gateway' && <GatewayDemo />
+        }
+      </div><StudySidebar study={study} />
+    </div>
+  </div>
+  <Contact />
+</BaseLayout>

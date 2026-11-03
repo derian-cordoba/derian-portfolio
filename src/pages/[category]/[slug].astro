@@ -1,0 +1,35 @@
+---
+import { getEntry, render } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import StudyLayout from '@/layouts/StudyLayout.astro';
+import { studyRepository } from '@/infrastructure/portfolio';
+import {
+  createStudyViewModel,
+  type StudyViewModel,
+} from '@/presentation/view-models/study-view-model';
+
+export const getStaticPaths = (async () => {
+  const studies = await studyRepository.findAll();
+  return studies.map((study) => ({
+    params: {
+      category: study.kind === 'experience' ? 'work' : 'projects',
+      slug: study.id,
+    },
+    props: { study: createStudyViewModel(study) },
+  }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  study: StudyViewModel;
+}
+const { study } = Astro.props;
+const entry = await getEntry('studies', study.id);
+
+if (!entry) {
+  throw new Error(`Study content is missing: ${study.id}`);
+}
+
+const { Content } = await render(entry);
+---
+
+<StudyLayout study={study}><Content /></StudyLayout>

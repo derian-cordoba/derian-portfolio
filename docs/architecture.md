@@ -1,0 +1,49 @@
+# Architecture decisions
+
+## Static generation
+
+All portfolio routes are rendered at build time. The content has no per-user state or request-time freshness requirement. This gives visitors complete HTML without requiring client JavaScript and keeps infrastructure proportional to the problem.
+
+## MVVM where it helps
+
+The model consists of framework-independent `Study`, `Profile`, and `Experience` contracts. View-model factories prepare navigation, reading time, labels, sorted groups, and illustrative gateway state. Astro components are views. The gateway custom element only handles lifecycle, events, and DOM bindings.
+
+MVVM does not require two-way binding. A reactive store, observable base class, or dependency-injection framework would add machinery without serving this site's requirements.
+
+## Dependency direction
+
+```text
+Astro pages ──→ view-model factories ──→ domain contracts
+     │                   │
+     │              repository port
+     │                   ↑
+composition root ──→ Astro content adapter
+```
+
+Domain types and the repository port do not import Astro. The infrastructure adapter maps validated collection entries into domain values. Only page composition and infrastructure know how content is loaded. Markdown rendering remains Astro-specific at the route boundary.
+
+## SOLID applications
+
+- **Single responsibility:** content loading, presentation mapping, interaction binding, and rendering have separate modules.
+- **Open/closed:** additional case studies are content entries, not additional route implementations. Shared cards consume the same view model.
+- **Liskov substitution:** the repository adapter and in-memory test implementation both satisfy the same small contract.
+- **Interface segregation:** the content port exposes only the operation currently needed. There is no generic CRUD abstraction.
+- **Dependency inversion:** the homepage view-model factory accepts the repository interface; the composition root chooses Astro's implementation.
+
+Visual variants use a bounded registry. Each diagram is a separate component; the registry selects it without making a large conditional template.
+
+## Progressive enhancement
+
+Navigation, career disclosures, content, and contact links use native HTML. The mobile menu only needs JavaScript to close automatically or respond to Escape. The gateway simulation hides its control until its custom element connects. Its initial state and explanatory text remain available without JavaScript.
+
+## Evidence and scope
+
+Professional content distinguishes reported outcomes from implementation details that were not supplied. The performance result stays limited to key processing flows. Public project pages link to their repositories and describe known boundaries. The gateway simulation is deliberately labeled and does not represent a live service.
+
+## Validation boundaries
+
+Collection schemas validate content at build time. Unit tests exercise grouping, immutable ordering, route mapping, and failure/recovery presentation. Browser checks exercise the compiled site, keyboard-accessible controls, responsive overflow, links, and automated accessibility rules. Automated accessibility checks complement visual review; they do not establish full WCAG conformance.
+
+## Dependency compatibility
+
+The package overrides update transitive `minimatch` and `esbuild` versions to address published advisories. Production builds and lint checks exercise their consumers. Remove the overrides when the upstream dependency ranges include patched releases.

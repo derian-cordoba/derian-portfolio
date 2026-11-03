@@ -1,0 +1,48 @@
+---
+import type { StudyViewModel } from '@/presentation/view-models/study-view-model';
+import ActionLink from '../ui/ActionLink.astro';
+interface Props {
+  study: StudyViewModel;
+}
+const { study } = Astro.props;
+---
+
+<aside class="self-start rounded-lg border border-line p-6 lg:sticky lg:top-28">
+  <dl class="space-y-6">
+    {
+      [
+        { label: 'Organization', value: study.organization },
+        { label: 'My role', value: study.role },
+        { label: 'Period', value: study.period },
+      ].map((item) => (
+        <div>
+          <>
+            <dt class="eyebrow text-muted">{item.label}</dt>
+            <dd class="mt-2 text-sm font-medium">{item.value}</dd>
+          </>
+        </div>
+      ))
+    }
+  </dl>
+  <div class="mt-7 border-t border-line pt-6">
+    <p class="font-display text-2xl font-semibold tracking-tight text-blue">
+      {study.result}
+    </p><p class="mt-2 text-xs leading-relaxed text-muted">
+      {study.resultLabel}
+    </p>
+  </div>
+  {
+    study.repository && (
+      <ActionLink
+        href={study.repository}
+        variant="secondary"
+        class="mt-6 w-full text-xs!"
+      >
+        View repository
+      </ActionLink>
+    )
+  }
+  <p class="mt-6 text-[11px] leading-relaxed text-muted">
+    {study.evidenceNote}
+  </p>
+</aside>

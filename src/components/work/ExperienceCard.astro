@@ -1,0 +1,30 @@
+---
+import type { StudyViewModel } from '@/presentation/view-models/study-view-model';
+import Icon from '../ui/Icon.astro';
+import StudyVisual from '../visuals/StudyVisual.astro';
+interface Props {
+  study: StudyViewModel;
+}
+const { study } = Astro.props;
+---
+
+<article
+  class="group grid gap-6 rounded-xl border border-line bg-white/40 p-4 transition-colors hover:border-blue/40 sm:p-6 lg:grid-cols-[0.9fr_1fr] lg:gap-8"
+>
+  <StudyVisual visual={study.visual} compact />
+  <div class="flex flex-col items-start py-2">
+    <p class="eyebrow text-muted">{study.organization}</p>
+    <h3
+      class="mt-4 font-display text-2xl leading-snug font-semibold tracking-tight"
+    >
+      <a href={study.href} class="hover:text-blue">{study.title}</a>
+    </h3>
+    <p class="mt-3 text-sm leading-relaxed text-muted">{study.description}</p>
+    <div class="mt-5 flex flex-wrap gap-2">
+      {study.tags.map((tag) => <span class="tag">{tag}</span>)}
+    </div>
+    <a href={study.href} class="text-link mt-5 text-xs"
+      >{study.action}<Icon name="arrow-up-right" /></a
+    >
+  </div>
+</article>

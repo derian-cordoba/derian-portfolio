@@ -1,0 +1,86 @@
+---
+import { profile } from '@/content/profile';
+import ActionLink from '../ui/ActionLink.astro';
+import Icon from '../ui/Icon.astro';
+const links = [
+  { label: 'Work', href: '/#work' },
+  { label: 'About', href: '/#about' },
+  { label: 'Experience', href: '/#experience' },
+  { label: 'Contact', href: '/#contact' },
+];
+---
+
+<header
+  class="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur-md"
+>
+  <div class="shell flex h-20 items-center justify-between gap-4">
+    <a
+      href="/"
+      aria-label="Derian Córdoba, home"
+      class="group flex items-center gap-3"
+    >
+      <span
+        class="font-display text-[30px] font-extrabold tracking-[-0.09em] text-blue"
+        >dc<span class="text-ink">.</span></span
+      >
+      <span
+        class="hidden border-l border-line pl-3 text-xs font-medium sm:inline"
+        >Derian Córdoba</span
+      >
+    </a>
+    <nav aria-label="Main navigation" class="hidden items-center gap-8 md:flex">
+      {
+        links.map((link) => (
+          <a href={link.href} class="text-link text-xs">
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+    <div class="flex items-center gap-3">
+      <ActionLink
+        href={profile.resume}
+        variant="secondary"
+        icon="download"
+        download
+        class="min-h-10! px-3! py-2! text-xs!">Résumé</ActionLink
+      >
+      <details class="relative md:hidden" data-mobile-menu>
+        <summary
+          class="flex min-h-11 min-w-11 list-none items-center justify-center rounded-md border border-line"
+          aria-label="Toggle navigation"
+          ><Icon name="menu" class="size-5" /></summary
+        >
+        <nav
+          aria-label="Mobile navigation"
+          class="absolute top-14 right-0 flex w-52 flex-col rounded-lg border border-line bg-paper p-3 shadow-lg"
+        >
+          {
+            links.map((link) => (
+              <a
+                href={link.href}
+                class="rounded-md px-4 py-3 text-sm hover:bg-blue-light"
+              >
+                {link.label}
+              </a>
+            ))
+          }
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>
+<script>
+  const menu = document.querySelector<HTMLDetailsElement>('[data-mobile-menu]');
+  menu?.addEventListener('click', (event) => {
+    if (event.target instanceof Element && event.target.closest('a')) {
+      menu.open = false;
+    }
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && menu?.open) {
+      menu.open = false;
+      menu.querySelector('summary')?.focus();
+    }
+  });
+</script>

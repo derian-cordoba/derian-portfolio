@@ -1,0 +1,35 @@
+---
+import Icon from './Icon.astro';
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary' | 'text';
+  icon?: 'arrow-right' | 'arrow-up-right' | 'download';
+  download?: boolean;
+  class?: string;
+}
+const {
+  href,
+  variant = 'primary',
+  icon = 'arrow-up-right',
+  download,
+  class: className,
+} = Astro.props;
+const styles = {
+  primary: 'border-blue bg-blue text-white hover:bg-navy hover:border-navy',
+  secondary:
+    'border-line bg-transparent text-ink hover:border-blue hover:text-blue',
+  text: 'border-transparent px-0! text-ink hover:text-blue',
+};
+---
+
+<a
+  href={href}
+  download={download}
+  class:list={[
+    'inline-flex min-h-12 items-center justify-center gap-3 rounded-md border px-5 py-3 text-xs font-semibold transition-colors sm:text-sm',
+    styles[variant],
+    className,
+  ]}
+>
+  <slot /><Icon name={icon} class="size-4 shrink-0" />
+</a>

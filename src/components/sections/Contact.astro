@@ -1,0 +1,47 @@
+---
+import { profile } from '@/content/profile';
+import Icon from '../ui/Icon.astro';
+---
+
+<section id="contact" class="bg-navy py-20 text-white md:py-24">
+  <div class="shell grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-end">
+    <div>
+      <p class="eyebrow mb-5 text-blue-200">
+        05 <span class="ml-3">Let’s connect</span>
+      </p><h2 class="display-title max-w-lg text-4xl leading-tight sm:text-5xl">
+        Good work starts<br />with a conversation.
+      </h2><p class="mt-5 max-w-md text-sm leading-relaxed text-blue-100">
+        Have a challenging engineering problem, a role in mind, or an idea worth
+        exploring? I’d like to hear about it.
+      </p>
+    </div>
+    <div class="md:pb-2">
+      <a
+        href={`mailto:${profile.email}`}
+        class="group flex min-h-16 items-center justify-between gap-3 border-b border-white/30 pb-4 text-base font-medium transition-colors hover:text-blue-200 sm:text-xl"
+        ><span class="break-all">{profile.email}</span><Icon
+          name="arrow-up-right"
+          class="size-6 shrink-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
+        /></a
+      ><div class="mt-5 flex flex-wrap gap-6">
+        <a
+          href={profile.github}
+          class="flex min-h-11 items-center gap-2 text-xs text-blue-100 hover:text-white"
+          ><Icon name="github" />GitHub<Icon
+            name="arrow-up-right"
+            class="size-3"
+          /></a
+        ><a
+          href={profile.linkedin}
+          class="flex min-h-11 items-center gap-2 text-xs text-blue-100 hover:text-white"
+          ><Icon name="linkedin" />LinkedIn<Icon
+            name="arrow-up-right"
+            class="size-3"
+          /></a
+        >
+      </div><p class="mt-4 text-[11px] text-blue-200">
+        Based in Nicaragua · Working with international teams
+      </p>
+    </div>
+  </div>
+</section>

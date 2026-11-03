@@ -1,0 +1,31 @@
+---
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+---
+
+<div>
+  <span class="eyebrow text-[#595080]">One source of truth</span>
+  <div
+    class="mt-7 rounded-md border border-[#595080]/25 bg-white/30 p-4 font-mono text-[11px] text-[#595080]"
+  >
+    user:42 → variant:control
+  </div>
+  <div class="mx-auto h-6 w-px bg-[#595080]/30"></div>
+  <div class="grid grid-cols-2 gap-3 text-center text-[11px] text-[#595080]">
+    <>
+      <div class="rounded-md border border-[#595080]/20 py-3">Server HTML</div>
+      <div class="rounded-md border border-[#595080]/20 py-3">
+        Browser state
+      </div>
+    </>
+  </div>
+  {
+    !compact && (
+      <p class="mt-5 text-[10px] text-[#595080]">
+        Illustrative assignment flow
+      </p>
+    )
+  }
+</div>

@@ -1,0 +1,38 @@
+---
+import Icon from '../ui/Icon.astro';
+---
+
+<div>
+  <div class="mb-6 flex items-center justify-between">
+    <>
+      <span class="eyebrow text-blue-200">Gateway / request flow</span>
+      <Icon name="terminal" />
+    </>
+  </div>
+  <div
+    class="rounded-md border border-white/20 bg-white/5 p-4 font-mono text-[11px]"
+  >
+    <span class="text-emerald-300">GET</span> /api/orders{' '}
+    <span class="float-right text-emerald-300">200</span>
+  </div>
+  <div class="my-5 flex items-center justify-between gap-2 text-[10px]">
+    <>
+      <span>Client</span>
+      <span class="h-px flex-1 bg-blue-200/30"></span>
+      <span class="rounded border border-blue-200/40 px-3 py-2 text-blue-100">
+        Gateway
+      </span>
+      <span class="h-px flex-1 bg-blue-200/30"></span>
+      <span>Service</span>
+    </>
+  </div>
+  <div class="flex flex-wrap gap-2">
+    {
+      ['auth', 'rate limit', 'circuit breaker'].map((label) => (
+        <span class="rounded border border-white/15 px-2 py-1 font-mono text-[9px] text-blue-100">
+          {label}
+        </span>
+      ))
+    }
+  </div>
+</div>

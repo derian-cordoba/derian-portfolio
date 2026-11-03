@@ -1,0 +1,103 @@
+@import '@fontsource-variable/dm-sans';
+@import '@fontsource-variable/manrope';
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'DM Sans Variable', sans-serif;
+  --font-display: 'Manrope Variable', sans-serif;
+  --color-paper: #f7f7f2;
+  --color-ink: #202b39;
+  --color-muted: #5e6876;
+  --color-blue: #244c96;
+  --color-blue-light: #eaf0fb;
+  --color-line: #dddfda;
+  --color-navy: #132c49;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+  body {
+    @apply bg-paper text-ink antialiased;
+  }
+  ::selection {
+    @apply bg-blue text-white;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-blue);
+    outline-offset: 5px;
+  }
+  a,
+  button,
+  summary {
+    -webkit-tap-highlight-color: transparent;
+  }
+  button,
+  summary {
+    cursor: pointer;
+  }
+  button {
+    font: inherit;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-7xl px-6 sm:px-10 lg:px-16;
+  }
+  .eyebrow {
+    @apply text-[10px] font-semibold tracking-[0.18em] uppercase sm:text-[11px];
+  }
+  .section-space {
+    @apply py-20 md:py-28;
+  }
+  .display-title {
+    @apply font-display font-semibold tracking-[-0.055em];
+  }
+  .text-link {
+    @apply inline-flex min-h-11 items-center gap-2 text-sm font-medium transition-colors hover:text-blue;
+  }
+  .tag {
+    @apply inline-flex rounded-md border border-line px-2.5 py-1 font-mono text-[10px] text-muted;
+  }
+  .technical-grid {
+    background-image:
+      linear-gradient(#ffffff09 1px, transparent 1px),
+      linear-gradient(90deg, #ffffff09 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .case-prose {
+    @apply text-base leading-[1.85] text-muted;
+  }
+  .case-prose h2 {
+    @apply mt-12 mb-5 font-display text-2xl font-semibold tracking-tight text-ink;
+  }
+  .case-prose p {
+    @apply my-5;
+  }
+  .case-prose strong {
+    @apply font-semibold text-ink;
+  }
+  .case-prose a {
+    @apply text-blue underline underline-offset-4;
+  }
+  .case-prose > :first-child {
+    @apply mt-0;
+  }
+}

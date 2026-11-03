@@ -1,0 +1,48 @@
+---
+import { experiences, profile } from '@/content/profile';
+import SectionHeading from '../ui/SectionHeading.astro';
+import ExperienceRow from '../work/ExperienceRow.astro';
+import ActionLink from '../ui/ActionLink.astro';
+---
+
+<section id="experience" class="section-space">
+  <div class="shell">
+    <SectionHeading
+      number="04"
+      label="The journey so far"
+      title="Experience, built over time."
+      description="From backend foundations to leading teams and building enterprise systems."
+    /><ol>
+      {
+        experiences
+          .slice(0, 4)
+          .map((experience) => <ExperienceRow experience={experience} />)
+      }
+    </ol><details class="border-y border-line">
+      <summary
+        class="flex min-h-14 list-none items-center justify-between py-3 text-xs font-medium hover:text-blue"
+        ><span>Earlier experience · 2019—2022</span><span aria-hidden="true"
+          >＋</span
+        ></summary
+      ><ol>
+        {
+          experiences
+            .slice(4)
+            .map((experience) => <ExperienceRow experience={experience} />)
+        }
+      </ol>
+    </details><div
+      class="mt-8 flex flex-col justify-between gap-5 sm:flex-row sm:items-center"
+    >
+      <p class="max-w-sm text-xs leading-relaxed text-muted">
+        B.Sc. in Software Engineering · UNAN, León<br />Spanish, native ·
+        English, professional working proficiency
+      </p><ActionLink
+        href={profile.resume}
+        variant="secondary"
+        icon="download"
+        download>Download full résumé</ActionLink
+      >
+    </div>
+  </div>
+</section>

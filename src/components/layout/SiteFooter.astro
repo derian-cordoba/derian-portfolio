@@ -1,0 +1,15 @@
+---
+import { profile } from '@/content/profile';
+---
+
+<footer class="border-t border-line">
+  <div
+    class="shell flex flex-col justify-between gap-4 py-7 text-[11px] text-muted sm:flex-row"
+  >
+    <p>© {new Date().getFullYear()} {profile.name}</p>
+    <p>Thoughtfully built. Always evolving.</p>
+    <a href="/#top" class="underline-offset-4 hover:text-blue hover:underline"
+      >Back to top ↑</a
+    >
+  </div>
+</footer>

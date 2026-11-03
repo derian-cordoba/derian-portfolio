@@ -1,0 +1,22 @@
+---
+import type { StudyViewModel } from '@/presentation/view-models/study-view-model';
+import SectionHeading from '../ui/SectionHeading.astro';
+import ExperienceCard from '../work/ExperienceCard.astro';
+interface Props {
+  studies: readonly StudyViewModel[];
+}
+const { studies } = Astro.props;
+---
+
+<section id="work" class="section-space border-t border-line">
+  <div class="shell">
+    <SectionHeading
+      number="01"
+      label="Selected work"
+      title="Engineering that makes a difference."
+      description="A closer look at the business problems, technical decisions, and outcomes behind my work."
+    /><div class="grid gap-6">
+      {studies.map((study) => <ExperienceCard study={study} />)}
+    </div>
+  </div>
+</section>

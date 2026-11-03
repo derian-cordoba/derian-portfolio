@@ -1,0 +1,27 @@
+---
+import Icon from '../ui/Icon.astro';
+---
+
+<div>
+  <div class="eyebrow mb-7 text-[#665843]">From configuration to artifact</div>
+  <div
+    class="rounded-md border border-[#665843]/20 bg-white/40 p-4 font-mono text-[10px] text-[#665843]"
+  >
+    <span class="text-blue">$</span> secure-keys env generate staging
+    <div class="mt-3 flex items-center gap-2 text-[#365744]">
+      <Icon name="check" class="size-3" />
+      SecureKeys.xcframework
+    </div>
+  </div>
+  <div
+    class="mt-6 flex items-center justify-between font-mono text-[10px] text-[#665843]"
+  >
+    <>
+      <span>Keychain / CI</span>
+      <Icon name="arrow-right" class="size-3" />
+      <span>Swift API</span>
+      <Icon name="arrow-right" class="size-3" />
+      <span>iOS</span>
+    </>
+  </div>
+</div>

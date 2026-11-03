@@ -1,0 +1,30 @@
+---
+import type { StudyViewModel } from '@/presentation/view-models/study-view-model';
+import SectionHeading from '../ui/SectionHeading.astro';
+import ProjectCard from '../work/ProjectCard.astro';
+import Icon from '../ui/Icon.astro';
+import { profile } from '@/content/profile';
+interface Props {
+  studies: readonly StudyViewModel[];
+}
+const { studies } = Astro.props;
+---
+
+<section id="projects" class="section-space border-t border-line">
+  <div class="shell">
+    <SectionHeading
+      number="02"
+      label="Built in the open"
+      title="Ideas, turned into useful tools."
+      description="Independent projects exploring service architecture, experimentation, and developer experience."
+    /><div class="grid gap-10 md:grid-cols-3 md:gap-6 lg:gap-8">
+      {
+        studies.map((study, index) => (
+          <ProjectCard study={study} index={index} />
+        ))
+      }
+    </div><a href={profile.github} class="text-link mt-8 text-xs text-muted"
+      >More experiments on GitHub<Icon name="arrow-up-right" /></a
+    >
+  </div>
+</section>
