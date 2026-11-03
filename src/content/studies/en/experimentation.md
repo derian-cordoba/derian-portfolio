@@ -29,7 +29,7 @@ The repository also describes current limitations. Runtime-defined authoring and
 
 ## The browser companion
 
-The [TypeScript SDK](https://github.com/derian-cordoba/ab-testing-sdk) consumes assignments the server has already resolved. It reads an SSR meta payload or an assignments API and normalizes those values into a shared client.
+The <a href="https://github.com/derian-cordoba/ab-testing-sdk" target="_blank" rel="noopener noreferrer">TypeScript SDK</a> consumes assignments the server has already resolved. It reads an SSR meta payload or an assignments API and normalizes those values into a shared client.
 
 Optional React and Vue integrations build on that client. The SDK is not a standalone bucketing engine and does not independently track exposures or metrics.
 

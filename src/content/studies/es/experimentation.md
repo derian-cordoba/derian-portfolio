@@ -29,7 +29,7 @@ El repositorio también describe sus limitaciones actuales. La creación de expe
 
 ## El complemento del navegador
 
-El [SDK de TypeScript](https://github.com/derian-cordoba/ab-testing-sdk) consume asignaciones que el servidor ya ha resuelto. Lee datos de una etiqueta meta de SSR o de una API de asignaciones y normaliza esos valores en un cliente compartido.
+El <a href="https://github.com/derian-cordoba/ab-testing-sdk" target="_blank" rel="noopener noreferrer">SDK de TypeScript</a> consume asignaciones que el servidor ya ha resuelto. Lee datos de una etiqueta meta de SSR o de una API de asignaciones y normaliza esos valores en un cliente compartido.
 
 Las integraciones opcionales con React y Vue se construyen sobre ese cliente. El SDK no es un motor independiente de distribución y no registra exposiciones o métricas por sí solo.
 

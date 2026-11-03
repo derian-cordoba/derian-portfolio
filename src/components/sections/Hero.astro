@@ -1,4 +1,5 @@
 ---
+import Link from '@/components/ui/Link.astro';
 import { getTranslations } from '@/i18n';
 import { getLocale } from '@/i18n/routing';
 import { profile } from '@/content/profile';
@@ -33,17 +34,17 @@ import SystemMap from '../visuals/SystemMap.astro';
         <span
           >{profile.location}
           <span class="ml-1 text-muted/80">/ {profile.timezone}</span></span
-        ><a
+        ><Link
           href={profile.github}
           class="flex min-h-8 items-center gap-1.5 hover:text-blue"
           ><Icon name="github" class="size-3.5" />GitHub<Icon
             name="arrow-up-right"
             class="size-3"
-          /></a
-        ><a
+          /></Link
+        ><Link
           href={profile.linkedin}
           class="flex min-h-8 items-center gap-1.5 hover:text-blue"
-          >LinkedIn<Icon name="arrow-up-right" class="size-3" /></a
+          >LinkedIn<Icon name="arrow-up-right" class="size-3" /></Link
         >
       </div>
     </div>
