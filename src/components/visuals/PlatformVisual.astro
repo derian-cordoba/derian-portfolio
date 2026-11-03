@@ -6,23 +6,23 @@ import { getLocale } from '@/i18n/routing';
 ---
 
 <div>
-  <div class="eyebrow mb-6 text-[#365744]">{t.platformVisualTitle}</div>
+  <div class="eyebrow mb-6 text-success">{t.platformVisualTitle}</div>
   <div class="flex justify-center gap-2" aria-hidden="true">
     {
       ['A', 'B', 'C'].map((label) => (
-        <div class="flex size-12 items-center justify-center rounded-md border border-[#365744]/20 bg-white/30 font-mono text-sm text-[#365744]">
+        <div class="flex size-12 items-center justify-center rounded-md border border-success/20 bg-diagram-surface font-mono text-sm text-success">
           {label}
         </div>
       ))
     }
   </div>
-  <div class="mx-auto h-5 w-px bg-[#365744]/30"></div>
+  <div class="mx-auto h-5 w-px bg-success/30"></div>
   <div
-    class="mx-auto max-w-56 rounded-md border border-[#365744]/30 bg-white/30 py-3 text-center font-mono text-[11px] text-[#365744]"
+    class="mx-auto max-w-56 rounded-md border border-success/30 bg-diagram-surface py-3 text-center font-mono text-[11px] text-success"
   >
     {t.sharedServices}
   </div>
-  <p class="mt-6 text-center text-[10px] text-[#365744]">
+  <p class="mt-6 text-center text-[10px] text-success">
     {t.platformVisualNote}
   </p>
 </div>

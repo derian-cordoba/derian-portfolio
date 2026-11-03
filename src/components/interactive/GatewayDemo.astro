@@ -9,7 +9,7 @@ const initial = createGatewayViewModel('healthy', locale);
 
 <gateway-demo
   lang={locale}
-  class="my-12 block rounded-xl border border-line bg-white/50 p-5 sm:p-7"
+  class="my-12 block rounded-xl border border-line bg-surface p-5 sm:p-7"
 >
   <div class="flex flex-wrap items-center justify-between gap-3">
     <h2 class="font-display text-lg font-semibold">
@@ -43,7 +43,7 @@ const initial = createGatewayViewModel('healthy', locale);
   </div>
   <button
     type="button"
-    class="mt-5 min-h-11 rounded-md bg-blue px-4 py-3 text-xs font-semibold text-white hover:bg-navy"
+    class="mt-5 min-h-11 rounded-md bg-action px-4 py-3 text-xs font-semibold text-on-action hover:bg-action-hover"
     hidden>{initial.buttonLabel}</button
   >
   <noscript

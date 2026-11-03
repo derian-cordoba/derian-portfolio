@@ -1,3 +1,4 @@
+import { themeTranslations } from './theme';
 import { gatewayTranslations } from './gateway';
 export const en = {
   pageTitle: 'Derian Córdoba — Senior Software Engineer',
@@ -149,6 +150,7 @@ export const en = {
   demoNoScript:
     'Enable JavaScript to switch circuit states. The initial example shows a healthy upstream.',
   ...gatewayTranslations.en,
+  ...themeTranslations.en,
 } as const;
 
 export type Translations = { readonly [Key in keyof typeof en]: string };

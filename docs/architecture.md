@@ -55,3 +55,9 @@ Locale is an explicit content attribute with a framework-independent `Locale` un
 Typed dictionaries cover UI and interaction messages. The gateway controller reads its element's language and keeps that locale when transitioning between states. Routing helpers centralize locale prefixes, canonical page identity, and localized CV paths. Templates never duplicate a page solely to translate its layout.
 
 English keeps its existing URLs. Spanish uses `/es/`; canonical, reciprocal alternate, x-default, and sitemap entries describe the relationship. Native language links work without JavaScript. A small enhancement preserves the query and fragment on switching, without requiring cookies or browser-language redirects.
+
+## Theme preferences
+
+The theme model resolves an explicit preference before the system preference. A pure view model supplies the next state, toggle state, and localized action label. A browser adapter handles optional local storage; the custom element binds clicks, system changes, and cross-tab storage events with lifecycle cleanup.
+
+A minimal synchronous head script applies the stored choice before body rendering. Its generated JavaScript is tested directly so the first-paint path stays consistent with the application preference rules. Semantic CSS color pairs provide the light and dark palettes through `color-scheme`, including a no-JavaScript system fallback. Fixed dark diagrams keep light text, while previously fixed pastel diagrams have theme-aware colors.

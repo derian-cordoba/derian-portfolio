@@ -1,0 +1,29 @@
+---
+import { getTranslations } from '@/i18n';
+import { getLocale } from '@/i18n/routing';
+import Icon from '../ui/Icon.astro';
+
+const t = getTranslations(getLocale(Astro.url.pathname));
+---
+
+<theme-toggle class="flex size-11 shrink-0">
+  <button
+    type="button"
+    aria-label={t.darkTheme}
+    aria-pressed="false"
+    title={t.useDarkTheme}
+    class="flex size-11 items-center justify-center rounded-md border border-line text-muted transition-colors hover:bg-blue-light hover:text-blue"
+    hidden
+  >
+    <span class="dark:hidden"><Icon name="moon" class="size-4" /></span>
+    <span class="hidden dark:inline"><Icon name="sun" class="size-4" /></span>
+  </button>
+</theme-toggle>
+
+<script>
+  import { ThemeToggleElement } from '@/presentation/controllers/theme-toggle-element';
+
+  if (!customElements.get('theme-toggle')) {
+    customElements.define('theme-toggle', ThemeToggleElement);
+  }
+</script>

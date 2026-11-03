@@ -2,6 +2,7 @@
 import '@/styles/global.css';
 import SiteHeader from '@/components/layout/SiteHeader.astro';
 import SiteFooter from '@/components/layout/SiteFooter.astro';
+import ThemeInit from '@/components/layout/ThemeInit.astro';
 import { profile } from '@/content/profile';
 import { locales } from '@/domain/locale';
 import { getTranslations } from '@/i18n';
@@ -38,7 +39,18 @@ const person = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f7f7f2" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="theme-color"
+      content="#f7f7f2"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#0b1420"
+      media="(prefers-color-scheme: dark)"
+    />
+    <ThemeInit />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -78,7 +90,7 @@ const person = {
   <body id="top">
     <a
       href="#main"
-      class="sr-only fixed top-3 left-3 z-50 rounded-md bg-blue px-5 py-3 text-white focus:not-sr-only"
+      class="sr-only fixed top-3 left-3 z-50 rounded-md bg-action px-5 py-3 text-on-action focus:not-sr-only"
       >{t.skipContent}</a
     >
     <SiteHeader />

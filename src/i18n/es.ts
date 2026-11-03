@@ -1,3 +1,4 @@
+import { themeTranslations } from './theme';
 import { gatewayTranslations } from './gateway';
 import type { Translations } from './en';
 
@@ -154,4 +155,5 @@ export const es = {
   demoNoScript:
     'Activa JavaScript para cambiar el estado del circuito. El ejemplo inicial muestra un servicio de destino disponible.',
   ...gatewayTranslations.es,
+  ...themeTranslations.es,
 } as const satisfies Translations;

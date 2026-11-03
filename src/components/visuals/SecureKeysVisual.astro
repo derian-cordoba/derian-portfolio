@@ -7,18 +7,18 @@ import Icon from '../ui/Icon.astro';
 ---
 
 <div>
-  <div class="eyebrow mb-7 text-[#665843]">{t.secureKeysTitle}</div>
+  <div class="eyebrow mb-7 text-tooling-ink">{t.secureKeysTitle}</div>
   <div
-    class="rounded-md border border-[#665843]/20 bg-white/40 p-4 font-mono text-[10px] text-[#665843]"
+    class="rounded-md border border-tooling-ink/20 bg-diagram-surface p-4 font-mono text-[10px] text-tooling-ink"
   >
     <span class="text-blue">$</span> secure-keys env generate staging
-    <div class="mt-3 flex items-center gap-2 text-[#365744]">
+    <div class="mt-3 flex items-center gap-2 text-success">
       <Icon name="check" class="size-3" />
       SecureKeys.xcframework
     </div>
   </div>
   <div
-    class="mt-6 flex items-center justify-between font-mono text-[10px] text-[#665843]"
+    class="mt-6 flex items-center justify-between font-mono text-[10px] text-tooling-ink"
   >
     <>
       <span>{t.keychainCi}</span>

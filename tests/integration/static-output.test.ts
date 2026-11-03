@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
+import { runInNewContext } from 'node:vm';
 
 const output = resolve('dist');
 
@@ -32,6 +33,46 @@ test('all fourteen generated pages include localized content and document metada
     assert.match(html, /hreflang="en"/u, filename);
     assert.match(html, /hreflang="es"/u, filename);
     assert.match(html, /hreflang="x-default"/u, filename);
+    assert.ok(html.includes('data-theme-init'), filename);
+    assert.ok(html.includes('<theme-toggle'), filename);
+  }
+});
+
+test('the generated startup script selects a theme before the body and tolerates blocked storage', () => {
+  const html = readFileSync(join(output, 'index.html'), 'utf8');
+  const script = html.match(
+    /<script\b([^>]*\bdata-theme-init\b[^>]*)>([\s\S]*?)<\/script>/u,
+  );
+  assert.ok(script?.[1]);
+  assert.ok(script[2]);
+  assert.ok(html.indexOf('data-theme-init') < html.indexOf('<body'));
+  const storageKey = script[1].match(/data-storage-key="([^"]+)"/u)?.[1];
+  assert.equal(storageKey, 'portfolio-theme');
+
+  for (const [preference, systemDark, blocked, expected] of [
+    ['dark', false, false, 'dark'],
+    ['light', true, false, 'light'],
+    [null, true, false, 'dark'],
+    ['invalid', false, false, 'light'],
+    [null, true, true, 'dark'],
+  ] as const) {
+    const dataset: Record<string, string> = {};
+    runInNewContext(script[2], {
+      document: {
+        currentScript: { getAttribute: () => storageKey },
+        documentElement: { dataset },
+      },
+      window: {
+        get localStorage() {
+          if (blocked) {
+            throw new Error('Storage disabled');
+          }
+          return { getItem: () => preference };
+        },
+        matchMedia: () => ({ matches: systemDark }),
+      },
+    });
+    assert.equal(dataset['theme'], expected);
   }
 });
 

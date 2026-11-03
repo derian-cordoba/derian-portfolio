@@ -53,6 +53,14 @@ UI strings are in `src/i18n/en.ts` and `src/i18n/es.ts`. Spanish dictionaries mu
 
 Document language, canonical and alternate language URLs, Open Graph metadata, social images, accessibility labels, error pages, diagrams, and downloadable CVs are localized. `/404.html` is the static host's default English error document; `/es/404/` is the translated error page. Configuring a host to use the Spanish document for unknown `/es/*` paths is a hosting concern.
 
+## Light and dark themes
+
+The header's sun/moon button switches between light and dark palettes. The initial theme follows the system preference unless a visitor has saved a choice. That choice is stored locally under `portfolio-theme` and persists across pages and languages. System changes are observed while no explicit choice exists; changes from other tabs are synchronized. If storage is unavailable, the toggle still works on the current page.
+
+A small head script selects the saved theme before the body renders. Without JavaScript, CSS still follows the system color scheme and hides the inactive control. Semantic colors in `src/styles/global.css` use `light-dark()`; update both values when changing the palette. Action backgrounds and foregrounds are separate from link colors to preserve contrast. Diagrams use theme-aware surface and text tokens.
+
+Theme logic lives in a pure view model, with storage access and browser event bindings in separate modules. Unit checks cover preference handling and WCAG AA contrast for principal text/surface pairs. The generated startup script is exercised in the static-output tests; browser scenarios cover both languages, keyboard activation, persistence, system changes, blocked storage, and no-JavaScript behavior.
+
 ## Quality checks
 
 ```sh

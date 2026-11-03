@@ -2,32 +2,63 @@
 @import '@fontsource-variable/manrope';
 @import 'tailwindcss';
 
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
 @theme {
   --font-sans: 'DM Sans Variable', sans-serif;
   --font-display: 'Manrope Variable', sans-serif;
-  --color-paper: #f7f7f2;
-  --color-ink: #202b39;
-  --color-muted: #5e6876;
-  --color-blue: #244c96;
-  --color-blue-light: #eaf0fb;
-  --color-line: #dddfda;
-  --color-navy: #132c49;
+  --color-paper: light-dark(#f7f7f2, #0b1420);
+  --color-ink: light-dark(#202b39, #e6edf6);
+  --color-muted: light-dark(#5e6876, #a5b2c3);
+  --color-blue: light-dark(#244c96, #9abbff);
+  --color-blue-light: light-dark(#eaf0fb, #172d49);
+  --color-line: light-dark(#dddfda, #2b3b4e);
+  --color-navy: light-dark(#132c49, #101f32);
+  --color-surface: light-dark(#fafaf7, #162333);
+  --color-surface-muted: light-dark(#efefe8, #101c2a);
+  --color-action: light-dark(#244c96, #9abbff);
+  --color-action-hover: light-dark(#132c49, #b9d0ff);
+  --color-on-action: light-dark(#ffffff, #0b1420);
+  --color-performance: light-dark(#e9eef6, #132a44);
+  --color-platform: light-dark(#e8eee8, #18302a);
+  --color-success: light-dark(#365744, #b4d6bf);
+  --color-experiment: light-dark(#eae8f3, #29243c);
+  --color-experiment-ink: light-dark(#595080, #cec3f0);
+  --color-tooling: light-dark(#eeece5, #302a20);
+  --color-tooling-ink: light-dark(#665843, #e0cba6);
+  --color-diagram-surface: light-dark(#ffffff4d, #ffffff06);
 }
 
 @layer base {
   html {
+    color-scheme: light;
+    background-color: var(--color-paper);
     scroll-behavior: smooth;
     scroll-padding-top: 6rem;
+  }
+  @media (prefers-color-scheme: dark) {
+    html:not([data-theme]) {
+      color-scheme: dark;
+    }
+  }
+  html[data-theme='dark'] {
+    color-scheme: dark;
+  }
+  html[data-theme='light'] {
+    color-scheme: light;
   }
   body {
     @apply bg-paper text-ink antialiased;
   }
   ::selection {
-    @apply bg-blue text-white;
+    @apply bg-action text-on-action;
   }
   :focus-visible {
     outline: 2px solid var(--color-blue);
     outline-offset: 5px;
+  }
+  .bg-navy :focus-visible {
+    outline-color: #bfdbfe;
   }
   a,
   button,

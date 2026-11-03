@@ -12,14 +12,14 @@ interface Props {
 }
 const { visual, compact = false, class: className } = Astro.props;
 const visuals = {
-  performance: { component: PerformanceVisual, background: 'bg-[#e9eef6]' },
-  platform: { component: PlatformVisual, background: 'bg-[#e8eee8]' },
+  performance: { component: PerformanceVisual, background: 'bg-performance' },
+  platform: { component: PlatformVisual, background: 'bg-platform' },
   gateway: {
     component: GatewayVisual,
     background: 'technical-grid bg-navy text-white',
   },
-  experimentation: { component: ExperimentVisual, background: 'bg-[#eae8f3]' },
-  'secure-keys': { component: SecureKeysVisual, background: 'bg-[#eeece5]' },
+  experimentation: { component: ExperimentVisual, background: 'bg-experiment' },
+  'secure-keys': { component: SecureKeysVisual, background: 'bg-tooling' },
 };
 const { component: Visual, background } = visuals[visual];
 ---

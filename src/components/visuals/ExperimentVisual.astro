@@ -10,26 +10,28 @@ const { compact = false } = Astro.props;
 ---
 
 <div>
-  <span class="eyebrow text-[#595080]">{t.experimentTitle}</span>
+  <span class="eyebrow text-experiment-ink">{t.experimentTitle}</span>
   <div
-    class="mt-7 rounded-md border border-[#595080]/25 bg-white/30 p-4 font-mono text-[11px] text-[#595080]"
+    class="mt-7 rounded-md border border-experiment-ink/25 bg-diagram-surface p-4 font-mono text-[11px] text-experiment-ink"
   >
     {t.assignment}
   </div>
-  <div class="mx-auto h-6 w-px bg-[#595080]/30"></div>
-  <div class="grid grid-cols-2 gap-3 text-center text-[11px] text-[#595080]">
+  <div class="mx-auto h-6 w-px bg-experiment-ink/30"></div>
+  <div
+    class="grid grid-cols-2 gap-3 text-center text-[11px] text-experiment-ink"
+  >
     <>
-      <div class="rounded-md border border-[#595080]/20 py-3">
+      <div class="rounded-md border border-experiment-ink/20 py-3">
         {t.serverHtml}
       </div>
-      <div class="rounded-md border border-[#595080]/20 py-3">
+      <div class="rounded-md border border-experiment-ink/20 py-3">
         {t.browserState}
       </div>
     </>
   </div>
   {
     !compact && (
-      <p class="mt-5 text-[10px] text-[#595080]">{t.assignmentFlow}</p>
+      <p class="mt-5 text-[10px] text-experiment-ink">{t.assignmentFlow}</p>
     )
   }
 </div>

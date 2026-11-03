@@ -4,6 +4,7 @@ import { getLocale, localizePath, getResumePath } from '@/i18n/routing';
 import ActionLink from '../ui/ActionLink.astro';
 import Icon from '../ui/Icon.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
+import ThemeToggle from './ThemeToggle.astro';
 const locale = getLocale(Astro.url.pathname);
 const t = getTranslations(locale);
 const links = [
@@ -45,6 +46,7 @@ const links = [
       }
     </nav>
     <div class="flex items-center gap-2 sm:gap-3">
+      <ThemeToggle />
       <LanguageSwitcher />
       <ActionLink
         href={getResumePath(locale)}
