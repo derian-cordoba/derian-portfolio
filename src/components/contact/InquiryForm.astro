@@ -14,7 +14,7 @@ const enabled = import.meta.env['PUBLIC_CONTACT_FORM_ENABLED'] === 'true';
     <section class="shell py-16 md:py-24" aria-labelledby="inquiry-heading">
       <div class="mx-auto grid max-w-6xl overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_16px_64px_-32px_var(--color-line)] lg:grid-cols-[0.85fr_1.3fr]">
         <InquiryIntro locale={locale} />
-        <div class="min-w-0 p-6 sm:p-9 lg:p-10">
+        <inquiry-form lang={locale} class="block min-w-0 p-6 sm:p-9 lg:p-10">
           <p class="mb-7 flex items-center gap-2 text-xs text-muted">
             <span aria-hidden="true" class="size-1.5 rounded-full bg-blue" />
             {copy.allFieldsRequired}
@@ -66,20 +66,34 @@ const enabled = import.meta.env['PUBLIC_CONTACT_FORM_ENABLED'] === 'true';
             />
             <button
               type="submit"
-              class="group flex min-h-13 w-full items-center justify-center gap-3 rounded-lg bg-action px-6 py-3.5 text-sm font-semibold text-on-action transition-colors hover:bg-action-hover sm:col-span-2 sm:w-auto sm:justify-self-start"
+              class="group flex min-h-13 w-full items-center justify-center gap-3 rounded-lg bg-action px-6 py-3.5 text-sm font-semibold text-on-action transition-colors hover:bg-action-hover disabled:cursor-wait disabled:opacity-70 sm:col-span-2 sm:w-auto sm:justify-self-start"
             >
-              {copy.send}
+              <span data-submit-label>{copy.send}</span>
               <Icon
                 name="arrow-right"
                 class="size-4 shrink-0 transition-transform group-hover:translate-x-1"
               />
             </button>
+            <p
+              data-inquiry-feedback
+              role="alert"
+              tabindex="-1"
+              hidden
+              class="rounded-lg border border-line bg-blue-light p-4 text-sm leading-relaxed text-ink sm:col-span-2"
+            />
             <p class="border-t border-line pt-5 text-xs leading-relaxed text-muted sm:col-span-2">
               {copy.privacy}
             </p>
           </form>
-        </div>
+        </inquiry-form>
       </div>
     </section>
   )
 }
+
+<script>
+  import { InquiryFormElement } from '@/presentation/controllers/inquiry-form-element';
+  if (!customElements.get('inquiry-form')) {
+    customElements.define('inquiry-form', InquiryFormElement);
+  }
+</script>

@@ -2,14 +2,31 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { isTheme, resolveTheme } from '@/domain/theme';
 import { createThemeViewModel } from '@/presentation/view-models/theme-view-model';
 import {
+  clearThemePreference,
   readThemePreference,
   saveThemePreference,
   THEME_STORAGE_KEY,
 } from '@/infrastructure/theme-preference';
 
-afterEach(() => vi.unstubAllGlobals());
+afterEach(() => {
+  clearThemePreference();
+  vi.unstubAllGlobals();
+});
 
 describe('theme preferences', () => {
+  it('removes the explicit preference when returning to the system setting', () => {
+    const removeItem = vi.fn();
+    const dispatchEvent = vi.fn();
+    vi.stubGlobal('window', {
+      localStorage: { removeItem, getItem: () => null },
+      dispatchEvent,
+    });
+    clearThemePreference();
+    expect(removeItem).toHaveBeenCalledWith(THEME_STORAGE_KEY);
+    expect(readThemePreference()).toBeUndefined();
+    expect(dispatchEvent).toHaveBeenCalled();
+  });
+
   it.each([
     ['light', true, 'light'],
     ['dark', false, 'dark'],
@@ -28,7 +45,10 @@ describe('theme preferences', () => {
     expect(isTheme('DARK')).toBe(false);
     const getItem = vi.fn(() => 'unknown');
     const setItem = vi.fn();
-    vi.stubGlobal('window', { localStorage: { getItem, setItem } });
+    vi.stubGlobal('window', {
+      localStorage: { getItem, setItem, removeItem: vi.fn() },
+      dispatchEvent: vi.fn(),
+    });
     expect(readThemePreference()).toBeUndefined();
     saveThemePreference('dark');
     expect(setItem).toHaveBeenCalledWith(THEME_STORAGE_KEY, 'dark');
@@ -38,6 +58,7 @@ describe('theme preferences', () => {
 
   it('continues working when accessing storage itself throws', () => {
     vi.stubGlobal('window', {
+      dispatchEvent: vi.fn(),
       get localStorage() {
         throw new Error('Storage unavailable');
       },
@@ -45,6 +66,8 @@ describe('theme preferences', () => {
     expect(readThemePreference()).toBeUndefined();
     expect(() => saveThemePreference('dark')).not.toThrow();
     expect(readThemePreference()).toBe('dark');
+    clearThemePreference();
+    expect(readThemePreference()).toBeUndefined();
   });
 
   it('provides localized actions and a stable toggle state', () => {

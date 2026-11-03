@@ -4,6 +4,7 @@ import {
   readThemePreference,
   saveThemePreference,
   THEME_STORAGE_KEY,
+  THEME_PREFERENCE_EVENT,
 } from '@/infrastructure/theme-preference';
 import { createThemeViewModel } from '../view-models/theme-view-model';
 
@@ -44,6 +45,14 @@ export class ThemeToggleElement extends HTMLElement {
       options,
     );
     this.system.addEventListener('change', () => this.render(), options);
+    window.addEventListener(
+      THEME_PREFERENCE_EVENT,
+      () => {
+        this.preference = readThemePreference();
+        this.render();
+      },
+      options,
+    );
     window.addEventListener(
       'storage',
       (event) => {

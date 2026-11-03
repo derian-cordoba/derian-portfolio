@@ -6,6 +6,11 @@ import ActionLink from '../ui/ActionLink.astro';
 import Icon from '../ui/Icon.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import ThemeToggle from './ThemeToggle.astro';
+import type { LanguageHashMaps } from '@/i18n/routing';
+interface Props {
+  languageHashMaps?: LanguageHashMaps;
+}
+const { languageHashMaps = {} } = Astro.props;
 const locale = getLocale(Astro.url.pathname);
 const t = getTranslations(locale);
 const links = [
@@ -59,7 +64,7 @@ const links = [
     </nav>
     <div class="flex items-center gap-2 sm:gap-3">
       <ThemeToggle />
-      <LanguageSwitcher />
+      <LanguageSwitcher languageHashMaps={languageHashMaps} />
       <ActionLink
         href={getResumePath(locale)}
         variant="secondary"
@@ -88,6 +93,13 @@ const links = [
               </a>
             ))
           }
+          <ActionLink
+            href={getResumePath(locale)}
+            variant="secondary"
+            icon="download"
+            download
+            class="mt-2 w-full sm:hidden!">{t.downloadResume}</ActionLink
+          >
         </nav>
       </details>
     </div>

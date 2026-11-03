@@ -2,6 +2,7 @@
 import { getEntry, render } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
 import StudyLayout from '@/layouts/StudyLayout.astro';
+import { createHeadingHashMap } from '@/presentation/view-models/study-navigation-view-model';
 import { studyRepository } from '@/infrastructure/portfolio';
 import {
   createStudyViewModel,
@@ -27,7 +28,33 @@ if (!entry) {
   throw new Error(`Study content is missing: ${study.id}`);
 }
 
-const { Content } = await render(entry);
+const { Content, headings } = await render(entry);
+const alternate = (await studyRepository.findAll()).find(
+  (candidate) =>
+    candidate.id === study.id &&
+    candidate.kind === study.kind &&
+    candidate.locale !== study.locale,
+);
+if (!alternate) {
+  throw new Error(`Missing translated study: ${study.id}`);
+}
+const translated = await getEntry('studies', alternate.contentId);
+if (!translated) {
+  throw new Error(`Missing translated study content: ${alternate.contentId}`);
+}
+const translatedContent = await render(translated);
+const languageHashMaps = {
+  [alternate.locale]: createHeadingHashMap(
+    headings,
+    translatedContent.headings,
+  ),
+};
 ---
 
-<StudyLayout study={study}><Content /></StudyLayout>
+<StudyLayout
+  study={study}
+  headings={headings}
+  languageHashMaps={languageHashMaps}
+>
+  <Content />
+</StudyLayout>

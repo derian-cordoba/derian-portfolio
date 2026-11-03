@@ -74,7 +74,7 @@ npm run validate        # Type checks, lint, formatting, unit tests, production 
 npm run test:e2e        # Production browser tests; run after building
 ```
 
-Browser tests require Chromium: `npx playwright install chromium`. They cover desktop/mobile navigation, internal links, the CV URL, automated accessibility checks, no-JavaScript content, and failure/recovery interaction. Configure `PLAYWRIGHT_CHANNEL=chrome` to use an installed Google Chrome instead.
+Browser tests require Chromium and WebKit: `npx playwright install chromium webkit`. They cover desktop/mobile navigation, internal links, the CV URL, automated accessibility checks, no-JavaScript content, and failure/recovery interaction. Configure `PLAYWRIGHT_CHANNEL=chrome` to use an installed Google Chrome for the Chromium projects. The WebKit smoke project uses its own browser binary.
 
 ESLint requires braces for all control-flow statements, strict equality, and `const` where possible. TypeScript uses Astro's strictest preset. Prettier formats Astro and orders Tailwind utilities.
 
@@ -99,3 +99,7 @@ GitHub Actions runs the complete validation command and Chromium desktop/mobile 
 ## SEO and measurement
 
 See [SEO content and measurement](docs/seo.md) for editorial dates, Search Console verification, optional analytics on the active Netlify host, and interpretation of contact/CV signals. Public HTTP checks run separately from source validation using `DEPLOYMENT_URL=... npm run test:deployed`, or the manually triggered Public deployment checks workflow.
+
+## Hiring and interaction improvements
+
+The mobile menu includes the localized CV, and the hero links directly to the hiring overview. Case studies show a summary before their article, offer section navigation, and suggest another study in the same language and category. The hiring overview links each role area to existing evidence. See [interaction behavior and validation](docs/interactions.md) for form recovery, theme preferences, screenshot previews, and browser coverage.

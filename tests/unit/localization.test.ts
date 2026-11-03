@@ -1,13 +1,27 @@
 import { describe, expect, it } from 'vitest';
 import { en } from '@/i18n/en';
 import { es } from '@/i18n/es';
-import { getLocale, getResumePath, localizePath } from '@/i18n/routing';
+import {
+  getLocale,
+  getResumePath,
+  localizePath,
+  localizeFragment,
+} from '@/i18n/routing';
 import { getExperiences } from '@/content/profile';
 import { createHomeViewModel } from '@/presentation/view-models/home-view-model';
 import { createGatewayViewModel } from '@/presentation/view-models/gateway-view-model';
 import type { Study } from '@/domain/study';
 
 describe('localized routing', () => {
+  it('maps translated article fragments and preserves shared or malformed fragments', () => {
+    expect(
+      localizeFragment('#the-problem', { 'the-problem': 'el-problema' }),
+    ).toBe('#el-problema');
+    expect(
+      localizeFragment('#walkthrough', { 'the-problem': 'el-problema' }),
+    ).toBe('#walkthrough');
+    expect(localizeFragment('#%invalid')).toBe('#%invalid');
+  });
   it.each([
     ['/', 'en'],
     ['/es/', 'es'],

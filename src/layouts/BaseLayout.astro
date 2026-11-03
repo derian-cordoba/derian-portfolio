@@ -13,17 +13,20 @@ import { profile } from '@/content/profile';
 import { locales } from '@/domain/locale';
 import { getTranslations } from '@/i18n';
 import { getLocale, localizePath } from '@/i18n/routing';
+import type { LanguageHashMaps } from '@/i18n/routing';
 const locale = getLocale(Astro.url.pathname);
 const t = getTranslations(locale);
 interface Props {
   title?: string;
   description?: string;
   noindex?: boolean;
+  languageHashMaps?: LanguageHashMaps;
 }
 const {
   title = t.pageTitle,
   description = t.pageDescription,
   noindex = false,
+  languageHashMaps = {},
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const socialImage = new URL(
@@ -103,7 +106,7 @@ const person = {
       class="sr-only fixed top-3 left-3 z-50 rounded-md bg-action px-5 py-3 text-on-action focus:not-sr-only"
       >{t.skipContent}</a
     >
-    <SiteHeader />
+    <SiteHeader languageHashMaps={languageHashMaps} />
     <main
       id="main"
       transition:name="page-content"

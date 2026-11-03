@@ -1,5 +1,21 @@
 import type { Locale } from '@/domain/locale';
 
+export type LanguageHashMaps = Partial<
+  Record<Locale, Readonly<Record<string, string>>>
+>;
+
+export function localizeFragment(
+  hash: string,
+  headings: Readonly<Record<string, string>> = {},
+): string {
+  try {
+    const id = decodeURIComponent(hash.replace(/^#/u, ''));
+    return Object.hasOwn(headings, id) ? `#${headings[id]}` : hash;
+  } catch {
+    return hash;
+  }
+}
+
 export function getLocale(pathname: string): Locale {
   return /^\/es(?:\/|$)/u.test(pathname) ? 'es' : 'en';
 }

@@ -24,7 +24,7 @@ Replace the example hostname; it is deliberately not shipped as an active rule. 
 
 Netlify production builds set `PUBLIC_CONTACT_FORM_ENABLED=true`. Local builds, branch deploys, and deploy previews keep the form disabled by default. Enable **Forms detection** in the Netlify project and redeploy; check that `portfolio-inquiry-en` and `portfolio-inquiry-es` are detected. Configure submission notifications to your preferred inbox, then submit a test message in each language and verify receipt. No inbox address or secret belongs in the browser configuration.
 
-The forms use native POST, localized confirmation pages, HTML validation, a honeypot, and `data-astro-reload` so Astro's router does not intercept submission. No-JavaScript submission is supported. Email links remain available regardless of hosting. Confirmation URLs are noindex and excluded from the sitemap. Local Astro preview does not process submissions; it cannot verify delivery.
+The forms retain native POST, localized confirmation pages, HTML validation, a honeypot, and `data-astro-reload`. JavaScript adds a sending state, a bounded URL-encoded request, and inline recovery without discarding input. Only a successful HTTP response opens the confirmation page. Without JavaScript, native submission still works. Email links remain available regardless of hosting. Confirmation URLs are noindex and excluded from the sitemap. Local Astro preview does not process submissions; it cannot verify delivery.
 
 To review the enabled form locally:
 

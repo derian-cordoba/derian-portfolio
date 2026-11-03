@@ -2,6 +2,11 @@
 import { locales } from '@/domain/locale';
 import { getTranslations } from '@/i18n';
 import { getLocale, localizePath } from '@/i18n/routing';
+import type { LanguageHashMaps } from '@/i18n/routing';
+interface Props {
+  languageHashMaps?: LanguageHashMaps;
+}
+const { languageHashMaps = {} } = Astro.props;
 const locale = getLocale(Astro.url.pathname);
 const t = getTranslations(locale);
 ---
@@ -19,6 +24,11 @@ const t = getTranslations(locale);
         aria-label={language === 'en' ? t.switchEnglish : t.switchSpanish}
         aria-current={locale === language ? 'page' : undefined}
         data-language-switch
+        data-heading-map={
+          languageHashMaps[language]
+            ? JSON.stringify(languageHashMaps[language])
+            : undefined
+        }
         class:list={[
           'flex min-h-10 min-w-9 items-center justify-center rounded px-2 text-[11px] font-semibold transition-colors',
           locale === language

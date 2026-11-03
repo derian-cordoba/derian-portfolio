@@ -14,18 +14,21 @@ const en = {
     'Technical Lead',
   ],
   strengths: [
-    [
-      'Backend architecture',
-      'Typed APIs, shared policies, and maintainable service boundaries.',
-    ],
-    [
-      'Product modernization',
-      'Laravel and TypeScript systems, with attention to performance and incremental delivery.',
-    ],
-    [
-      'Engineering delivery',
-      'Technical leadership, testing, and repeatable CI workflows.',
-    ],
+    {
+      title: 'Backend architecture',
+      description:
+        'Typed APIs, shared policies, and maintainable service boundaries.',
+    },
+    {
+      title: 'Product modernization',
+      description:
+        'Laravel and TypeScript systems, with attention to performance and incremental delivery.',
+    },
+    {
+      title: 'Engineering delivery',
+      description:
+        'Technical leadership, testing, and repeatable CI workflows.',
+    },
   ],
   collaboration: 'Working together',
   collaborationBody:
@@ -87,25 +90,27 @@ const en = {
   tests: 'Inspect tests',
   decisions: 'Architecture decisions',
   decisionItems: [
-    [
-      'Validated configuration',
-      'A typed route contract centralizes policies. The alternative is hand-written middleware per service, which offers flexibility but duplicates validation and policy wiring. Configuration still needs review and testing.',
-    ],
-    [
-      'Separate failure controls',
-      'Timeouts bound waiting, while circuit breakers stop repeated calls to an unhealthy dependency. Retries are a separate choice: enabling them indiscriminately can amplify load or duplicate writes.',
-    ],
+    {
+      title: 'Validated configuration',
+      description:
+        'A typed route contract centralizes policies. The alternative is hand-written middleware per service, which offers flexibility but duplicates validation and policy wiring. Configuration still needs review and testing.',
+    },
+    {
+      title: 'Separate failure controls',
+      description:
+        'Timeouts bound waiting, while circuit breakers stop repeated calls to an unhealthy dependency. Retries are a separate choice: enabling them indiscriminately can amplify load or duplicate writes.',
+    },
   ],
   limits: 'Limits to keep in view',
   limitsBody:
     'These traces omit scheduling, concurrency, and recovery probes. The published shared circuit-breaker snapshots use last-write-wins semantics; shared visibility is not an atomic distributed state machine. No production throughput or adoption is implied.',
 } as const;
 
-type Copy = {
-  readonly [K in keyof typeof en]: (typeof en)[K] extends string
-    ? string
-    : readonly (string | readonly string[])[];
-};
+type Localized<Value> = Value extends string
+  ? string
+  : Value extends readonly (infer Item)[]
+    ? readonly Localized<Item>[]
+    : { readonly [Key in keyof Value]: Localized<Value[Key]> };
 const es = {
   hiring: 'Perfil para contratación',
   hiringTitle: 'Una visión clara de cómo puedo contribuir.',
@@ -120,18 +125,21 @@ const es = {
     'Líder técnico',
   ],
   strengths: [
-    [
-      'Arquitectura de backend',
-      'API tipadas, políticas compartidas y límites de servicios mantenibles.',
-    ],
-    [
-      'Modernización de productos',
-      'Sistemas Laravel y TypeScript, con atención al rendimiento y las entregas incrementales.',
-    ],
-    [
-      'Entrega de software',
-      'Liderazgo técnico, pruebas y procesos repetibles de integración continua.',
-    ],
+    {
+      title: 'Arquitectura de backend',
+      description:
+        'API tipadas, políticas compartidas y límites de servicios mantenibles.',
+    },
+    {
+      title: 'Modernización de productos',
+      description:
+        'Sistemas Laravel y TypeScript, con atención al rendimiento y las entregas incrementales.',
+    },
+    {
+      title: 'Entrega de software',
+      description:
+        'Liderazgo técnico, pruebas y procesos repetibles de integración continua.',
+    },
   ],
   collaboration: 'Cómo podemos colaborar',
   collaborationBody:
@@ -199,19 +207,21 @@ const es = {
   tests: 'Consultar pruebas',
   decisions: 'Decisiones de arquitectura',
   decisionItems: [
-    [
-      'Configuración validada',
-      'Un contrato de rutas tipado centraliza las políticas. La alternativa es escribir middleware en cada servicio, lo que ofrece flexibilidad pero duplica validaciones y conexiones entre políticas. La configuración también requiere revisión y pruebas.',
-    ],
-    [
-      'Controles de fallo separados',
-      'Los tiempos de espera limitan la espera; los cortacircuitos detienen llamadas repetidas a una dependencia con fallos. Los reintentos son otra decisión: habilitarlos indiscriminadamente puede amplificar la carga o duplicar escrituras.',
-    ],
+    {
+      title: 'Configuración validada',
+      description:
+        'Un contrato de rutas tipado centraliza las políticas. La alternativa es escribir middleware en cada servicio, lo que ofrece flexibilidad pero duplica validaciones y conexiones entre políticas. La configuración también requiere revisión y pruebas.',
+    },
+    {
+      title: 'Controles de fallo separados',
+      description:
+        'Los tiempos de espera limitan la espera; los cortacircuitos detienen llamadas repetidas a una dependencia con fallos. Los reintentos son otra decisión: habilitarlos indiscriminadamente puede amplificar la carga o duplicar escrituras.',
+    },
   ],
   limits: 'Límites que conviene tener presentes',
   limitsBody:
     'Estas trazas omiten la planificación, la concurrencia y los sondeos de recuperación. Las instantáneas compartidas del cortacircuitos publicado usan la última escritura recibida; compartir visibilidad no equivale a una máquina de estados distribuida atómica. No se afirma capacidad ni adopción en producción.',
-} as const satisfies Copy;
+} as const satisfies Localized<typeof en>;
 
 export function getFeatureCopy(locale: Locale) {
   return locale === 'es' ? es : en;

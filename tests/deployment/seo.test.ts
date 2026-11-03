@@ -1,22 +1,8 @@
+import { englishPaths as paths } from '../support/routes.ts';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { attributes, canonical, getPage, meta } from './support.ts';
 import { localizePath } from '../../src/i18n/routing.ts';
-
-const paths = [
-  '/',
-  '/hiring/',
-  '/work/saas-modernization/',
-  '/work/agricultural-platform/',
-  '/projects/api-gateway/',
-  '/projects/experimentation/',
-  '/projects/secure-keys/',
-  '/notes/',
-  '/notes/failure-controls/',
-  '/notes/consistent-experiments/',
-  '/thanks/',
-  '/404.html',
-];
 
 test('deployed pages expose consistent bilingual SEO metadata', async (t) => {
   const home = await getPage('/');

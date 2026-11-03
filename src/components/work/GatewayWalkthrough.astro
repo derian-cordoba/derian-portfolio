@@ -36,10 +36,10 @@ const scenarios = createWalkthroughViewModel(locale);
   <h3 class="mt-10 font-display text-xl font-semibold">{copy.decisions}</h3>
   <dl class="mt-5 space-y-6">
     {
-      copy.decisionItems.map(([title, body]) => (
+      copy.decisionItems.map(({ title, description }) => (
         <div>
           <dt class="text-sm font-semibold">{title}</dt>
-          <dd class="mt-2 text-sm leading-relaxed text-muted">{body}</dd>
+          <dd class="mt-2 text-sm leading-relaxed text-muted">{description}</dd>
         </div>
       ))
     }

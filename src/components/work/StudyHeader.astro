@@ -3,6 +3,7 @@ import { getTranslations } from '@/i18n';
 import { getLocale, localizePath } from '@/i18n/routing';
 import type { StudyViewModel } from '@/presentation/view-models/study-view-model';
 import Icon from '../ui/Icon.astro';
+import StudySummary from './StudySummary.astro';
 import StudyVisual from '../visuals/StudyVisual.astro';
 import ActionLink from '@/components/ui/ActionLink.astro';
 import { getFeatureCopy } from '@/i18n/features';
@@ -43,6 +44,10 @@ const { study } = Astro.props;
           </ActionLink>
         )
       }
-    </div><StudyVisual visual={study.visual} />
+    </div>
+    <StudySummary study={study} class="lg:col-span-2 lg:row-start-2" />
+    <div class="lg:col-start-2 lg:row-start-1">
+      <StudyVisual visual={study.visual} />
+    </div>
   </div>
 </section>

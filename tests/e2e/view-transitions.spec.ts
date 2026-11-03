@@ -1,24 +1,8 @@
+import { localizedRoutes } from '../support/routes';
 import { test, expect } from '@playwright/test';
 import { navigateAndWaitForPageLoad } from './support/navigation';
 
-const paths = [
-  '/',
-  '/es/',
-  '/404.html',
-  '/es/404/',
-  ...[
-    'work/saas-modernization/',
-    'work/agricultural-platform/',
-    'projects/api-gateway/',
-    'projects/experimentation/',
-    'projects/secure-keys/',
-    'hiring/',
-    'notes/',
-    'notes/failure-controls/',
-    'notes/consistent-experiments/',
-    'thanks/',
-  ].flatMap((path) => [`/${path}`, `/es/${path}`]),
-];
+const paths = localizedRoutes.map((route) => route.path);
 
 for (const path of paths) {
   test(`client-side transitions work from ${path}`, async ({ page }) => {

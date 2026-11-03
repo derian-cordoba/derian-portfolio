@@ -1,33 +1,46 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import type { LanguageHashMaps } from '@/i18n/routing';
 import type { StudyViewModel } from '@/presentation/view-models/study-view-model';
 import StudyHeader from '@/components/work/StudyHeader.astro';
+import NextStudy from '@/components/work/NextStudy.astro';
+import { studyRepository } from '@/infrastructure/portfolio';
+import {
+  createStudyNavigationViewModel,
+  type DocumentHeading,
+} from '@/presentation/view-models/study-navigation-view-model';
 import StudySidebar from '@/components/work/StudySidebar.astro';
 import GatewayWalkthrough from '@/components/work/GatewayWalkthrough.astro';
 import StudyEvidence from '@/components/work/StudyEvidence.astro';
 import GatewayDemo from '@/components/interactive/GatewayDemo.astro';
 import Contact from '@/components/sections/Contact.astro';
 import RelatedNotes from '@/components/notes/RelatedNotes.astro';
-import { AstroNoteRepository } from '@/infrastructure/astro-note-repository';
+import { noteRepository } from '@/infrastructure/portfolio';
 import { createRelatedNotesViewModel } from '@/presentation/view-models/note-view-model';
 interface Props {
   study: StudyViewModel;
+  headings: readonly DocumentHeading[];
+  languageHashMaps: LanguageHashMaps;
 }
-const { study } = Astro.props;
-const relatedNotes = await createRelatedNotesViewModel(
-  new AstroNoteRepository(),
+const { study, headings, languageHashMaps } = Astro.props;
+const navigation = createStudyNavigationViewModel(
   study,
+  await studyRepository.findAll(),
+  headings,
 );
+const relatedNotes = await createRelatedNotesViewModel(noteRepository, study);
 ---
 
 <BaseLayout
   title={`${study.title} — Derian Córdoba`}
   description={study.description}
+  languageHashMaps={languageHashMaps}
 >
   <StudyHeader study={study} />
   <div class="border-t border-line">
     <div class="shell grid gap-12 py-16 lg:grid-cols-[1fr_280px] lg:gap-20">
-      <div class="min-w-0">
+      <StudySidebar study={study} contents={navigation.contents} />
+      <div class="min-w-0 lg:col-start-1 lg:row-start-1">
         <StudyEvidence study={study} /><article class="case-prose max-w-2xl">
           <slot />
         </article>{
@@ -39,8 +52,8 @@ const relatedNotes = await createRelatedNotesViewModel(
           )
         }
         <RelatedNotes notes={relatedNotes} locale={study.locale} />
+        {navigation.next && <NextStudy study={navigation.next} />}
       </div>
-      <StudySidebar study={study} />
     </div>
   </div>
   <Contact />

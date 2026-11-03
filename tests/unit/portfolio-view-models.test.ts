@@ -4,6 +4,10 @@ import type { StudyRepository } from '@/application/ports/study-repository';
 import { createHomeViewModel } from '@/presentation/view-models/home-view-model';
 import { createStudyViewModel } from '@/presentation/view-models/study-view-model';
 import { createGatewayViewModel } from '@/presentation/view-models/gateway-view-model';
+import {
+  createStudyNavigationViewModel,
+  createHeadingHashMap,
+} from '@/presentation/view-models/study-navigation-view-model';
 
 function makeStudy(overrides: Partial<Study> = {}): Study {
   return {
@@ -27,6 +31,42 @@ function makeStudy(overrides: Partial<Study> = {}): Study {
 }
 
 describe('portfolio presentation contracts', () => {
+  it('maps corresponding translated sections and rejects incompatible heading structures', () => {
+    const english = [{ depth: 2, text: 'Problem', slug: 'the-problem' }];
+    const spanish = [{ depth: 2, text: 'Problema', slug: 'el-problema' }];
+    expect(createHeadingHashMap(english, spanish)).toEqual({
+      'the-problem': 'el-problema',
+    });
+    expect(() => createHeadingHashMap(english, [])).toThrow(
+      'matching section structure',
+    );
+  });
+  it('builds section links and selects the next study without crossing language or study kind', () => {
+    const current = makeStudy({ id: 'first', order: 1, locale: 'es' });
+    const studies = Object.freeze([
+      current,
+      makeStudy({ id: 'wrong-language', locale: 'en', order: 2 }),
+      makeStudy({
+        id: 'wrong-kind',
+        locale: 'es',
+        kind: 'experience',
+        order: 2,
+      }),
+      makeStudy({ id: 'second', locale: 'es', order: 3 }),
+    ]);
+    const model = createStudyNavigationViewModel(current, studies, [
+      { depth: 2, text: 'El problema', slug: 'el-problema' },
+      { depth: 3, text: 'Detail', slug: 'detail' },
+    ]);
+    expect(model.contents).toContainEqual({
+      label: 'El problema',
+      href: '#el-problema',
+    });
+    expect(model.contents.some((item) => item.href === '#detail')).toBe(false);
+    expect(model.next?.href).toBe('/es/projects/second/');
+    expect(studies[0]?.id).toBe('first');
+  });
+
   it('keeps professional work separate from public projects and orders each without mutating the source', async () => {
     const studies = Object.freeze([
       makeStudy({ id: 'second-project', order: 5 }),

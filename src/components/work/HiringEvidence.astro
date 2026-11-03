@@ -1,0 +1,40 @@
+---
+import { studyRepository } from '@/infrastructure/portfolio';
+import { createHiringEvidenceViewModel } from '@/presentation/view-models/hiring-evidence-view-model';
+import { getEnhancementCopy } from '@/i18n/enhancements';
+import { getLocale } from '@/i18n/routing';
+import Link from '@/components/ui/Link.astro';
+import Icon from '@/components/ui/Icon.astro';
+const locale = getLocale(Astro.url.pathname);
+const groups = await createHiringEvidenceViewModel(studyRepository, locale);
+---
+
+<section class="shell pb-20" aria-labelledby="hiring-evidence-heading">
+  <h2 id="hiring-evidence-heading" class="font-display text-2xl font-semibold">
+    {getEnhancementCopy(locale).roleEvidence}
+  </h2>
+  <div class="mt-7 grid gap-5 lg:grid-cols-3">
+    {
+      groups.map((group) => (
+        <article class="rounded-xl border border-line bg-surface p-6">
+          <>
+            <h3 class="font-semibold">{group.title}</h3>
+            <ul class="mt-4 space-y-2">
+              {group.links.map((link) => (
+                <li>
+                  <Link
+                    href={link.href}
+                    class="flex min-h-11 items-center justify-between gap-3 text-sm leading-relaxed text-blue underline-offset-4 hover:underline"
+                  >
+                    <span>{link.label}</span>
+                    <Icon name="arrow-right" class="size-4 shrink-0" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </>
+        </article>
+      ))
+    }
+  </div>
+</section>

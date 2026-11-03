@@ -2,6 +2,8 @@
 import Link from '@/components/ui/Link.astro';
 import { getTranslations } from '@/i18n';
 import { getLocale } from '@/i18n/routing';
+import { localizePath } from '@/i18n/routing';
+import { getEnhancementCopy } from '@/i18n/enhancements';
 import { profile } from '@/content/profile';
 import ActionLink from '../ui/ActionLink.astro';
 import Icon from '../ui/Icon.astro';
@@ -28,6 +30,15 @@ import SystemMap from '../visuals/SystemMap.astro';
         <ActionLink href="#work" icon="arrow-right">{t.exploreWork}</ActionLink
         ><ActionLink href="#contact" variant="text">{t.letsTalk}</ActionLink>
       </div>
+      <a
+        href={localizePath('/hiring/', locale)}
+        class="text-link mt-3 text-xs text-blue"
+      >
+        {getEnhancementCopy(locale).hiringShortcut}<Icon
+          name="arrow-right"
+          class="size-3.5"
+        />
+      </a>
       <div
         class="mt-9 flex flex-wrap items-center gap-x-5 gap-y-3 text-[11px] text-muted"
       >

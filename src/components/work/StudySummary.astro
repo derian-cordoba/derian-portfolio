@@ -1,0 +1,46 @@
+---
+import type { StudyViewModel } from '@/presentation/view-models/study-view-model';
+import { getTranslations } from '@/i18n';
+import { getEnhancementCopy } from '@/i18n/enhancements';
+interface Props {
+  study: StudyViewModel;
+  class?: string;
+}
+const { study, class: className } = Astro.props;
+const t = getTranslations(study.locale);
+const facts = [
+  { label: t.organization, value: study.organization },
+  { label: t.myRole, value: study.role },
+  { label: t.period, value: study.period },
+  { label: study.resultLabel, value: study.result },
+];
+---
+
+<section
+  aria-labelledby="study-summary-heading"
+  class:list={[
+    'rounded-xl border border-line bg-surface p-5 sm:p-6',
+    className,
+  ]}
+>
+  <h2 id="study-summary-heading" class="eyebrow text-blue">
+    {getEnhancementCopy(study.locale).overview}
+  </h2>
+  <dl class="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+    {
+      facts.map(({ label, value }) => (
+        <div class="min-w-0">
+          <>
+            <dt class="text-xs leading-relaxed text-muted">{label}</dt>
+            <dd class="mt-2 text-sm leading-relaxed font-semibold text-ink">
+              {value}
+            </dd>
+          </>
+        </div>
+      ))
+    }
+  </dl>
+  <p class="mt-5 border-t border-line pt-4 text-xs leading-relaxed text-muted">
+    {study.evidenceNote}
+  </p>
+</section>

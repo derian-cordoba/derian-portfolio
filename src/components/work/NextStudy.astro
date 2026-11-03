@@ -1,0 +1,25 @@
+---
+import type { StudyViewModel } from '@/presentation/view-models/study-view-model';
+import { getEnhancementCopy } from '@/i18n/enhancements';
+import Link from '@/components/ui/Link.astro';
+import Icon from '@/components/ui/Icon.astro';
+interface Props {
+  study: StudyViewModel;
+}
+const { study } = Astro.props;
+---
+
+<aside class="mt-12 rounded-xl border border-line bg-blue-light p-6">
+  <h2 class="eyebrow text-blue">
+    {getEnhancementCopy(study.locale).continueExploring}
+  </h2>
+  <Link
+    href={study.href}
+    class="mt-4 flex min-h-11 items-center justify-between gap-4 font-display text-xl font-semibold hover:text-blue"
+    ><span>{study.title}</span><Icon
+      name="arrow-right"
+      class="size-5 shrink-0"
+    /></Link
+  >
+  <p class="mt-3 text-sm leading-relaxed text-muted">{study.description}</p>
+</aside>

@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeading from '@/components/ui/PageHeading.astro';
 import ActionLink from '@/components/ui/ActionLink.astro';
 import Contact from '@/components/sections/Contact.astro';
+import HiringEvidence from '@/components/work/HiringEvidence.astro';
 import { getFeatureCopy } from '@/i18n/features';
 import { getLocale, localizePath, getResumePath } from '@/i18n/routing';
 import { getTranslations } from '@/i18n';
@@ -31,11 +32,13 @@ const availability = getAvailability(locale);
       </ul>
       <div class="divide-y divide-line">
         {
-          copy.strengths.map(([title, body]) => (
+          copy.strengths.map(({ title, description }) => (
             <div class="py-5">
               <>
                 <h3 class="font-semibold">{title}</h3>
-                <p class="mt-2 text-sm leading-relaxed text-muted">{body}</p>
+                <p class="mt-2 text-sm leading-relaxed text-muted">
+                  {description}
+                </p>
               </>
             </div>
           ))
@@ -74,5 +77,6 @@ const availability = getAvailability(locale);
       </div>
     </aside>
   </div>
+  <HiringEvidence />
   <Contact />
 </BaseLayout>

@@ -1,40 +1,41 @@
 ---
-import { getTranslations } from '@/i18n';
-import { getLocale } from '@/i18n/routing';
 import type { StudyViewModel } from '@/presentation/view-models/study-view-model';
-import ActionLink from '../ui/ActionLink.astro';
-const locale = getLocale(Astro.url.pathname);
-const t = getTranslations(locale);
+import ActionLink from '@/components/ui/ActionLink.astro';
+import { getTranslations } from '@/i18n';
+import { getEnhancementCopy } from '@/i18n/enhancements';
 interface Props {
   study: StudyViewModel;
+  contents: readonly { readonly label: string; readonly href: string }[];
 }
-const { study } = Astro.props;
+const { study, contents } = Astro.props;
+const t = getTranslations(study.locale);
+const copy = getEnhancementCopy(study.locale);
 ---
 
-<aside class="self-start rounded-lg border border-line p-6 lg:sticky lg:top-28">
-  <dl class="space-y-6">
-    {
-      [
-        { label: t.organization, value: study.organization },
-        { label: t.myRole, value: study.role },
-        { label: t.period, value: study.period },
-      ].map((item) => (
-        <div>
-          <>
-            <dt class="eyebrow text-muted">{item.label}</dt>
-            <dd class="mt-2 text-sm font-medium">{item.value}</dd>
-          </>
-        </div>
-      ))
-    }
-  </dl>
-  <div class="mt-7 border-t border-line pt-6">
-    <p class="font-display text-2xl font-semibold tracking-tight text-blue">
-      {study.result}
-    </p><p class="mt-2 text-xs leading-relaxed text-muted">
-      {study.resultLabel}
-    </p>
-  </div>
+<aside
+  class="self-start rounded-lg border border-line bg-surface p-6 lg:sticky lg:top-28 lg:col-start-2 lg:row-start-1"
+>
+  {
+    contents.length > 0 && (
+      <nav aria-labelledby="study-contents-heading">
+        <h2 id="study-contents-heading" class="eyebrow text-blue">
+          {copy.contents}
+        </h2>
+        <ul class="mt-4 space-y-1">
+          {contents.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="block rounded-md py-2 text-sm leading-relaxed text-muted underline-offset-4 hover:text-blue hover:underline"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )
+  }
   {
     study.repository && (
       <ActionLink
@@ -46,7 +47,5 @@ const { study } = Astro.props;
       </ActionLink>
     )
   }
-  <p class="mt-6 text-[11px] leading-relaxed text-muted">
-    {study.evidenceNote}
-  </p>
+  <p class="mt-6 text-xs leading-relaxed text-muted">{study.evidenceNote}</p>
 </aside>

@@ -1,21 +1,65 @@
 ---
 import type { StudyViewModel } from '@/presentation/view-models/study-view-model';
 import Link from '@/components/ui/Link.astro';
+import { getEnhancementCopy } from '@/i18n/enhancements';
 import { getFeatureCopy } from '@/i18n/features';
 interface Props {
   study: StudyViewModel;
 }
 const { study } = Astro.props;
 const copy = getFeatureCopy(study.locale);
+const controls = getEnhancementCopy(study.locale);
 ---
 
 {
   study.media && (
-    <figure class="mb-12">
-      <Link
-        href={study.media.source}
-        class="block overflow-hidden rounded-lg border border-line"
+    <media-viewer class="mb-12 block">
+      <figure>
+        <div class="relative overflow-hidden rounded-lg border border-line">
+          <img
+            src={study.media.src}
+            alt={study.media.alt}
+            width={study.media.width}
+            height={study.media.height}
+            loading="lazy"
+            decoding="async"
+            class="h-auto w-full"
+          />
+          <button
+            type="button"
+            data-media-open
+            hidden
+            class="absolute inset-0 rounded-lg text-ink"
+            aria-haspopup="dialog"
+          >
+            <span class="absolute right-3 bottom-3 rounded-md border border-line bg-paper px-3 py-2 text-xs font-semibold">
+              {controls.enlarge}
+            </span>
+          </button>
+        </div>
+        <figcaption class="mt-4 text-xs leading-relaxed text-muted">
+          {study.media.caption}{' '}
+          <Link
+            href={study.media.source}
+            class="text-blue underline underline-offset-4"
+          >
+            {copy.source}
+          </Link>
+        </figcaption>
+      </figure>
+      <dialog
+        aria-label={study.media.alt}
+        class="m-auto max-h-[90vh] w-[calc(100%-2rem)] max-w-6xl overflow-auto rounded-xl border border-line bg-paper p-4 text-ink shadow-xl backdrop:bg-black/70 sm:p-6"
       >
+        <div class="mb-4 flex justify-end">
+          <button
+            type="button"
+            data-media-close
+            class="min-h-11 rounded-md border border-line px-4 py-2 text-sm hover:bg-blue-light"
+          >
+            {controls.closeImage}
+          </button>
+        </div>
         <img
           src={study.media.src}
           alt={study.media.alt}
@@ -23,18 +67,19 @@ const copy = getFeatureCopy(study.locale);
           height={study.media.height}
           loading="lazy"
           decoding="async"
-          class="h-auto w-full"
+          class="h-auto w-full rounded-lg"
         />
-      </Link>
-      <figcaption class="mt-4 text-xs leading-relaxed text-muted">
-        {study.media.caption}{' '}
-        <Link
-          href={study.media.source}
-          class="text-blue underline underline-offset-4"
-        >
-          {copy.source}
-        </Link>
-      </figcaption>
-    </figure>
+        <p class="mt-4 text-sm leading-relaxed text-muted">
+          {study.media.caption}
+        </p>
+      </dialog>
+    </media-viewer>
   )
 }
+
+<script>
+  import { MediaViewerElement } from '@/presentation/controllers/media-viewer-element';
+  if (!customElements.get('media-viewer')) {
+    customElements.define('media-viewer', MediaViewerElement);
+  }
+</script>

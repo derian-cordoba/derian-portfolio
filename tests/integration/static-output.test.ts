@@ -1,3 +1,4 @@
+import { localizedRoutes } from '../support/routes.ts';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
@@ -29,7 +30,7 @@ function htmlFiles(directory: string): string[] {
 
 test('all twenty-four generated pages include localized content and document metadata', () => {
   const files = htmlFiles(output);
-  assert.equal(files.length, 24);
+  assert.equal(files.length, localizedRoutes.length);
 
   for (const filename of files) {
     const html = readFileSync(filename, 'utf8');
@@ -119,7 +120,7 @@ test('every root-relative page link, asset, and fragment points to generated out
       if (url.hash && destination.endsWith('.html')) {
         const targetHtml = readFileSync(destination, 'utf8');
         assert.ok(
-          targetHtml.includes(`id="${url.hash.slice(1)}"`),
+          targetHtml.includes(`id="${decodeURIComponent(url.hash.slice(1))}"`),
           `${filename}: missing fragment ${reference}`,
         );
       }

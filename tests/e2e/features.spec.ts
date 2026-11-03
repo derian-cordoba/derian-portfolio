@@ -143,7 +143,7 @@ test('analytics events contain no query, email, or form fields and do not duplic
   ]);
 });
 
-test('the enabled inquiry form submits natively to the localized confirmation URL', async ({
+test('an accepted inquiry opens the localized confirmation URL', async ({
   page,
 }) => {
   await page.goto('/es/hiring/');
@@ -152,14 +152,16 @@ test('the enabled inquiry form submits natively to the localized confirmation UR
     (await form.count()) === 0,
     'Netlify Forms is disabled for this build.',
   );
+  await expect(form).toHaveAttribute('aria-busy', 'false');
   await expect(form).toHaveAttribute('method', 'POST');
   await expect(form).toHaveAttribute('action', '/es/thanks/');
   await expect(form).toHaveAttribute('data-astro-reload');
   await page.route('**/es/thanks/', async (route) => {
-    expect(route.request().method()).toBe('POST');
-    expect(route.request().postData()).toContain(
-      'form-name=portfolio-inquiry-es',
-    );
+    if (route.request().method() === 'POST') {
+      expect(route.request().postData()).toContain(
+        'form-name=portfolio-inquiry-es',
+      );
+    }
     await route.fulfill({
       status: 200,
       body: '<h1>Received</h1>',
