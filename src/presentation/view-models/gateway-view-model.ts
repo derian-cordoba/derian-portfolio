@@ -1,15 +1,22 @@
+import type { Locale } from '@/domain/locale';
+import { gatewayTranslations } from '@/i18n/gateway';
+
 export type GatewayMode = 'healthy' | 'unavailable';
 
 /** Illustrative UI state only; this never probes or controls a real gateway. */
-export function createGatewayViewModel(mode: GatewayMode) {
+export function createGatewayViewModel(
+  mode: GatewayMode,
+  locale: Locale = 'en',
+) {
+  const t = gatewayTranslations[locale];
   if (mode === 'unavailable') {
     return {
       mode,
       status: '503',
-      statusLabel: 'Service unavailable',
-      circuit: 'Open',
-      message: 'The open circuit rejects requests while the upstream recovers.',
-      buttonLabel: 'Restore upstream',
+      statusLabel: t.unavailable,
+      circuit: t.open,
+      message: t.unavailableMessage,
+      buttonLabel: t.restoreUpstream,
       nextMode: 'healthy' as const,
     };
   }
@@ -17,10 +24,10 @@ export function createGatewayViewModel(mode: GatewayMode) {
   return {
     mode,
     status: '200',
-    statusLabel: 'OK',
-    circuit: 'Closed',
-    message: 'The closed circuit forwards requests to the healthy upstream.',
-    buttonLabel: 'Simulate upstream failure',
+    statusLabel: t.ok,
+    circuit: t.closed,
+    message: t.healthyMessage,
+    buttonLabel: t.simulateFailure,
     nextMode: 'unavailable' as const,
   };
 }

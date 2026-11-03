@@ -1,4 +1,6 @@
 ---
+locale: en
+studyId: secure-keys
 kind: project
 order: 5
 title: A repeatable path from config to build.

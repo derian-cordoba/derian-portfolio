@@ -17,17 +17,21 @@ function htmlFiles(directory: string): string[] {
   });
 }
 
-test('all seven generated pages include their content and document metadata', () => {
+test('all fourteen generated pages include localized content and document metadata', () => {
   const files = htmlFiles(output);
-  assert.equal(files.length, 7);
+  assert.equal(files.length, 14);
 
   for (const filename of files) {
     const html = readFileSync(filename, 'utf8');
-    assert.match(html, /<html lang="en">/u, filename);
+    const locale = filename.startsWith(join(output, 'es') + '/') ? 'es' : 'en';
+    assert.ok(html.includes(`<html lang="${locale}">`), filename);
     assert.equal([...html.matchAll(/<h1[\s>]/gu)].length, 1, filename);
     assert.match(html, /<title>[^<]+<\/title>/u, filename);
     assert.match(html, /<meta name="description" content="[^"]+"/u, filename);
     assert.match(html, /<link rel="canonical" href="https:\/\//u, filename);
+    assert.match(html, /hreflang="en"/u, filename);
+    assert.match(html, /hreflang="es"/u, filename);
+    assert.match(html, /hreflang="x-default"/u, filename);
   }
 });
 
@@ -62,6 +66,13 @@ test('every root-relative page link, asset, and fragment points to generated out
 
 test('CV and discovery files are valid build artifacts', () => {
   assert.equal(
+    readFileSync(join(output, 'Derian-Cordoba-CV-2026-ES.pdf'), 'utf8').slice(
+      0,
+      5,
+    ),
+    '%PDF-',
+  );
+  assert.equal(
     readFileSync(join(output, 'Derian-Cordoba-CV-2026.pdf'), 'utf8').slice(
       0,
       5,
@@ -76,4 +87,54 @@ test('CV and discovery files are valid build artifacts', () => {
     readFileSync(join(output, 'sitemap-index.xml'), 'utf8'),
     /<sitemapindex/u,
   );
+});
+
+test('every English page has a matching Spanish page and reciprocal language links', () => {
+  for (const filename of htmlFiles(output).filter(
+    (file) => !file.startsWith(join(output, 'es') + '/'),
+  )) {
+    const relative = filename.slice(output.length).replace(/index\.html$/u, '');
+    const englishPath = relative;
+    const spanishPath =
+      relative === '/404.html' ? '/es/404/' : `/es${relative}`;
+    const spanishFile = join(
+      output,
+      spanishPath.endsWith('/') ? `${spanishPath}index.html` : spanishPath,
+    );
+    assert.ok(existsSync(spanishFile), spanishPath);
+    const english = readFileSync(filename, 'utf8');
+    const spanish = readFileSync(spanishFile, 'utf8');
+    assert.ok(english.includes(`href="${spanishPath}"`), filename);
+    assert.ok(spanish.includes(`href="${englishPath}"`), spanishFile);
+    assert.ok(spanish.includes('Leer esta página en español'), spanishFile);
+    assert.ok(
+      spanish.includes('Creado con criterio. Siempre evolucionando.'),
+      spanishFile,
+    );
+    assert.ok(
+      !spanish.includes('Thoughtfully built. Always evolving.'),
+      spanishFile,
+    );
+    assert.ok(spanish.includes('/Derian-Cordoba-CV-2026-ES.pdf'), spanishFile);
+  }
+});
+
+test('Spanish case studies and simulation are pre-rendered in Spanish', () => {
+  for (const directory of ['work', 'projects']) {
+    for (const filename of htmlFiles(join(output, 'es', directory))) {
+      const html = readFileSync(filename, 'utf8');
+      assert.ok(html.includes('Mi función'), filename);
+      assert.ok(html.includes('min de lectura'), filename);
+      assert.ok(!html.includes('My role'), filename);
+      assert.ok(!html.includes('The problem'), filename);
+    }
+  }
+  const html = readFileSync(
+    join(output, 'es/projects/api-gateway/index.html'),
+    'utf8',
+  ).replace(/<script\b[^>]*>[\s\S]*?<\/script>/gu, '');
+  assert.ok(html.includes('Simular fallo del servicio de destino'));
+  assert.ok(html.includes('lang="es"'));
+  assert.ok(html.includes('Circuito'));
+  assert.ok(!html.includes('Simulate upstream failure'));
 });

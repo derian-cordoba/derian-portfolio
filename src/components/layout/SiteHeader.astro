@@ -1,12 +1,16 @@
 ---
-import { profile } from '@/content/profile';
+import { getTranslations } from '@/i18n';
+import { getLocale, localizePath, getResumePath } from '@/i18n/routing';
 import ActionLink from '../ui/ActionLink.astro';
 import Icon from '../ui/Icon.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+const locale = getLocale(Astro.url.pathname);
+const t = getTranslations(locale);
 const links = [
-  { label: 'Work', href: '/#work' },
-  { label: 'About', href: '/#about' },
-  { label: 'Experience', href: '/#experience' },
-  { label: 'Contact', href: '/#contact' },
+  { label: t.navWork, href: localizePath('/#work', locale) },
+  { label: t.navAbout, href: localizePath('/#about', locale) },
+  { label: t.navExperience, href: localizePath('/#experience', locale) },
+  { label: t.navContact, href: localizePath('/#contact', locale) },
 ];
 ---
 
@@ -15,8 +19,8 @@ const links = [
 >
   <div class="shell flex h-20 items-center justify-between gap-4">
     <a
-      href="/"
-      aria-label="Derian Córdoba, home"
+      href={localizePath('/', locale)}
+      aria-label={t.homeLabel}
       class="group flex items-center gap-3"
     >
       <span
@@ -24,11 +28,14 @@ const links = [
         >dc<span class="text-ink">.</span></span
       >
       <span
-        class="hidden border-l border-line pl-3 text-xs font-medium sm:inline"
+        class="hidden border-l border-line pl-3 text-xs font-medium lg:inline"
         >Derian Córdoba</span
       >
     </a>
-    <nav aria-label="Main navigation" class="hidden items-center gap-8 md:flex">
+    <nav
+      aria-label={t.mainNavigation}
+      class="hidden items-center gap-5 lg:flex"
+    >
       {
         links.map((link) => (
           <a href={link.href} class="text-link text-xs">
@@ -37,22 +44,24 @@ const links = [
         ))
       }
     </nav>
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2 sm:gap-3">
+      <LanguageSwitcher />
       <ActionLink
-        href={profile.resume}
+        href={getResumePath(locale)}
         variant="secondary"
         icon="download"
         download
-        class="min-h-10! px-3! py-2! text-xs!">Résumé</ActionLink
+        class="hidden! min-h-10! px-3! py-2! text-xs! sm:inline-flex!"
+        >{t.resume}</ActionLink
       >
-      <details class="relative md:hidden" data-mobile-menu>
+      <details class="relative lg:hidden" data-mobile-menu>
         <summary
           class="flex min-h-11 min-w-11 list-none items-center justify-center rounded-md border border-line"
-          aria-label="Toggle navigation"
+          aria-label={t.toggleNavigation}
           ><Icon name="menu" class="size-5" /></summary
         >
         <nav
-          aria-label="Mobile navigation"
+          aria-label={t.mobileNavigation}
           class="absolute top-14 right-0 flex w-52 flex-col rounded-lg border border-line bg-paper p-3 shadow-lg"
         >
           {

@@ -5,16 +5,14 @@ import StudyLayout from '@/layouts/StudyLayout.astro';
 import { studyRepository } from '@/infrastructure/portfolio';
 import {
   createStudyViewModel,
+  getStudyHref,
   type StudyViewModel,
 } from '@/presentation/view-models/study-view-model';
 
 export const getStaticPaths = (async () => {
   const studies = await studyRepository.findAll();
   return studies.map((study) => ({
-    params: {
-      category: study.kind === 'experience' ? 'work' : 'projects',
-      slug: study.id,
-    },
+    params: { path: getStudyHref(study).slice(1, -1) },
     props: { study: createStudyViewModel(study) },
   }));
 }) satisfies GetStaticPaths;
@@ -23,7 +21,7 @@ interface Props {
   study: StudyViewModel;
 }
 const { study } = Astro.props;
-const entry = await getEntry('studies', study.id);
+const entry = await getEntry('studies', study.contentId);
 
 if (!entry) {
   throw new Error(`Study content is missing: ${study.id}`);

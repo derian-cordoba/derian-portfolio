@@ -1,0 +1,206 @@
+[
+  { "type": "title", "text": "DERIAN CÓRDOBA" },
+  {
+    "type": "subtitle",
+    "text": "Ingeniero de software sénior | Full-stack, Laravel, Node.js, TypeScript, Next.js y NestJS"
+  },
+  {
+    "type": "contact",
+    "text": "León, Nicaragua | (+505) 7778 1905 | derian.cordoba@icloud.com"
+  },
+  {
+    "type": "contact",
+    "text": "linkedin.com/in/derian-cordoba | github.com/derian-cordoba"
+  },
+  { "type": "heading", "text": "RESUMEN PROFESIONAL" },
+  {
+    "type": "body",
+    "text": "Ingeniero de software sénior con más de 7 años de experiencia desarrollando aplicaciones full-stack escalables, plataformas SaaS, servicios backend, API REST, sistemas empresariales internos y herramientas de automatización. Experiencia práctica con TypeScript, Node.js, NestJS, Next.js, React, PHP/Laravel, diseño de bases de datos, CI/CD, pruebas automatizadas, arquitectura de sistemas y liderazgo técnico en equipos distribuidos. Capacidad demostrada para modernizar sistemas en producción, crear soluciones de ingeniería reutilizables, mejorar el rendimiento y convertir requisitos de negocio en software mantenible."
+  },
+  { "type": "heading", "text": "LOGROS DESTACADOS" },
+  {
+    "type": "bullet",
+    "text": "Mejora de hasta un 80 % del rendimiento en flujos clave de procesamiento de un SaaS Laravel, mediante optimización de lógica backend, interacciones con bases de datos y rutas de procesamiento de la aplicación."
+  },
+  {
+    "type": "bullet",
+    "text": "Entrega de arquitectura backend para una plataforma web y móvil utilizada por más de 25 empresas agrícolas, con servicios escalables, API y estructuras de datos para flujos de múltiples empresas."
+  },
+  {
+    "type": "bullet",
+    "text": "Mayor productividad y consistencia de entrega en entornos empresariales y SaaS mediante herramientas internas reutilizables, paquetes de automatización, flujos CI/CD y pruebas automatizadas, reduciendo tareas repetitivas y mejorando la fiabilidad de las publicaciones."
+  },
+  { "type": "heading", "text": "COMPETENCIAS PRINCIPALES" },
+  {
+    "type": "body",
+    "text": "Backend y full-stack: TypeScript, Node.js, NestJS, Next.js, React, PHP, Laravel, API REST, diseño de API, tareas en segundo plano, colas, microservicios y multitenencia. Bases de datos: PostgreSQL, MySQL, MariaDB, SQL Server, MongoDB, Firestore, optimización SQL y diseño de bases de datos."
+  },
+  {
+    "type": "body",
+    "text": "Pruebas: Jest, Vitest, Playwright, Cypress, PHPUnit, Pest, Laravel Tests, Selenium y Appium. DevOps y nube: GitHub Actions, Bitbucket Pipelines, Jenkins, CI/CD, Docker, Linux, Sentry, AWS Lambda, Railway y automatización de despliegues."
+  },
+  {
+    "type": "body",
+    "text": "Arquitectura: arquitectura limpia, diseño guiado por el dominio, SOLID, patrones de diseño, inyección de dependencias, arquitectura modular, revisión de código y Agile/Scrum. Frontend: Next.js, React, TypeScript, JavaScript, Astro, WordPress, conocimientos básicos de Vue y experiencia inicial con Angular. IA y automatización: Claude AI, Claude Code, GitHub Copilot, ChatGPT, flujos MCP y herramientas internas de desarrollo."
+  },
+  { "type": "heading", "text": "EXPERIENCIA PROFESIONAL" },
+  {
+    "type": "job",
+    "text": "Ingeniero full-stack sénior | Walmart | Remoto | Jul 2026 - Actualidad"
+  },
+  {
+    "type": "bullet",
+    "text": "Mejora y ampliación de aplicaciones empresariales internas, tanto frontend como backend, con nuevas capacidades operativas y soluciones mantenibles en Next.js, NestJS, TypeScript, Node.js y React."
+  },
+  {
+    "type": "bullet",
+    "text": "Mayor reutilización y consistencia entre sistemas internos mediante componentes frontend, módulos backend, servicios compartidos y abstracciones comunes de TypeScript que reducen implementaciones duplicadas."
+  },
+  {
+    "type": "bullet",
+    "text": "Reducción de trabajo repetitivo de ingeniería y operaciones mediante paquetes y dependencias internas reutilizables que estandarizan y automatizan procesos comunes."
+  },
+  {
+    "type": "bullet",
+    "text": "Mejora de la mantenibilidad y escalabilidad backend mediante arquitectura modular de NestJS, inyección de dependencias, validación, gestión de errores y separación de responsabilidades."
+  },
+  {
+    "type": "bullet",
+    "text": "Mejora de la mantenibilidad frontend y la experiencia de uso de herramientas internas mediante desarrollo y modernización de funcionalidades Next.js/React con TypeScript y patrones de interfaz reutilizables."
+  },
+  {
+    "type": "bullet",
+    "text": "Mayor calidad de entrega en un entorno empresarial de gran escala mediante decisiones de arquitectura, revisión de código, pruebas automatizadas, CI/CD y colaboración multidisciplinaria."
+  },
+  {
+    "type": "job",
+    "text": "Consultor sénior de desarrollo de software | Netforemost | Remoto, tiempo parcial | Jun - Jul 2026"
+  },
+  {
+    "type": "bullet",
+    "text": "Modernización y refactorización de sistemas heredados PHP/Laravel y flujos críticos para mejorar su mantenibilidad y fiabilidad a largo plazo y reducir el riesgo de regresiones."
+  },
+  {
+    "type": "bullet",
+    "text": "Ampliación de la cobertura automatizada del flujo principal mediante pruebas funcionales y de regresión en Laravel."
+  },
+  {
+    "type": "bullet",
+    "text": "Mejora de la consistencia entre entornos y reducción del esfuerzo manual mediante flujos CI/CD de pruebas y automatización de despliegues."
+  },
+  {
+    "type": "bullet",
+    "text": "Documentación de decisiones de arquitectura y talleres internos de PHP/Laravel para alinear buenas prácticas, mejorar la calidad del código y facilitar la incorporación al equipo."
+  },
+  {
+    "type": "job",
+    "text": "Ingeniero de software sénior II | Go Local Interactive | Remoto | Ago 2025 - Jun 2026"
+  },
+  {
+    "type": "bullet",
+    "text": "Mejora de hasta un 80 % del rendimiento en flujos clave de procesamiento SaaS de Laravel mediante optimización de lógica backend, interacciones con bases de datos y rutas de procesamiento."
+  },
+  {
+    "type": "bullet",
+    "text": "Implementación de mecanismos reutilizables de multitenencia entre microservicios Laravel, habilitando una arquitectura escalable para múltiples proveedores."
+  },
+  {
+    "type": "bullet",
+    "text": "Creación de utilidades internas y paquetes de React reutilizables para reducir trabajo duplicado y mejorar la velocidad de entrega y la consistencia de interfaces en proyectos Laravel y WordPress."
+  },
+  {
+    "type": "bullet",
+    "text": "Automatización de procesos de negocio mediante desarrollo y mantenimiento de colas de tareas en segundo plano e infraestructura basada en Laravel."
+  },
+  {
+    "type": "bullet",
+    "text": "Integración de Claude AI, Skills personalizadas y flujos MCP en los procesos de ingeniería para agilizar la automatización interna y mejorar la productividad."
+  },
+  {
+    "type": "job",
+    "text": "Líder de ingeniería de software | All-Win Software | Híbrido | Ago 2022 - Ago 2025"
+  },
+  {
+    "type": "bullet",
+    "text": "Liderazgo de iniciativas backend, web y móviles con Laravel, FastAPI, Node.js, React, Astro, SwiftUI, UIKit y Flutter, mejorando la ejecución entre disciplinas y la calidad de entrega."
+  },
+  {
+    "type": "bullet",
+    "text": "Establecimiento de estándares de pruebas unitarias, funcionales y de integración y de calidad del código para mejorar la fiabilidad del software."
+  },
+  {
+    "type": "bullet",
+    "text": "Reducción de despliegues manuales mediante flujos de publicación automatizada para aplicaciones web y móviles con GitHub Actions y Bitbucket Pipelines."
+  },
+  {
+    "type": "bullet",
+    "text": "Dirección de revisiones de código, diseño de sistemas y planificación ágil, mejorando la claridad de las decisiones técnicas y la consistencia de arquitectura entre proyectos."
+  },
+  {
+    "type": "job",
+    "text": "Ingeniero de software III | Quality Service Nicaragua | Presencial | Feb - Ago 2022"
+  },
+  {
+    "type": "bullet",
+    "text": "Entrega de arquitectura backend para una plataforma web y móvil utilizada por más de 25 empresas agrícolas mediante servicios y estructuras de datos escalables para flujos de múltiples empresas."
+  },
+  {
+    "type": "bullet",
+    "text": "Mejora de resiliencia y mantenibilidad mediante PHP, TypeScript, diseño guiado por el dominio y patrones de cortacircuitos, separando lógica de negocio e infraestructura."
+  },
+  {
+    "type": "job",
+    "text": "Desarrollador backend | TiHouse | Presencial | Feb 2020 - Feb 2022"
+  },
+  {
+    "type": "bullet",
+    "text": "Desarrollo de API y módulos con TypeScript, Node.js, PHP y Laravel para equipos de producto multidisciplinarios y necesidades de negocio específicas de cada sector."
+  },
+  {
+    "type": "bullet",
+    "text": "Mejora de seguridad y fiabilidad mediante Snyk, límites de solicitudes, arquitectura basada en Keycloak, JWT y cookies HTTP-only."
+  },
+  {
+    "type": "bullet",
+    "text": "Diseño y optimización de bases de datos PostgreSQL, MySQL, SQL Server, MongoDB, DynamoDB y Firestore para mejorar rendimiento y escalabilidad de datos relacionales y NoSQL."
+  },
+  {
+    "type": "job",
+    "text": "Desarrollador backend júnior | Disanic S.A. | Híbrido | Ene 2019 - Feb 2020"
+  },
+  {
+    "type": "bullet",
+    "text": "Desarrollo de servicios API REST con TypeScript, Node.js, PHP y Laravel para plataformas web y móviles, facilitando la integración entre frontend y backend."
+  },
+  {
+    "type": "bullet",
+    "text": "Mejora de escalabilidad de despliegue y estructura de servicios internos mediante patrones de diseño y despliegue de servicios basados en réplicas en Railway y AWS Lambda."
+  },
+  { "type": "heading", "text": "PROYECTOS E IMPACTO DESTACADOS" },
+  {
+    "type": "bullet",
+    "text": "Modernización de rendimiento SaaS: mejora de hasta un 80 % en flujos críticos de Laravel mediante refactorización backend, optimización SQL y ajustes de procesamiento."
+  },
+  {
+    "type": "bullet",
+    "text": "Arquitectura backend multitenencia: mecanismos reutilizables entre microservicios Laravel, admitiendo múltiples proveedores y operaciones backend más escalables."
+  },
+  {
+    "type": "bullet",
+    "text": "Automatización de productividad: paquetes internos, utilidades compartidas, flujos CI/CD y procesos de ingeniería asistidos por IA para reducir trabajo repetitivo y agilizar entregas en entornos empresariales y SaaS."
+  },
+  { "type": "heading", "text": "FORMACIÓN E IDIOMAS" },
+  {
+    "type": "body",
+    "text": "Universidad Nacional Autónoma de Nicaragua - UNAN | Licenciatura en Ingeniería de Software | León, Nicaragua"
+  },
+  {
+    "type": "body",
+    "text": "Español: nativo | Inglés: competencia profesional"
+  },
+  { "type": "heading", "text": "ENFOQUE PROFESIONAL" },
+  {
+    "type": "body",
+    "text": "Perfiles de interés: ingeniería de software sénior, full-stack sénior, Node.js/TypeScript sénior, backend sénior, liderazgo técnico, desarrollo Laravel sénior, ingeniería de API e ingeniería SaaS. Disponibilidad para trabajo remoto con equipos internacionales mediante contratación independiente o colaboración nearshore."
+  }
+]

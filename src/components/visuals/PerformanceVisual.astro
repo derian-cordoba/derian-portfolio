@@ -1,5 +1,12 @@
+---
+import { getTranslations } from '@/i18n';
+const locale = getLocale(Astro.url.pathname);
+const t = getTranslations(locale);
+import { getLocale } from '@/i18n/routing';
+---
+
 <div>
-  <div class="eyebrow mb-7 text-blue">Processing, refined</div>
+  <div class="eyebrow mb-7 text-blue">{t.performanceVisualTitle}</div>
   <div class="flex items-end justify-between gap-4">
     <>
       <span
@@ -8,7 +15,7 @@
         80<span class="text-3xl">%</span>
       </span>
       <span class="max-w-24 pb-2 text-[10px] leading-relaxed text-muted">
-        up to, in key processing flows
+        {t.performanceScope}
       </span>
     </>
   </div>
@@ -19,6 +26,6 @@
     </>
   </div>
   <p class="mt-4 font-mono text-[9px] text-muted">
-    Laravel · SQL · Application paths
+    {t.performanceTools}
   </p>
 </div>

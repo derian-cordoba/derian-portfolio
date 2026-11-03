@@ -1,4 +1,6 @@
 import type { Experience, Profile } from '@/domain/profile';
+import type { Locale } from '@/domain/locale';
+import { experienceEs } from './experience-es';
 
 export const profile = {
   name: 'Derian Córdoba',
@@ -82,3 +84,14 @@ export const experiences = [
     technologies: ['TypeScript', 'PHP', 'REST APIs'],
   },
 ] as const satisfies readonly Experience[];
+
+export function getExperiences(locale: Locale): readonly Experience[] {
+  if (locale === 'es') {
+    return experiences.map((experience) => ({
+      ...experience,
+      ...experienceEs[experience.company],
+    }));
+  }
+
+  return experiences;
+}

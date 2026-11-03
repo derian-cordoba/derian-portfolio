@@ -1,0 +1,22 @@
+---
+import { getTranslations } from '@/i18n';
+import { getLocale, localizePath } from '@/i18n/routing';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+const locale = getLocale(Astro.url.pathname);
+const t = getTranslations(locale);
+import ActionLink from '@/components/ui/ActionLink.astro';
+---
+
+<BaseLayout title={t.notFoundTitle} noindex
+  ><section class="shell py-28">
+    <p class="eyebrow text-blue">{t.notFoundLabel}</p><h1
+      class="display-title mt-5 text-5xl"
+    >
+      {t.notFoundHeading}
+    </h1><p class="mt-5 max-w-md text-muted">
+      {t.notFoundText}
+    </p><ActionLink href={localizePath('/', locale)} class="mt-8"
+      >{t.backToPortfolio}</ActionLink
+    >
+  </section></BaseLayout
+>

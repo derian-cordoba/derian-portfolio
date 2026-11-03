@@ -1,0 +1,22 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/sections/Hero.astro';
+import SelectedWork from '@/components/sections/SelectedWork.astro';
+import OpenSource from '@/components/sections/OpenSource.astro';
+import About from '@/components/sections/About.astro';
+import Experience from '@/components/sections/Experience.astro';
+import Contact from '@/components/sections/Contact.astro';
+import { studyRepository } from '@/infrastructure/portfolio';
+import { createHomeViewModel } from '@/presentation/view-models/home-view-model';
+import { getLocale } from '@/i18n/routing';
+const model = await createHomeViewModel(
+  studyRepository,
+  getLocale(Astro.url.pathname),
+);
+---
+
+<BaseLayout
+  ><Hero /><SelectedWork studies={model.professionalWork} /><OpenSource
+    studies={model.projects}
+  /><About /><Experience /><Contact /></BaseLayout
+>

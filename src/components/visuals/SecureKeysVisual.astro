@@ -1,9 +1,13 @@
 ---
+import { getTranslations } from '@/i18n';
+import { getLocale } from '@/i18n/routing';
+const locale = getLocale(Astro.url.pathname);
+const t = getTranslations(locale);
 import Icon from '../ui/Icon.astro';
 ---
 
 <div>
-  <div class="eyebrow mb-7 text-[#665843]">From configuration to artifact</div>
+  <div class="eyebrow mb-7 text-[#665843]">{t.secureKeysTitle}</div>
   <div
     class="rounded-md border border-[#665843]/20 bg-white/40 p-4 font-mono text-[10px] text-[#665843]"
   >
@@ -17,9 +21,9 @@ import Icon from '../ui/Icon.astro';
     class="mt-6 flex items-center justify-between font-mono text-[10px] text-[#665843]"
   >
     <>
-      <span>Keychain / CI</span>
+      <span>{t.keychainCi}</span>
       <Icon name="arrow-right" class="size-3" />
-      <span>Swift API</span>
+      <span>{t.swiftApi}</span>
       <Icon name="arrow-right" class="size-3" />
       <span>iOS</span>
     </>

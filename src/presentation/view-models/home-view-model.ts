@@ -1,9 +1,15 @@
 import type { StudyRepository } from '@/application/ports/study-repository';
+import type { Locale } from '@/domain/locale';
 import { createStudyViewModel } from './study-view-model';
 
-export async function createHomeViewModel(repository: StudyRepository) {
+export async function createHomeViewModel(
+  repository: StudyRepository,
+  locale: Locale = 'en',
+) {
   const studies = await repository.findAll();
-  const ordered = [...studies].sort((left, right) => left.order - right.order);
+  const ordered = studies
+    .filter((study) => study.locale === locale)
+    .sort((left, right) => left.order - right.order);
   const views = ordered.map(createStudyViewModel);
 
   return {

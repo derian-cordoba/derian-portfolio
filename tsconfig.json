@@ -1,5 +1,5 @@
 {
-  "extends": "astro/tsconfigs/strictest.json",
+  "extends": "./node_modules/astro/tsconfigs/strictest.json",
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",

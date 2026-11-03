@@ -1,29 +1,27 @@
 import type { Study } from '@/domain/study';
+import { getTranslations } from '@/i18n';
+import { localizePath } from '@/i18n/routing';
 
-export function getStudyHref(study: Pick<Study, 'kind' | 'id'>): string {
+export function getStudyHref(
+  study: Pick<Study, 'kind' | 'id' | 'locale'>,
+): string {
   const directory = study.kind === 'experience' ? 'work' : 'projects';
-  return `/${directory}/${study.id}/`;
+  return localizePath(`/${directory}/${study.id}/`, study.locale);
 }
 
 export function createStudyViewModel(study: Study) {
+  const t = getTranslations(study.locale);
   const words = study.body.trim().split(/\s+/u).filter(Boolean).length;
 
   return {
     ...study,
     href: getStudyHref(study),
     category:
-      study.kind === 'experience'
-        ? 'Professional experience'
-        : 'Open-source project',
-    readingTime: `${Math.max(1, Math.ceil(words / 200))} min read`,
-    action:
-      study.kind === 'experience'
-        ? 'Read the case study'
-        : 'Explore the project',
+      study.kind === 'experience' ? t.professionalCategory : t.projectCategory,
+    readingTime: `${Math.max(1, Math.ceil(words / 200))} ${t.readingTime}`,
+    action: study.kind === 'experience' ? t.readCaseStudy : t.exploreTheProject,
     evidenceNote:
-      study.kind === 'experience'
-        ? 'Based on professional experience documented in my CV. Internal implementation details are omitted.'
-        : 'Project capabilities are documented in the linked public repositories. Production adoption is not implied.',
+      study.kind === 'experience' ? t.professionalEvidence : t.projectEvidence,
   };
 }
 

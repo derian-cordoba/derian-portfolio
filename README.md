@@ -1,6 +1,6 @@
 # Derian Córdoba · Portfolio
 
-A static, content-first portfolio built with Astro, TypeScript, and Tailwind CSS. Includes a homepage, two professional case studies, three open-source project pages, a downloadable CV, and an accessible gateway simulation.
+A static, content-first portfolio built with Astro, TypeScript, and Tailwind CSS. Includes English and Spanish homepages, two professional case studies and three open-source project pages in each language, localized CV downloads, and an accessible gateway simulation.
 
 ## Run locally
 
@@ -36,13 +36,22 @@ See [architecture decisions](docs/architecture.md) for dependency rules and trad
 ## Edit content
 
 - Update identity, contact details, and career history in `src/content/profile.ts`.
-- Add or edit case studies in `src/content/studies/`. The collection schema validates metadata during the build.
+- Add or edit case studies in `src/content/studies/en/` and `src/content/studies/es/`. The collection schema validates metadata during the build. Keep the same `studyId` in each translated pair and set the corresponding `locale`.
 - Use `kind: experience` for `/work/{id}/` or `kind: project` for `/projects/{id}/`.
 - Replace `public/Derian-Cordoba-CV-2026.pdf` when updating the CV.
+- Update the Spanish CV source in `src/content/resume-es.json`. Its prebuilt PDF is `public/Derian-Cordoba-CV-2026-ES.pdf`; the optional macOS authoring helper is `scripts/generate-resume-es.m` (build/run instructions are in its header).
 - Change `SITE_URL` when moving to a custom domain, then rebuild. It controls canonical URLs and the sitemap.
 - Change design tokens in `src/styles/global.css`; reusable UI components live in `src/components/ui/`.
 
 Professional summaries are grounded in the supplied CV. Open-source descriptions are grounded in repository documentation. Diagrams and the gateway interaction are illustrative, not production telemetry.
+
+## Localization
+
+English keeps the original URLs (`/`, `/work/.../`, `/projects/.../`). Spanish uses `/es/` with the same stable page slugs. The header's EN/ES links preserve the current page; JavaScript also preserves query parameters and the current fragment. Native links work without JavaScript.
+
+UI strings are in `src/i18n/en.ts` and `src/i18n/es.ts`. Spanish dictionaries must satisfy the English key contract. Shared routing helpers own locale detection, links, and CV selection. Career translations live in `src/content/experience-es.ts`. Both locale-specific content and the gateway view model use the same presentation components.
+
+Document language, canonical and alternate language URLs, Open Graph metadata, social images, accessibility labels, error pages, diagrams, and downloadable CVs are localized. `/404.html` is the static host's default English error document; `/es/404/` is the translated error page. Configuring a host to use the Spanish document for unknown `/es/*` paths is a hosting concern.
 
 ## Quality checks
 

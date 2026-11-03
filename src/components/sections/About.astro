@@ -1,64 +1,59 @@
 ---
+import { getTranslations } from '@/i18n';
+import { getLocale } from '@/i18n/routing';
 import SectionHeading from '../ui/SectionHeading.astro';
 import Icon from '../ui/Icon.astro';
+const locale = getLocale(Astro.url.pathname);
+const t = getTranslations(locale);
 const principles = [
   {
     number: '01',
-    title: 'Start with the problem.',
-    text: 'Understand the workflow, constraints, and people before choosing the architecture.',
+    title: t.principleOneTitle,
+    text: t.principleOneText,
   },
   {
     number: '02',
-    title: 'Make complexity manageable.',
-    text: 'Clear boundaries, useful abstractions, and tests that protect meaningful behavior.',
+    title: t.principleTwoTitle,
+    text: t.principleTwoText,
   },
   {
     number: '03',
-    title: 'Help the whole team move.',
-    text: 'Shared tools, thoughtful reviews, and automated delivery that reduce repetitive work.',
+    title: t.principleThreeTitle,
+    text: t.principleThreeText,
   },
 ];
 const capabilities = [
   {
     icon: 'code' as const,
-    title: 'Backend & full-stack',
-    text: 'TypeScript · Node.js · NestJS · Laravel · Next.js · React',
+    title: t.backendTitle,
+    text: t.backendTools,
   },
   {
     icon: 'layers' as const,
-    title: 'Architecture & data',
-    text: 'API design · Multi-tenancy · DDD · PostgreSQL · SQL optimization',
+    title: t.architectureTitle,
+    text: t.architectureTools,
   },
   {
     icon: 'terminal' as const,
-    title: 'Quality & delivery',
-    text: 'Automated testing · CI/CD · Docker · Developer tooling',
+    title: t.deliveryTitle,
+    text: t.deliveryTools,
   },
 ];
 ---
 
 <section id="about" class="section-space border-y border-line bg-[#efefe8]">
   <div class="shell">
-    <SectionHeading
-      number="03"
-      label="The way I work"
-      title="Thoughtful engineering. Shared progress."
-    />
+    <SectionHeading number="03" label={t.aboutLabel} title={t.aboutTitle} />
     <div class="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
       <div>
         <p
           class="font-display text-xl leading-relaxed font-medium tracking-tight sm:text-2xl"
         >
-          I care about what happens after the code ships.
+          {t.aboutLead}
         </p><p class="mt-5 max-w-lg text-sm leading-relaxed text-muted">
-          How a system behaves under pressure. How easy it is for the next
-          engineer to change it. Whether it solves the problem the business
-          actually has.
+          {t.aboutFirst}
         </p><p class="mt-4 max-w-lg text-sm leading-relaxed text-muted">
-          My experience spans enterprise applications, SaaS platforms, backend
-          services, and technical leadership. Across those settings, I keep
-          coming back to clear architecture, practical automation, and working
-          well with people.
+          {t.aboutSecond}
         </p><div class="mt-8 space-y-5">
           {
             capabilities.map((item) => (

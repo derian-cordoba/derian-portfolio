@@ -1,7 +1,11 @@
 ---
+import { getTranslations } from '@/i18n';
+import { getLocale } from '@/i18n/routing';
 import { profile } from '@/content/profile';
 import ActionLink from '../ui/ActionLink.astro';
 import Icon from '../ui/Icon.astro';
+const locale = getLocale(Astro.url.pathname);
+const t = getTranslations(locale);
 import SystemMap from '../visuals/SystemMap.astro';
 ---
 
@@ -9,21 +13,19 @@ import SystemMap from '../visuals/SystemMap.astro';
   <div class="grid items-center gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
     <div>
       <p class="eyebrow mb-6 flex items-center gap-2.5 text-muted">
-        <span class="size-1.5 rounded-full bg-blue"></span>Senior software
-        engineer
+        <span class="size-1.5 rounded-full bg-blue"></span>{t.heroEyebrow}
       </p>
       <h1
         class="display-title max-w-2xl text-[clamp(2.9rem,6vw,5.25rem)] leading-[1.08]"
       >
-        Good systems.<br /><span class="text-blue">Better outcomes.</span>
+        {t.heroTitle}<br /><span class="text-blue">{t.heroAccent}</span>
       </h1>
       <p class="mt-6 max-w-md text-base leading-relaxed text-muted sm:text-lg">
-        I’m Derian. I build reliable backend systems, thoughtful full-stack
-        applications, and tools that help teams ship better.
+        {t.heroDescription}
       </p>
       <div class="mt-8 flex flex-wrap items-center gap-3">
-        <ActionLink href="#work" icon="arrow-right">Explore my work</ActionLink
-        ><ActionLink href="#contact" variant="text">Let’s talk</ActionLink>
+        <ActionLink href="#work" icon="arrow-right">{t.exploreWork}</ActionLink
+        ><ActionLink href="#contact" variant="text">{t.letsTalk}</ActionLink>
       </div>
       <div
         class="mt-9 flex flex-wrap items-center gap-x-5 gap-y-3 text-[11px] text-muted"
@@ -47,12 +49,12 @@ import SystemMap from '../visuals/SystemMap.astro';
     </div>
     <div class="relative lg:pl-3">
       <SystemMap /><div
-        class="absolute -right-2 -bottom-4 rounded-lg border border-line bg-paper px-4 py-3 shadow-sm sm:-right-4"
+        class="absolute -right-2 -bottom-4 max-w-[calc(100%-1rem)] rounded-lg border border-line bg-paper px-4 py-3 shadow-sm sm:-right-4"
       >
         <p class="text-[11px] font-medium">
-          Built to work. Designed to last.
+          {t.heroNote}
         </p><p class="mt-1 font-mono text-[9px] text-muted">
-          Architecture → implementation → delivery
+          {t.deliveryFlow}
         </p>
       </div>
     </div>
@@ -62,23 +64,23 @@ import SystemMap from '../visuals/SystemMap.astro';
   >
     <div>
       <p class="font-display text-3xl font-semibold tracking-tight">
-        7+ <span class="text-sm font-normal text-muted">years</span>
+        7+ <span class="text-sm font-normal text-muted">{t.years}</span>
       </p><p class="mt-1 text-xs text-muted">
-        Building software across industries
+        {t.yearsDescription}
       </p>
     </div>
     <div class="sm:border-l sm:border-line sm:pl-8">
       <p class="font-display text-3xl font-semibold tracking-tight">
-        Up to 80<span class="text-xl">%</span>
+        {t.performanceValue}<span class="text-xl">%</span>
       </p><p class="mt-1 text-xs text-muted">
-        Improvement in key Laravel processing flows
+        {t.performanceDescription}
       </p>
     </div>
     <div class="sm:border-l sm:border-line sm:pl-8">
       <p class="font-display text-3xl font-semibold tracking-tight">
-        25+ <span class="text-sm font-normal text-muted">companies</span>
+        25+ <span class="text-sm font-normal text-muted">{t.companies}</span>
       </p><p class="mt-1 text-xs text-muted">
-        Using a platform I designed backend services for
+        {t.companiesDescription}
       </p>
     </div>
   </div>

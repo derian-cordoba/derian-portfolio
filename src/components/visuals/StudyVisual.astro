@@ -8,8 +8,9 @@ import SecureKeysVisual from './SecureKeysVisual.astro';
 interface Props {
   visual: StudyVisual;
   compact?: boolean;
+  class?: string;
 }
-const { visual, compact = false } = Astro.props;
+const { visual, compact = false, class: className } = Astro.props;
 const visuals = {
   performance: { component: PerformanceVisual, background: 'bg-[#e9eef6]' },
   platform: { component: PlatformVisual, background: 'bg-[#e8eee8]' },
@@ -25,8 +26,9 @@ const { component: Visual, background } = visuals[visual];
 
 <div
   class:list={[
-    'relative flex h-full min-h-56 flex-col justify-center overflow-hidden rounded-lg p-6 sm:p-8',
+    'relative flex h-full min-h-56 w-full min-w-0 flex-col justify-center overflow-hidden rounded-lg p-6 sm:p-8',
     background,
+    className,
   ]}
 >
   <Visual compact={compact} />

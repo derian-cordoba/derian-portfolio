@@ -1,12 +1,16 @@
 ---
+import { getTranslations } from '@/i18n';
+import { getLocale } from '@/i18n/routing';
+const locale = getLocale(Astro.url.pathname);
+const t = getTranslations(locale);
 import Icon from '../ui/Icon.astro';
 ---
 
 <div>
-  <div class="mb-6 flex items-center justify-between">
+  <div class="mb-6 flex items-center justify-between gap-2">
     <>
-      <span class="eyebrow text-blue-200">Gateway / request flow</span>
-      <Icon name="terminal" />
+      <span class="eyebrow text-blue-200">{t.gatewayFlow}</span>
+      <Icon name="terminal" class="size-4 shrink-0" />
     </>
   </div>
   <div
@@ -15,21 +19,21 @@ import Icon from '../ui/Icon.astro';
     <span class="text-emerald-300">GET</span> /api/orders{' '}
     <span class="float-right text-emerald-300">200</span>
   </div>
-  <div class="my-5 flex items-center justify-between gap-2 text-[10px]">
+  <div class="my-5 flex items-center justify-between gap-1 text-[10px]">
     <>
-      <span>Client</span>
+      <span>{t.client}</span>
       <span class="h-px flex-1 bg-blue-200/30"></span>
-      <span class="rounded border border-blue-200/40 px-3 py-2 text-blue-100">
-        Gateway
+      <span class="rounded border border-blue-200/40 px-2 py-2 text-blue-100">
+        {t.gateway}
       </span>
       <span class="h-px flex-1 bg-blue-200/30"></span>
-      <span>Service</span>
+      <span>{t.service}</span>
     </>
   </div>
   <div class="flex flex-wrap gap-2">
     {
-      ['auth', 'rate limit', 'circuit breaker'].map((label) => (
-        <span class="rounded border border-white/15 px-2 py-1 font-mono text-[9px] text-blue-100">
+      [t.auth, t.rateLimit, t.circuitBreaker].map((label) => (
+        <span class="max-w-full min-w-0 rounded border border-white/15 px-2 py-1 font-mono text-[9px] wrap-break-word text-blue-100">
           {label}
         </span>
       ))

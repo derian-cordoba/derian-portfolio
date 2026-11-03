@@ -1,5 +1,9 @@
 ---
+import { getTranslations } from '@/i18n';
+import { getLocale } from '@/i18n/routing';
 import { profile } from '@/content/profile';
+const locale = getLocale(Astro.url.pathname);
+const t = getTranslations(locale);
 import Icon from '../ui/Icon.astro';
 ---
 
@@ -7,12 +11,11 @@ import Icon from '../ui/Icon.astro';
   <div class="shell grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-end">
     <div>
       <p class="eyebrow mb-5 text-blue-200">
-        05 <span class="ml-3">Let’s connect</span>
+        05 <span class="ml-3">{t.contactLabel}</span>
       </p><h2 class="display-title max-w-lg text-4xl leading-tight sm:text-5xl">
-        Good work starts<br />with a conversation.
+        {t.contactTitle}<br />{t.contactAccent}
       </h2><p class="mt-5 max-w-md text-sm leading-relaxed text-blue-100">
-        Have a challenging engineering problem, a role in mind, or an idea worth
-        exploring? I’d like to hear about it.
+        {t.contactDescription}
       </p>
     </div>
     <div class="md:pb-2">
@@ -40,7 +43,7 @@ import Icon from '../ui/Icon.astro';
           /></a
         >
       </div><p class="mt-4 text-[11px] text-blue-200">
-        Based in Nicaragua · Working with international teams
+        {t.contactLocation}
       </p>
     </div>
   </div>

@@ -1,4 +1,6 @@
 ---
+locale: en
+studyId: agricultural-platform
 kind: experience
 order: 2
 title: One platform. Many business workflows.

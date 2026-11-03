@@ -1,4 +1,6 @@
 ---
+locale: en
+studyId: api-gateway
 kind: project
 order: 3
 title: The front door to your services.

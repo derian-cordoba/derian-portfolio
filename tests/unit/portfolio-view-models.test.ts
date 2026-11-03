@@ -8,6 +8,8 @@ import { createGatewayViewModel } from '@/presentation/view-models/gateway-view-
 function makeStudy(overrides: Partial<Study> = {}): Study {
   return {
     id: 'gateway',
+    contentId: 'en/gateway',
+    locale: 'en',
     kind: 'project',
     order: 1,
     title: 'Gateway',

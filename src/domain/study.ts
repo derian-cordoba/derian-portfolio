@@ -1,9 +1,13 @@
+import type { Locale } from './locale';
+
 export type StudyKind = 'experience' | 'project';
 export type StudyVisual =
   'performance' | 'platform' | 'gateway' | 'experimentation' | 'secure-keys';
 
 export interface Study {
   readonly id: string;
+  readonly contentId: string;
+  readonly locale: Locale;
   readonly kind: StudyKind;
   readonly order: number;
   readonly title: string;

@@ -1,4 +1,8 @@
 ---
+import { getTranslations } from '@/i18n';
+import { getLocale, localizePath } from '@/i18n/routing';
+const locale = getLocale(Astro.url.pathname);
+const t = getTranslations(locale);
 import { profile } from '@/content/profile';
 ---
 
@@ -7,9 +11,11 @@ import { profile } from '@/content/profile';
     class="shell flex flex-col justify-between gap-4 py-7 text-[11px] text-muted sm:flex-row"
   >
     <p>© {new Date().getFullYear()} {profile.name}</p>
-    <p>Thoughtfully built. Always evolving.</p>
-    <a href="/#top" class="underline-offset-4 hover:text-blue hover:underline"
-      >Back to top ↑</a
+    <p>{t.footerNote}</p>
+    <a
+      href={localizePath('/#top', locale)}
+      class="underline-offset-4 hover:text-blue hover:underline"
+      >{t.backToTop} ↑</a
     >
   </div>
 </footer>

@@ -1,7 +1,11 @@
 ---
+import { getTranslations } from '@/i18n';
+import { getLocale } from '@/i18n/routing';
 import type { StudyViewModel } from '@/presentation/view-models/study-view-model';
 import StudyVisual from '../visuals/StudyVisual.astro';
 import Icon from '../ui/Icon.astro';
+const locale = getLocale(Astro.url.pathname);
+const t = getTranslations(locale);
 interface Props {
   study: StudyViewModel;
   index: number;
@@ -9,16 +13,16 @@ interface Props {
 const { study, index } = Astro.props;
 ---
 
-<article class="group flex h-full flex-col">
+<article class="group flex h-full min-w-0 flex-col">
   <a
     href={study.href}
-    aria-label={`Explore ${study.title}`}
-    class="block rounded-lg transition-transform duration-200 hover:-translate-y-1"
-    ><StudyVisual visual={study.visual} compact /></a
+    aria-label={`${t.exploreLabel} ${study.title}`}
+    class="block h-80 min-w-0 shrink-0 rounded-lg transition-transform duration-200 hover:-translate-y-1"
+    ><StudyVisual visual={study.visual} compact class="p-5!" /></a
   >
   <div class="flex flex-1 flex-col pt-6">
     <p class="eyebrow flex items-center justify-between text-muted">
-      <span>Open source</span><span class="font-mono">0{index + 1}</span>
+      <span>{t.openSource}</span><span class="font-mono">0{index + 1}</span>
     </p>
     <h3
       class="mt-3 font-display text-xl leading-snug font-semibold tracking-tight"
@@ -35,12 +39,12 @@ const { study, index } = Astro.props;
       class="mt-4 flex items-center justify-between border-t border-line pt-2"
     >
       <a href={study.href} class="text-link text-xs"
-        >Explore project<Icon name="arrow-up-right" /></a
+        >{t.exploreProject}<Icon name="arrow-up-right" /></a
       >{
         study.repository && (
           <a
             href={study.repository}
-            aria-label={`${study.title} on GitHub`}
+            aria-label={`${study.title} ${t.onGithub}`}
             class="flex size-11 items-center justify-center rounded-md hover:bg-blue-light hover:text-blue"
           >
             <Icon name="github" />

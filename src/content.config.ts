@@ -5,6 +5,8 @@ import { glob } from 'astro/loaders';
 const studies = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/studies' }),
   schema: z.object({
+    locale: z.enum(['en', 'es']),
+    studyId: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/u),
     kind: z.enum(['experience', 'project']),
     order: z.number().int().positive(),
     title: z.string().min(1),

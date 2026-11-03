@@ -1,7 +1,12 @@
 ---
-import { experiences, profile } from '@/content/profile';
+import { getTranslations } from '@/i18n';
+import { getLocale, getResumePath } from '@/i18n/routing';
+import { getExperiences } from '@/content/profile';
 import SectionHeading from '../ui/SectionHeading.astro';
 import ExperienceRow from '../work/ExperienceRow.astro';
+const locale = getLocale(Astro.url.pathname);
+const t = getTranslations(locale);
+const experiences = getExperiences(locale);
 import ActionLink from '../ui/ActionLink.astro';
 ---
 
@@ -9,9 +14,9 @@ import ActionLink from '../ui/ActionLink.astro';
   <div class="shell">
     <SectionHeading
       number="04"
-      label="The journey so far"
-      title="Experience, built over time."
-      description="From backend foundations to leading teams and building enterprise systems."
+      label={t.experienceLabel}
+      title={t.experienceTitle}
+      description={t.experienceDescription}
     /><ol>
       {
         experiences
@@ -21,8 +26,7 @@ import ActionLink from '../ui/ActionLink.astro';
     </ol><details class="border-y border-line">
       <summary
         class="flex min-h-14 list-none items-center justify-between py-3 text-xs font-medium hover:text-blue"
-        ><span>Earlier experience · 2019—2022</span><span aria-hidden="true"
-          >＋</span
+        ><span>{t.earlierExperience}</span><span aria-hidden="true">＋</span
         ></summary
       ><ol>
         {
@@ -35,13 +39,12 @@ import ActionLink from '../ui/ActionLink.astro';
       class="mt-8 flex flex-col justify-between gap-5 sm:flex-row sm:items-center"
     >
       <p class="max-w-sm text-xs leading-relaxed text-muted">
-        B.Sc. in Software Engineering · UNAN, León<br />Spanish, native ·
-        English, professional working proficiency
+        {t.education}<br />{t.languages}
       </p><ActionLink
-        href={profile.resume}
+        href={getResumePath(locale)}
         variant="secondary"
         icon="download"
-        download>Download full résumé</ActionLink
+        download>{t.downloadResume}</ActionLink
       >
     </div>
   </div>

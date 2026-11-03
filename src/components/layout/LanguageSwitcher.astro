@@ -1,0 +1,45 @@
+---
+import { locales } from '@/domain/locale';
+import { getTranslations } from '@/i18n';
+import { getLocale, localizePath } from '@/i18n/routing';
+const locale = getLocale(Astro.url.pathname);
+const t = getTranslations(locale);
+---
+
+<nav
+  aria-label={t.languageNavigation}
+  class="flex shrink-0 rounded-md border border-line p-0.5"
+>
+  {
+    locales.map((language) => (
+      <a
+        href={localizePath(Astro.url.pathname, language)}
+        lang={language}
+        hreflang={language}
+        aria-label={language === 'en' ? t.switchEnglish : t.switchSpanish}
+        aria-current={locale === language ? 'page' : undefined}
+        data-language-switch
+        class:list={[
+          'flex min-h-10 min-w-9 items-center justify-center rounded px-2 text-[11px] font-semibold transition-colors',
+          locale === language
+            ? 'bg-blue text-white'
+            : 'text-muted hover:bg-blue-light hover:text-blue',
+        ]}
+      >
+        {language.toUpperCase()}
+      </a>
+    ))
+  }
+</nav>
+<script>
+  for (const link of document.querySelectorAll<HTMLAnchorElement>(
+    '[data-language-switch]',
+  )) {
+    link.addEventListener('click', () => {
+      const target = new URL(link.href);
+      target.hash = window.location.hash;
+      target.search = window.location.search;
+      link.href = target.href;
+    });
+  }
+</script>

@@ -1,6 +1,10 @@
 ---
+import { getTranslations } from '@/i18n';
+import { getLocale } from '@/i18n/routing';
 import type { StudyViewModel } from '@/presentation/view-models/study-view-model';
 import ActionLink from '../ui/ActionLink.astro';
+const locale = getLocale(Astro.url.pathname);
+const t = getTranslations(locale);
 interface Props {
   study: StudyViewModel;
 }
@@ -11,9 +15,9 @@ const { study } = Astro.props;
   <dl class="space-y-6">
     {
       [
-        { label: 'Organization', value: study.organization },
-        { label: 'My role', value: study.role },
-        { label: 'Period', value: study.period },
+        { label: t.organization, value: study.organization },
+        { label: t.myRole, value: study.role },
+        { label: t.period, value: study.period },
       ].map((item) => (
         <div>
           <>
@@ -38,7 +42,7 @@ const { study } = Astro.props;
         variant="secondary"
         class="mt-6 w-full text-xs!"
       >
-        View repository
+        {t.viewRepository}
       </ActionLink>
     )
   }

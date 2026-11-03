@@ -47,3 +47,11 @@ Collection schemas validate content at build time. Unit tests exercise grouping,
 ## Dependency compatibility
 
 The package overrides update transitive `minimatch` and `esbuild` versions to address published advisories. Production builds and lint checks exercise their consumers. Remove the overrides when the upstream dependency ranges include patched releases.
+
+## Localization
+
+Locale is an explicit content attribute with a framework-independent `Locale` union. Study IDs remain stable across translations; content IDs distinguish the Markdown entries. The repository loads both languages, and the homepage view-model factory filters by locale before sorting and mapping cards. Routes render the correct collection entry through its content ID.
+
+Typed dictionaries cover UI and interaction messages. The gateway controller reads its element's language and keeps that locale when transitioning between states. Routing helpers centralize locale prefixes, canonical page identity, and localized CV paths. Templates never duplicate a page solely to translate its layout.
+
+English keeps its existing URLs. Spanish uses `/es/`; canonical, reciprocal alternate, x-default, and sitemap entries describe the relationship. Native language links work without JavaScript. A small enhancement preserves the query and fragment on switching, without requiring cookies or browser-language redirects.

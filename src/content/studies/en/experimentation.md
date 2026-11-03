@@ -1,4 +1,6 @@
 ---
+locale: en
+studyId: experimentation
 kind: project
 order: 4
 title: Consistent experiments, server to browser.

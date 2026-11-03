@@ -1,5 +1,12 @@
+---
+import { getTranslations } from '@/i18n';
+const locale = getLocale(Astro.url.pathname);
+const t = getTranslations(locale);
+import { getLocale } from '@/i18n/routing';
+---
+
 <div>
-  <div class="eyebrow mb-6 text-[#365744]">Built around the business</div>
+  <div class="eyebrow mb-6 text-[#365744]">{t.platformVisualTitle}</div>
   <div class="flex justify-center gap-2" aria-hidden="true">
     {
       ['A', 'B', 'C'].map((label) => (
@@ -13,9 +20,9 @@
   <div
     class="mx-auto max-w-56 rounded-md border border-[#365744]/30 bg-white/30 py-3 text-center font-mono text-[11px] text-[#365744]"
   >
-    Shared platform services
+    {t.sharedServices}
   </div>
   <p class="mt-6 text-center text-[10px] text-[#365744]">
-    25+ companies. Connected workflows.
+    {t.platformVisualNote}
   </p>
 </div>

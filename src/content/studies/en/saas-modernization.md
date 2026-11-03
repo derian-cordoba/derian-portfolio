@@ -1,4 +1,6 @@
 ---
+locale: en
+studyId: saas-modernization
 kind: experience
 order: 1
 title: Faster flows. A more maintainable SaaS.

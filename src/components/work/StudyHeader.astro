@@ -1,7 +1,11 @@
 ---
+import { getTranslations } from '@/i18n';
+import { getLocale, localizePath } from '@/i18n/routing';
 import type { StudyViewModel } from '@/presentation/view-models/study-view-model';
 import Icon from '../ui/Icon.astro';
 import StudyVisual from '../visuals/StudyVisual.astro';
+const locale = getLocale(Astro.url.pathname);
+const t = getTranslations(locale);
 interface Props {
   study: StudyViewModel;
 }
@@ -10,9 +14,12 @@ const { study } = Astro.props;
 
 <section class="shell pt-10 pb-14 md:pt-14 md:pb-20">
   <a
-    href={study.kind === 'experience' ? '/#work' : '/#projects'}
+    href={localizePath(
+      study.kind === 'experience' ? '/#work' : '/#projects',
+      locale,
+    )}
     class="text-link mb-8 text-xs text-muted"
-    ><Icon name="arrow-right" class="size-3 rotate-180" />Back to selected work</a
+    ><Icon name="arrow-right" class="size-3 rotate-180" />{t.backToWork}</a
   >
   <div class="grid items-center gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
     <div>
