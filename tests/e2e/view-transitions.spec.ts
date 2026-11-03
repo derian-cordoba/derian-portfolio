@@ -1,28 +1,5 @@
-import { test, expect, type Page } from '@playwright/test';
-
-/** ClientRouter can update the DOM before it finishes navigation and runs page scripts. */
-async function navigateAndWaitForPageLoad(
-  page: Page,
-  navigate: () => Promise<unknown>,
-): Promise<void> {
-  await page.evaluate(() => {
-    const state = window as unknown as { portfolioNavigationComplete: boolean };
-    state.portfolioNavigationComplete = false;
-    document.addEventListener(
-      'astro:page-load',
-      () => {
-        state.portfolioNavigationComplete = true;
-      },
-      { once: true },
-    );
-  });
-  await navigate();
-  await page.waitForFunction(
-    () =>
-      (window as unknown as { portfolioNavigationComplete: boolean })
-        .portfolioNavigationComplete,
-  );
-}
+import { test, expect } from '@playwright/test';
+import { navigateAndWaitForPageLoad } from './support/navigation';
 
 const paths = [
   '/',

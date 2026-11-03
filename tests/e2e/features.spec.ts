@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { navigateAndWaitForPageLoad } from './support/navigation';
 
 test('new content is localized and linked through the shared navigation', async ({
   page,
@@ -110,10 +111,18 @@ test('analytics events contain no query, email, or form fields and do not duplic
   ).toEqual([
     { name: 'Walkthrough explored', locale: 'en', scenario: 'timeout' },
   ]);
-  await page
-    .getByRole('link', { name: 'ES — Leer esta página en español' })
-    .click();
-  await page.locator('[data-walkthrough-scenario="timeout"] summary').click();
+  await navigateAndWaitForPageLoad(page, () =>
+    page
+      .getByRole('link', { name: 'ES — Leer esta página en español' })
+      .click(),
+  );
+  await expect(page.locator('html')).toHaveAttribute('lang', 'es');
+  const spanishPanel = page.locator(
+    'html[lang="es"] [data-walkthrough-scenario="timeout"]',
+  );
+  await expect(spanishPanel).not.toHaveAttribute('open');
+  await spanishPanel.locator('summary').click();
+  await expect(spanishPanel).toHaveAttribute('open');
   await expect
     .poll(() =>
       page.evaluate(
@@ -123,6 +132,15 @@ test('analytics events contain no query, email, or form fields and do not duplic
       ),
     )
     .toBe(2);
+  expect(
+    await page.evaluate(
+      () =>
+        (window as unknown as { portfolioEvents: unknown[] }).portfolioEvents,
+    ),
+  ).toEqual([
+    { name: 'Walkthrough explored', locale: 'en', scenario: 'timeout' },
+    { name: 'Walkthrough explored', locale: 'es', scenario: 'timeout' },
+  ]);
 });
 
 test('the enabled inquiry form submits natively to the localized confirmation URL', async ({

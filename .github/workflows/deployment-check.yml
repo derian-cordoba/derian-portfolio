@@ -28,6 +28,6 @@ jobs:
 
       - uses: actions/setup-node@v7
         with:
-          node-version: "26.3.0"
+          node-version: '26.3.0'
 
       - run: npm run test:deployed
