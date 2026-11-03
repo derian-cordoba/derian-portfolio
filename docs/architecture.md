@@ -61,3 +61,15 @@ English keeps its existing URLs. Spanish uses `/es/`; canonical, reciprocal alte
 The theme model resolves an explicit preference before the system preference. A pure view model supplies the next state, toggle state, and localized action label. A browser adapter handles optional local storage; the custom element binds clicks, system changes, and cross-tab storage events with lifecycle cleanup.
 
 A minimal synchronous head script applies the stored choice before body rendering. Its generated JavaScript is tested directly so the first-paint path stays consistent with the application preference rules. Semantic CSS color pairs provide the light and dark palettes through `color-scheme`, including a no-JavaScript system fallback. Fixed dark diagrams keep light text, while previously fixed pastel diagrams have theme-aware colors.
+
+## Notes and guided evidence
+
+Notes use a framework-independent domain model and a small repository port. Astro adapters load validated collections; pure view models filter by locale, order entries, compute reading time, and create routes. Route composition selects the adapter. Dedicated page and card components share layouts and heading primitives. The application layer does not import Astro or browser APIs.
+
+Gateway walkthrough data is separate from localized explanation and DOM rendering. Published JSON examples and tests are pinned to one repository revision. Native grouped disclosures make the traces usable without client JavaScript. The existing circuit-state simulation remains explicitly illustrative. Optional study media has typed dimensions, alt text, a caption, and a source link.
+
+## Contact and measurement boundaries
+
+A lifecycle-managed custom element handles email copying and feedback. Netlify inquiry forms are statically generated only when enabled; native POST delegates delivery and spam handling to the hosting provider. Successful browser submission is not treated as proof of inbox delivery.
+
+Engagement names and metadata are bounded domain contracts. A browser adapter queues the optional Plausible transport, handles privacy preferences, and sanitizes URLs. A delegated controller attaches once across Astro transitions, while pageviews follow the router lifecycle. No form field values enter the measurement path. Tracking remains disabled until an account-specific script URL is configured.

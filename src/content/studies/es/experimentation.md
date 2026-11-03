@@ -13,6 +13,13 @@ result: Una asignación
 resultLabel: compartida entre el servidor y el navegador
 visual: experimentation
 repository: https://github.com/derian-cordoba/laravel-ab-testing
+media:
+  src: /images/experimentation-dashboard.png
+  alt: 'Panel de Laravel A/B Testing con resúmenes de experimentos y banderas de funcionalidades'
+  caption: 'Captura del panel publicada en el repositorio del proyecto. Los valores mostrados ilustran la interfaz; no demuestran adopción en producción.'
+  source: https://github.com/derian-cordoba/laravel-ab-testing/blob/main/docs/resources/ab-testing-dashboard-screenshot.png
+  width: 2048
+  height: 987
 ---
 
 ## El problema

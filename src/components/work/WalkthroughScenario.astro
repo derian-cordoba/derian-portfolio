@@ -1,0 +1,51 @@
+---
+import Link from '@/components/ui/Link.astro';
+import type { Locale } from '@/domain/locale';
+import { getFeatureCopy } from '@/i18n/features';
+import type { createWalkthroughViewModel } from '@/presentation/view-models/walkthrough-view-model';
+interface Props {
+  scenario: ReturnType<typeof createWalkthroughViewModel>[number];
+  locale: Locale;
+}
+const { scenario, locale } = Astro.props;
+const copy = getFeatureCopy(locale);
+---
+
+<details
+  name="gateway-scenarios"
+  data-walkthrough-scenario={scenario.id}
+  class="group rounded-lg border border-line bg-surface"
+>
+  <summary
+    class="flex min-h-16 items-center justify-between gap-3 p-5 text-sm font-semibold"
+  >
+    <span>{scenario.title}</span><span class="font-mono text-blue"
+      >{scenario.status}<span
+        aria-hidden="true"
+        class="ml-3 inline-block group-open:rotate-45">+</span
+      ></span
+    >
+  </summary>
+  <div class="border-t border-line p-5">
+    <h3 class="eyebrow text-blue">{copy.trace}</h3>
+    <ol
+      class="mt-4 list-decimal space-y-3 pl-5 text-sm leading-relaxed text-muted"
+    >
+      {scenario.steps.map((step) => <li>{step}</li>)}
+    </ol>
+    <h3 class="eyebrow mt-7 text-blue">{copy.configuration}</h3>
+    <pre
+      tabindex="0"
+      aria-label={copy.configuration}
+      class="mt-4 max-h-96 overflow-auto rounded-md border border-line bg-paper p-4 text-xs leading-relaxed text-ink"><code>{scenario.configuration}</code></pre>
+    <div class="mt-5 flex flex-wrap gap-5 text-sm">
+      <Link
+        href={scenario.sourceHref}
+        class="text-link underline underline-offset-4">{copy.source}</Link
+      ><Link
+        href={scenario.testsHref}
+        class="text-link underline underline-offset-4">{copy.tests}</Link
+      >
+    </div>
+  </div>
+</details>

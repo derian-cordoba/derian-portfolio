@@ -18,9 +18,9 @@ function htmlFiles(directory: string): string[] {
   });
 }
 
-test('all fourteen generated pages include localized content and document metadata', () => {
+test('all twenty-four generated pages include localized content and document metadata', () => {
   const files = htmlFiles(output);
-  assert.equal(files.length, 14);
+  assert.equal(files.length, 24);
 
   for (const filename of files) {
     const html = readFileSync(filename, 'utf8');
@@ -191,4 +191,70 @@ test('Spanish case studies and simulation are pre-rendered in Spanish', () => {
   assert.ok(html.includes('lang="es"'));
   assert.ok(html.includes('Circuito'));
   assert.ok(!html.includes('Simulate upstream failure'));
+});
+
+test('hiring, notes, and evidence are complete static documents in both languages', () => {
+  for (const prefix of ['', 'es/']) {
+    const hiring = readFileSync(
+      join(output, prefix, 'hiring/index.html'),
+      'utf8',
+    );
+    const notes = readFileSync(
+      join(output, prefix, 'notes/index.html'),
+      'utf8',
+    );
+    const gateway = readFileSync(
+      join(output, prefix, 'projects/api-gateway/index.html'),
+      'utf8',
+    );
+    assert.ok(hiring.includes(`href="/${prefix}notes/"`));
+    for (const id of ['failure-controls', 'consistent-experiments']) {
+      assert.ok(notes.includes(`href="/${prefix}notes/${id}/"`));
+      assert.ok(existsSync(join(output, prefix, `notes/${id}/index.html`)));
+    }
+    assert.equal(
+      [...gateway.matchAll(/data-walkthrough-scenario=/gu)].length,
+      3,
+    );
+    assert.ok(gateway.includes('id="walkthrough"'));
+    assert.ok(gateway.includes('tests/integration/timeout.test.ts'));
+    assert.ok(gateway.includes('&quot;timeout&quot;: 100'));
+    const experiment = readFileSync(
+      join(output, prefix, 'projects/experimentation/index.html'),
+      'utf8',
+    );
+    assert.ok(
+      experiment.includes('src="/images/experimentation-dashboard.png"'),
+    );
+    const thanks = readFileSync(
+      join(output, prefix, 'thanks/index.html'),
+      'utf8',
+    );
+    assert.ok(thanks.includes('content="noindex, follow"'));
+  }
+});
+
+test('optional inquiries use native Netlify POST handling and localized success pages', () => {
+  const enabled = process.env['PUBLIC_CONTACT_FORM_ENABLED'] === 'true';
+  for (const prefix of ['', 'es/']) {
+    const html = readFileSync(
+      join(output, prefix, 'hiring/index.html'),
+      'utf8',
+    );
+    assert.equal(html.includes('data-inquiry-form'), enabled);
+    if (enabled) {
+      assert.ok(html.includes('method="POST"'));
+      assert.ok(html.includes('data-netlify="true"'));
+      assert.ok(html.includes('netlify-honeypot="website"'));
+      assert.ok(html.includes('data-astro-reload'));
+      assert.ok(html.includes(`action="/${prefix}thanks/"`));
+    }
+  }
+});
+
+test('the production sitemap omits confirmation and error pages', () => {
+  const sitemap = readFileSync(join(output, 'sitemap-0.xml'), 'utf8');
+  assert.ok(!sitemap.includes('/thanks/'));
+  assert.ok(!sitemap.includes('/404/'));
+  assert.ok(sitemap.includes('/notes/failure-controls/'));
 });

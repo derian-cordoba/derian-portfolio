@@ -1,0 +1,48 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import Link from '@/components/ui/Link.astro';
+import { profile } from '@/content/profile';
+import type { Locale } from '@/domain/locale';
+import { getFeatureCopy } from '@/i18n/features';
+
+interface Props {
+  locale: Locale;
+}
+
+const copy = getFeatureCopy(Astro.props.locale);
+---
+
+<div
+  class="flex flex-col border-b border-line bg-blue-light p-6 sm:p-9 lg:border-r lg:border-b-0 lg:p-10"
+>
+  <span
+    class="mb-8 flex size-12 items-center justify-center rounded-xl border border-blue/20 bg-paper/60 text-blue"
+  >
+    <Icon name="mail" class="size-5" />
+  </span>
+  <p class="eyebrow text-blue">{copy.inquiryLabel}</p>
+  <h2
+    id="inquiry-heading"
+    class="display-title mt-4 max-w-sm text-3xl leading-tight sm:text-4xl"
+  >
+    {copy.messageTitle}
+  </h2>
+  <p class="mt-5 max-w-sm text-sm leading-relaxed text-muted">
+    {copy.inquiryIntro}
+  </p>
+  <p class="mt-6 text-xs leading-relaxed font-medium text-blue">
+    {copy.inquiryTopics}
+  </p>
+  <div class="mt-9 border-t border-blue/20 pt-6 lg:mt-auto lg:pt-7">
+    <p class="text-xs text-muted">{copy.preferEmail}</p>
+    <Link
+      href={`mailto:${profile.email}`}
+      class="mt-2 inline-flex min-h-11 max-w-full items-center gap-2 text-sm font-semibold text-blue underline-offset-4 hover:underline"
+    >
+      <span class="min-w-0 break-all">{profile.email}</span><Icon
+        name="arrow-up-right"
+        class="size-4 shrink-0"
+      />
+    </Link>
+  </div>
+</div>

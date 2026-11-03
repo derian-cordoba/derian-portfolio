@@ -55,7 +55,7 @@ Document language, canonical and alternate language URLs, Open Graph metadata, s
 
 ## Page transitions
 
-Every page uses Astro's `ClientRouter` through `BaseLayout`, including both homepages, all ten case-study/project pages, and both error pages. Page content fades and rises briefly; the header and footer remain stationary. The animation definitions are in `src/presentation/transitions.ts`, with keyframes in `src/styles/transitions.css`.
+Every page uses Astro's `ClientRouter` through `BaseLayout`, including homepages, case studies, engineering notes, hiring overviews, confirmation pages, and error pages. Page content fades and rises briefly; the header and footer remain stationary. The animation definitions are in `src/presentation/transitions.ts`, with keyframes in `src/styles/transitions.css`.
 
 The router uses an animation fallback when native View Transitions are unavailable and respects reduced-motion preferences. Delegated navigation handlers work after every body swap, while custom elements reconnect with lifecycle cleanup. The active theme is applied to the incoming document before swapping to avoid a light-theme flash. Language switching preserves the query and fragment before the router reads the link. External links and downloads retain their browser behavior. Without JavaScript, links load their static HTML pages normally.
 
@@ -84,6 +84,14 @@ The type, lint, formatting, unit, build, and generated-output checks can run loc
 
 ## Hosting and privacy
 
-The project has no runtime server, database, contact form, third-party analytics, or live GitHub API dependency. Fonts are served locally. Contact actions use email and professional profile links. The CV is a downloadable public asset on any publicly deployed copy.
+The project uses static HTML, locally served fonts, and build-time content. Optional Netlify Forms handles inquiries on production Netlify deploys. Optional Plausible integration measures predefined engagement events after configuration; it is disabled by default. Email and professional profile links remain available on all hosts. The CV is a downloadable public asset on any publicly deployed copy. See [deployment and activation](docs/deployment.md) for provider setup, domain configuration, privacy boundaries, and availability settings.
 
 The tracked `.openai/hosting.json` identifies the private Sites deployment. Public access and a custom domain are separate hosting choices. Static assets can also be deployed to another provider without changing the application architecture.
+
+## Hiring, notes, and project evidence
+
+`/hiring/` summarizes role fit and collaboration. `/notes/` contains two practical engineering articles. Both have complete `/es/` counterparts. The homepage and main navigation link to these sections. No availability is announced unless `PORTFOLIO_AVAILABILITY=open` is explicitly configured.
+
+The API Gateway case study includes three native, no-JavaScript failure-path disclosures with real configuration, pinned source/test links, and architectural tradeoffs. The experimentation project includes an attributed dashboard screenshot. Optional `media` metadata supports future case-study evidence without changing the page layout.
+
+GitHub Actions runs the complete validation command and Chromium desktop/mobile browser checks on pushes and pull requests. Test traces and reports are retained for failures. External provider delivery and analytics activation require the account configuration described in [deployment](docs/deployment.md).

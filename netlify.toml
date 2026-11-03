@@ -1,0 +1,30 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "26.3.0"
+  SITE_URL = "https://derian-cordoba.me"
+
+[context.production.environment]
+  PUBLIC_CONTACT_FORM_ENABLED = "true"
+
+[context.deploy-preview.environment]
+  PUBLIC_CONTACT_FORM_ENABLED = "false"
+  PUBLIC_PLAUSIBLE_SCRIPT_URL = ""
+
+[context.branch-deploy.environment]
+  PUBLIC_CONTACT_FORM_ENABLED = "false"
+  PUBLIC_PLAUSIBLE_SCRIPT_URL = ""
+
+[[redirects]]
+  from = "https://www.derian-cordoba.me/*"
+  to = "https://derian-cordoba.me/:splat"
+  status = 301
+  force = true
+
+# Existing Spanish pages take precedence over this localized error fallback.
+[[redirects]]
+  from = "/es/*"
+  to = "/es/404/index.html"
+  status = 404

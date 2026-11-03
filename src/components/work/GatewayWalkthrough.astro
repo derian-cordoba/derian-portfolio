@@ -1,0 +1,54 @@
+---
+import { getLocale } from '@/i18n/routing';
+import { getFeatureCopy } from '@/i18n/features';
+import { createWalkthroughViewModel } from '@/presentation/view-models/walkthrough-view-model';
+import WalkthroughScenario from './WalkthroughScenario.astro';
+const locale = getLocale(Astro.url.pathname);
+const copy = getFeatureCopy(locale);
+const scenarios = createWalkthroughViewModel(locale);
+---
+
+<section id="walkthrough" class="my-12" aria-labelledby="walkthrough-title">
+  <p class="eyebrow text-blue">API Gateway</p>
+  <h2 id="walkthrough-title" class="display-title mt-3 text-3xl">
+    {copy.walkthrough}
+  </h2>
+  <p class="mt-4 text-sm leading-relaxed text-muted">{copy.walkthroughIntro}</p>
+  <h3 class="mt-8 font-semibold">{copy.requestPath}</h3>
+  <ol class="my-5 grid gap-2 sm:grid-cols-2">
+    {
+      copy.path.map((step, index) => (
+        <li class="flex items-center gap-3 rounded-md border border-line bg-blue-light px-4 py-3 text-sm">
+          <span class="font-mono text-blue">0{index + 1}</span>
+          {step}
+        </li>
+      ))
+    }
+  </ol>
+  <p class="mb-7 text-sm leading-relaxed text-muted">{copy.pathBody}</p>
+  <div class="space-y-3">
+    {
+      scenarios.map((scenario) => (
+        <WalkthroughScenario scenario={scenario} locale={locale} />
+      ))
+    }
+  </div>
+  <h3 class="mt-10 font-display text-xl font-semibold">{copy.decisions}</h3>
+  <dl class="mt-5 space-y-6">
+    {
+      copy.decisionItems.map(([title, body]) => (
+        <div>
+          <dt class="text-sm font-semibold">{title}</dt>
+          <dd class="mt-2 text-sm leading-relaxed text-muted">{body}</dd>
+        </div>
+      ))
+    }
+  </dl>
+  <aside class="mt-8 rounded-md border border-line bg-blue-light p-5">
+    <h3 class="font-semibold">{copy.limits}</h3><p
+      class="mt-3 text-sm leading-relaxed text-muted"
+    >
+      {copy.limitsBody}
+    </p>
+  </aside>
+</section>

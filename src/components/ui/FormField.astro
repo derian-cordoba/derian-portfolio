@@ -1,0 +1,58 @@
+---
+interface Props {
+  label: string;
+  name: string;
+  type?: 'text' | 'email';
+  placeholder: string;
+  autocomplete?: string;
+  multiline?: boolean;
+  minlength?: number;
+  maxlength: number;
+}
+
+const {
+  label,
+  name,
+  type = 'text',
+  placeholder,
+  autocomplete,
+  multiline = false,
+  minlength,
+  maxlength,
+} = Astro.props;
+const controlClass =
+  'mt-3 block w-full rounded-lg border border-line bg-paper px-4 py-3.5 text-base leading-relaxed text-ink transition-colors placeholder:text-muted hover:border-muted/60 focus:border-blue focus:bg-surface focus:outline-2 focus:outline-offset-2 focus:outline-blue';
+---
+
+<label
+  class:list={[
+    'block min-w-0 text-sm font-medium text-ink',
+    multiline && 'sm:col-span-2',
+  ]}
+>
+  {label}
+  {
+    multiline ? (
+      <textarea
+        name={name}
+        placeholder={placeholder}
+        required
+        minlength={minlength}
+        maxlength={maxlength}
+        rows="6"
+        class:list={[controlClass, 'min-h-44 resize-y']}
+      />
+    ) : (
+      <input
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        autocomplete={autocomplete}
+        required
+        minlength={minlength}
+        maxlength={maxlength}
+        class={controlClass}
+      />
+    )
+  }
+</label>

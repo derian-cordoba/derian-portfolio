@@ -5,6 +5,7 @@ import { ClientRouter } from 'astro:transitions';
 import SiteHeader from '@/components/layout/SiteHeader.astro';
 import SiteFooter from '@/components/layout/SiteFooter.astro';
 import ThemeInit from '@/components/layout/ThemeInit.astro';
+import Engagement from '@/components/layout/Engagement.astro';
 import PageNavigation from '@/components/layout/PageNavigation.astro';
 import { pageTransition } from '@/presentation/transitions';
 import { profile } from '@/content/profile';
@@ -56,6 +57,7 @@ const person = {
     />
     <ThemeInit />
     <PageNavigation />
+    <Engagement />
     <ClientRouter fallback="animate" />
     <title>{title}</title>
     <meta name="description" content={description} />

@@ -1,0 +1,21 @@
+---
+const source = import.meta.env['PUBLIC_PLAUSIBLE_SCRIPT_URL']?.trim();
+if (source && !/^https:\/\/plausible\.io\/js\/pa-[\w-]+\.js$/u.test(source)) {
+  throw new Error(
+    'PUBLIC_PLAUSIBLE_SCRIPT_URL must be the HTTPS script URL supplied by Plausible.',
+  );
+}
+---
+
+{
+  source && (
+    <meta
+      name="portfolio-analytics"
+      content={source}
+      data-host={Astro.site?.hostname}
+    />
+  )
+}
+<script>
+  import '@/presentation/controllers/engagement';
+</script>

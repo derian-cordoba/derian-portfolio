@@ -1,0 +1,52 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeading from '@/components/ui/PageHeading.astro';
+import ActionLink from '@/components/ui/ActionLink.astro';
+import { AstroNoteRepository } from '@/infrastructure/astro-note-repository';
+import { createNotesViewModel } from '@/presentation/view-models/note-view-model';
+import { getFeatureCopy } from '@/i18n/features';
+import { getLocale } from '@/i18n/routing';
+const locale = getLocale(Astro.url.pathname);
+const copy = getFeatureCopy(locale);
+const notes = await createNotesViewModel(new AstroNoteRepository(), locale);
+---
+
+<BaseLayout
+  title={`${copy.notes} — Derian Córdoba`}
+  description={copy.notesDescription}
+>
+  <PageHeading
+    eyebrow={copy.notes}
+    title={copy.notesTitle}
+    description={copy.notesDescription}
+  />
+  <div class="shell grid gap-6 pb-24 md:grid-cols-2">
+    {
+      notes.map((note) => (
+        <article class="flex min-w-0 flex-col rounded-xl border border-line bg-surface p-6 sm:p-8">
+          <ul class="mb-5 flex flex-wrap gap-2">
+            {note.tags.map((tag) => (
+              <li class="tag">{tag}</li>
+            ))}
+          </ul>
+          <h2 class="font-display text-2xl font-semibold tracking-tight">
+            {note.title}
+          </h2>
+          <p class="mt-4 mb-6 text-sm leading-relaxed text-muted">
+            {note.description}
+          </p>
+          <div class="mt-auto flex flex-wrap items-center justify-between gap-3">
+            <>
+              <ActionLink href={note.href} variant="text" icon="arrow-right">
+                {copy.readNote}
+              </ActionLink>
+              <span class="text-xs text-muted">
+                {note.readingTime} {copy.minute}
+              </span>
+            </>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</BaseLayout>

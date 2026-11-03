@@ -5,6 +5,8 @@ import { getLocale } from '@/i18n/routing';
 import { profile } from '@/content/profile';
 const locale = getLocale(Astro.url.pathname);
 const t = getTranslations(locale);
+import CopyEmail from '@/components/interactive/CopyEmail.astro';
+import InquiryForm from '@/components/contact/InquiryForm.astro';
 import Icon from '../ui/Icon.astro';
 ---
 
@@ -27,7 +29,7 @@ import Icon from '../ui/Icon.astro';
           name="arrow-up-right"
           class="size-6 shrink-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
         /></Link
-      ><div class="mt-5 flex flex-wrap gap-6">
+      ><CopyEmail /><div class="mt-5 flex flex-wrap gap-6">
         <Link
           href={profile.github}
           class="flex min-h-11 items-center gap-2 text-xs text-blue-100 hover:text-white"
@@ -49,3 +51,5 @@ import Icon from '../ui/Icon.astro';
     </div>
   </div>
 </section>
+
+<InquiryForm />

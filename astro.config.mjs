@@ -3,9 +3,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site:
-    process.env.SITE_URL ??
-    'https://derian-cordoba-portfolio.partedwave1.chatgpt.site',
+  site: process.env.SITE_URL ?? 'https://derian-cordoba.me',
   output: 'static',
   trailingSlash: 'always',
   i18n: {
@@ -15,7 +13,7 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: (page) => !page.endsWith('/404/'),
+      filter: (page) => !/\/(?:404|thanks)\/$/u.test(page),
       i18n: { defaultLocale: 'en', locales: { en: 'en', es: 'es' } },
     }),
   ],

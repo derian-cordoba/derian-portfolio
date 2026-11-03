@@ -1,0 +1,78 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeading from '@/components/ui/PageHeading.astro';
+import ActionLink from '@/components/ui/ActionLink.astro';
+import Contact from '@/components/sections/Contact.astro';
+import { getFeatureCopy } from '@/i18n/features';
+import { getLocale, localizePath, getResumePath } from '@/i18n/routing';
+import { getTranslations } from '@/i18n';
+import { getAvailability } from '@/content/opportunities';
+const locale = getLocale(Astro.url.pathname);
+const copy = getFeatureCopy(locale);
+const availability = getAvailability(locale);
+---
+
+<BaseLayout
+  title={`${copy.hiring} — Derian Córdoba`}
+  description={copy.hiringDescription}
+>
+  <PageHeading
+    eyebrow={copy.hiring}
+    title={copy.hiringTitle}
+    description={copy.hiringIntro}
+  />
+  <div class="shell grid gap-12 pb-20 lg:grid-cols-[1.4fr_1fr]">
+    <section aria-labelledby="fit-title">
+      <h2 id="fit-title" class="font-display text-2xl font-semibold">
+        {copy.fit}
+      </h2>
+      <ul class="my-6 flex flex-wrap gap-2">
+        {copy.roles.map((role) => <li class="tag">{role}</li>)}
+      </ul>
+      <div class="divide-y divide-line">
+        {
+          copy.strengths.map(([title, body]) => (
+            <div class="py-5">
+              <>
+                <h3 class="font-semibold">{title}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-muted">{body}</p>
+              </>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+    <aside class="rounded-xl border border-line bg-surface p-6 sm:p-8">
+      <h2 class="font-display text-2xl font-semibold">{copy.collaboration}</h2>
+      <p class="mt-5 text-sm leading-relaxed text-muted">
+        {copy.collaborationBody}
+      </p>
+      <p class="mt-4 text-sm leading-relaxed text-muted">{copy.preferences}</p>
+      {
+        availability && (
+          <p class="mt-5 font-semibold text-blue">{availability}</p>
+        )
+      }
+      <ActionLink
+        href={getResumePath(locale)}
+        download
+        icon="download"
+        class="mt-7">{getTranslations(locale).resume}</ActionLink
+      >
+      <h3 class="mt-8 font-semibold">{copy.evidence}</h3>
+      <div class="mt-3 flex flex-col items-start">
+        <ActionLink
+          href={localizePath('/#work', locale)}
+          variant="text"
+          icon="arrow-right">{copy.professional}</ActionLink
+        >
+        <ActionLink
+          href={localizePath('/projects/api-gateway/#walkthrough', locale)}
+          variant="text"
+          icon="arrow-right">{copy.openSource}</ActionLink
+        >
+      </div>
+    </aside>
+  </div>
+  <Contact />
+</BaseLayout>

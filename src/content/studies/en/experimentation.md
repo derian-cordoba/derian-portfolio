@@ -13,6 +13,13 @@ result: One assignment
 resultLabel: shared by the server and browser
 visual: experimentation
 repository: https://github.com/derian-cordoba/laravel-ab-testing
+media:
+  src: /images/experimentation-dashboard.png
+  alt: 'Laravel A/B Testing dashboard with experiment and feature flag summaries'
+  caption: 'Dashboard screenshot published in the project repository. The displayed values illustrate the interface; they are not evidence of production adoption.'
+  source: https://github.com/derian-cordoba/laravel-ab-testing/blob/main/docs/resources/ab-testing-dashboard-screenshot.png
+  width: 2048
+  height: 987
 ---
 
 ## The problem

@@ -7,7 +7,7 @@ export class AstroStudyRepository implements StudyRepository {
     const entries = await getCollection('studies');
 
     return entries.map(({ id, data, body }) => {
-      const { repository, studyId, ...fields } = data;
+      const { repository, media, studyId, ...fields } = data;
 
       return {
         ...fields,
@@ -15,6 +15,7 @@ export class AstroStudyRepository implements StudyRepository {
         contentId: id,
         body: body ?? '',
         ...(repository ? { repository } : {}),
+        ...(media ? { media } : {}),
       };
     });
   }

@@ -1,0 +1,86 @@
+---
+import { getFeatureCopy } from '@/i18n/features';
+import { getLocale, localizePath } from '@/i18n/routing';
+import InquiryIntro from './InquiryIntro.astro';
+import FormField from '@/components/ui/FormField.astro';
+import Icon from '@/components/ui/Icon.astro';
+const locale = getLocale(Astro.url.pathname);
+const copy = getFeatureCopy(locale);
+const enabled =
+  import.meta.env['PUBLIC_CONTACT_FORM_ENABLED'] === 'true';
+---
+
+{
+  enabled && (
+    <section class="shell py-16 md:py-24" aria-labelledby="inquiry-heading">
+      <div class="mx-auto grid max-w-6xl overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_16px_64px_-32px_var(--color-line)] lg:grid-cols-[0.85fr_1.3fr]">
+        <InquiryIntro locale={locale} />
+        <div class="min-w-0 p-6 sm:p-9 lg:p-10">
+          <p class="mb-7 flex items-center gap-2 text-xs text-muted">
+            <span aria-hidden="true" class="size-1.5 rounded-full bg-blue" />
+            {copy.allFieldsRequired}
+          </p>
+          <form
+            name={`portfolio-inquiry-${locale}`}
+            method="POST"
+            action={localizePath('/thanks/', locale)}
+            data-netlify="true"
+            netlify-honeypot="website"
+            data-astro-reload
+            class="grid gap-x-5 gap-y-7 sm:grid-cols-2"
+            data-inquiry-form
+          >
+            <input
+              type="hidden"
+              name="form-name"
+              value={`portfolio-inquiry-${locale}`}
+            />
+            <input type="hidden" name="language" value={locale} />
+            <p hidden>
+              <label>
+                {locale === 'es' ? 'Sitio web' : 'Website'}
+                <input name="website" tabindex="-1" autocomplete="off" />
+              </label>
+            </p>
+            <FormField
+              label={copy.name}
+              name="name"
+              placeholder={copy.namePlaceholder}
+              autocomplete="name"
+              maxlength={100}
+            />
+            <FormField
+              label={copy.email}
+              name="email"
+              type="email"
+              placeholder={copy.emailPlaceholder}
+              autocomplete="email"
+              maxlength={254}
+            />
+            <FormField
+              label={copy.message}
+              name="message"
+              placeholder={copy.messagePlaceholder}
+              multiline
+              minlength={10}
+              maxlength={4000}
+            />
+            <button
+              type="submit"
+              class="group flex min-h-13 w-full items-center justify-center gap-3 rounded-lg bg-action px-6 py-3.5 text-sm font-semibold text-on-action transition-colors hover:bg-action-hover sm:col-span-2 sm:w-auto sm:justify-self-start"
+            >
+              {copy.send}
+              <Icon
+                name="arrow-right"
+                class="size-4 shrink-0 transition-transform group-hover:translate-x-1"
+              />
+            </button>
+            <p class="border-t border-line pt-5 text-xs leading-relaxed text-muted sm:col-span-2">
+              {copy.privacy}
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+  )
+}

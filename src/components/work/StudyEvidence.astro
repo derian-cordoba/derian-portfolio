@@ -1,0 +1,40 @@
+---
+import type { StudyViewModel } from '@/presentation/view-models/study-view-model';
+import Link from '@/components/ui/Link.astro';
+import { getFeatureCopy } from '@/i18n/features';
+interface Props {
+  study: StudyViewModel;
+}
+const { study } = Astro.props;
+const copy = getFeatureCopy(study.locale);
+---
+
+{
+  study.media && (
+    <figure class="mb-12">
+      <Link
+        href={study.media.source}
+        class="block overflow-hidden rounded-lg border border-line"
+      >
+        <img
+          src={study.media.src}
+          alt={study.media.alt}
+          width={study.media.width}
+          height={study.media.height}
+          loading="lazy"
+          decoding="async"
+          class="h-auto w-full"
+        />
+      </Link>
+      <figcaption class="mt-4 text-xs leading-relaxed text-muted">
+        {study.media.caption}{' '}
+        <Link
+          href={study.media.source}
+          class="text-blue underline underline-offset-4"
+        >
+          {copy.source}
+        </Link>
+      </figcaption>
+    </figure>
+  )
+}

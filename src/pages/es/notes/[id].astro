@@ -1,0 +1,11 @@
+---
+import NotePage from '@/components/pages/NotePage.astro';
+import { getNotePaths } from '@/presentation/routing/note-paths';
+import type { NoteViewModel } from '@/presentation/view-models/note-view-model';
+export const getStaticPaths = () => getNotePaths('es');
+interface Props {
+  note: NoteViewModel;
+}
+---
+
+<NotePage note={Astro.props.note} />

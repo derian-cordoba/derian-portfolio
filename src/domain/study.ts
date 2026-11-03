@@ -20,5 +20,13 @@ export interface Study {
   readonly resultLabel: string;
   readonly visual: StudyVisual;
   readonly repository?: string;
+  readonly media?: {
+    readonly src: string;
+    readonly alt: string;
+    readonly caption: string;
+    readonly source: string;
+    readonly width: number;
+    readonly height: number;
+  };
   readonly body: string;
 }

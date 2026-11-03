@@ -11,6 +11,11 @@ const paths = [
     'projects/api-gateway/',
     'projects/experimentation/',
     'projects/secure-keys/',
+    'hiring/',
+    'notes/',
+    'notes/failure-controls/',
+    'notes/consistent-experiments/',
+    'thanks/',
   ].flatMap((path) => [`/${path}`, `/es/${path}`]),
 ];
 

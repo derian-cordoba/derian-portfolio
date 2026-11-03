@@ -4,6 +4,8 @@ import { getLocale, localizePath } from '@/i18n/routing';
 import type { StudyViewModel } from '@/presentation/view-models/study-view-model';
 import Icon from '../ui/Icon.astro';
 import StudyVisual from '../visuals/StudyVisual.astro';
+import ActionLink from '@/components/ui/ActionLink.astro';
+import { getFeatureCopy } from '@/i18n/features';
 const locale = getLocale(Astro.url.pathname);
 const t = getTranslations(locale);
 interface Props {
@@ -34,6 +36,13 @@ const { study } = Astro.props;
       </div><p class="mt-6 font-mono text-[10px] text-muted">
         {study.readingTime}
       </p>
+      {
+        study.visual === 'gateway' && (
+          <ActionLink href="#walkthrough" icon="arrow-right" class="mt-6">
+            {getFeatureCopy(locale).walkthrough}
+          </ActionLink>
+        )
+      }
     </div><StudyVisual visual={study.visual} />
   </div>
 </section>

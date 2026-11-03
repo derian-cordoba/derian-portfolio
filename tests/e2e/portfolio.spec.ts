@@ -119,7 +119,9 @@ test('gateway simulation supports failure and recovery', async ({ page }) => {
   await page.goto('/projects/api-gateway/');
   await page.getByRole('button', { name: 'Simulate upstream failure' }).click();
   await expect(page.locator('[data-status]')).toHaveText('503');
-  await expect(page.getByRole('status')).toContainText('open circuit');
+  await expect(page.locator('gateway-demo [role="status"]')).toContainText(
+    'open circuit',
+  );
   await page.getByRole('button', { name: 'Restore upstream' }).click();
   await expect(page.locator('[data-status]')).toHaveText('200');
 });

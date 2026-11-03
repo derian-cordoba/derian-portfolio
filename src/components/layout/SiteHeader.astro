@@ -1,6 +1,7 @@
 ---
 import { getTranslations } from '@/i18n';
 import { getLocale, localizePath, getResumePath } from '@/i18n/routing';
+import { getFeatureCopy } from '@/i18n/features';
 import ActionLink from '../ui/ActionLink.astro';
 import Icon from '../ui/Icon.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
@@ -10,6 +11,14 @@ const t = getTranslations(locale);
 const links = [
   { label: t.navWork, href: localizePath('/#work', locale) },
   { label: t.navAbout, href: localizePath('/#about', locale) },
+  {
+    label: getFeatureCopy(locale).hiring,
+    href: localizePath('/hiring/', locale),
+  },
+  {
+    label: getFeatureCopy(locale).notes,
+    href: localizePath('/notes/', locale),
+  },
   { label: t.navExperience, href: localizePath('/#experience', locale) },
   { label: t.navContact, href: localizePath('/#contact', locale) },
 ];
@@ -32,13 +41,13 @@ const links = [
         >dc<span class="text-ink">.</span></span
       >
       <span
-        class="hidden border-l border-line pl-3 text-xs font-medium lg:inline"
+        class="hidden border-l border-line pl-3 text-xs font-medium xl:inline"
         >Derian Córdoba</span
       >
     </a>
     <nav
       aria-label={t.mainNavigation}
-      class="hidden items-center gap-5 lg:flex"
+      class="hidden items-center gap-4 xl:flex"
     >
       {
         links.map((link) => (
@@ -59,7 +68,7 @@ const links = [
         class="hidden! min-h-10! px-3! py-2! text-xs! sm:inline-flex!"
         >{t.resume}</ActionLink
       >
-      <details class="relative lg:hidden" data-mobile-menu>
+      <details class="relative xl:hidden" data-mobile-menu>
         <summary
           class="flex min-h-11 min-w-11 list-none items-center justify-center rounded-md border border-line"
           aria-label={t.toggleNavigation}
