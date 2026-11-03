@@ -7,7 +7,9 @@ test('new content is localized and linked through the shared navigation', async 
   await expect(page.getByRole('heading', { level: 1 })).toContainText(
     'how I can contribute',
   );
-  await page.getByRole('link', { name: 'Leer esta página en español' }).click();
+  await page
+    .getByRole('link', { name: 'ES — Leer esta página en español' })
+    .click();
   await expect(page.getByRole('heading', { level: 1 })).toContainText(
     'cómo puedo contribuir',
   );
@@ -15,7 +17,9 @@ test('new content is localized and linked through the shared navigation', async 
   await page.getByRole('link', { name: 'Leer nota' }).first().click();
   await expect(page).toHaveURL(/\/es\/notes\/failure-controls\/$/u);
   await expect(page.locator('article')).toContainText('presupuesto');
-  await page.getByRole('link', { name: 'Read this page in English' }).click();
+  await page
+    .getByRole('link', { name: 'EN — Read this page in English' })
+    .click();
   await expect(page.locator('article')).toContainText('request budget');
 });
 
@@ -54,7 +58,9 @@ test('copy email reports success and failure after client navigation', async ({
   await expect(page.locator('copy-email [role="status"]')).toHaveText(
     'Email copied.',
   );
-  await page.getByRole('link', { name: 'Leer esta página en español' }).click();
+  await page
+    .getByRole('link', { name: 'ES — Leer esta página en español' })
+    .click();
   await page.evaluate(() => {
     Object.defineProperty(navigator, 'clipboard', {
       configurable: true,
@@ -104,7 +110,9 @@ test('analytics events contain no query, email, or form fields and do not duplic
   ).toEqual([
     { name: 'Walkthrough explored', locale: 'en', scenario: 'timeout' },
   ]);
-  await page.getByRole('link', { name: 'Leer esta página en español' }).click();
+  await page
+    .getByRole('link', { name: 'ES — Leer esta página en español' })
+    .click();
   await page.locator('[data-walkthrough-scenario="timeout"] summary').click();
   await expect
     .poll(() =>

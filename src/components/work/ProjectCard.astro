@@ -14,13 +14,12 @@ interface Props {
 const { study, index } = Astro.props;
 ---
 
-<article class="group flex h-full min-w-0 flex-col">
-  <Link
-    href={study.href}
-    aria-label={`${t.exploreLabel} ${study.title}`}
-    class="block h-80 min-w-0 shrink-0 rounded-lg transition-transform duration-200 hover:-translate-y-1"
-    ><StudyVisual visual={study.visual} compact class="p-5!" /></Link
+<article class="group relative flex h-full min-w-0 flex-col">
+  <div
+    class="h-80 min-w-0 shrink-0 rounded-lg transition-transform duration-200 group-hover:-translate-y-1"
   >
+    <StudyVisual visual={study.visual} compact class="p-5!" />
+  </div>
   <div class="flex flex-1 flex-col pt-6">
     <p class="eyebrow flex items-center justify-between text-muted">
       <span>{t.openSource}</span><span class="font-mono">0{index + 1}</span>
@@ -28,7 +27,11 @@ const { study, index } = Astro.props;
     <h3
       class="mt-3 font-display text-xl leading-snug font-semibold tracking-tight"
     >
-      <Link href={study.href} class="hover:text-blue">{study.title}</Link>
+      <Link
+        href={study.href}
+        class="after:absolute after:inset-x-0 after:top-0 after:h-80 after:rounded-lg hover:text-blue focus-visible:after:outline-2 focus-visible:after:outline-offset-4 focus-visible:after:outline-blue"
+        >{study.title}</Link
+      >
     </h3>
     <p class="mt-3 flex-1 text-sm leading-relaxed text-muted">
       {study.description}

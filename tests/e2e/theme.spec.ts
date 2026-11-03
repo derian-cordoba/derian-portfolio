@@ -4,11 +4,15 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 
 for (const locale of [
-  { path: '/', label: 'Dark theme', alternate: 'Leer esta página en español' },
+  {
+    path: '/',
+    label: 'Dark theme',
+    alternate: 'ES — Leer esta página en español',
+  },
   {
     path: '/es/',
     label: 'Tema oscuro',
-    alternate: 'Read this page in English',
+    alternate: 'EN — Read this page in English',
   },
 ]) {
   test(`dark palette is accessible on ${locale.path}`, async ({ page }) => {

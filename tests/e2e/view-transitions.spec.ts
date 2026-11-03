@@ -1,4 +1,28 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
+
+/** ClientRouter can update the DOM before it finishes navigation and runs page scripts. */
+async function navigateAndWaitForPageLoad(
+  page: Page,
+  navigate: () => Promise<unknown>,
+): Promise<void> {
+  await page.evaluate(() => {
+    const state = window as unknown as { portfolioNavigationComplete: boolean };
+    state.portfolioNavigationComplete = false;
+    document.addEventListener(
+      'astro:page-load',
+      () => {
+        state.portfolioNavigationComplete = true;
+      },
+      { once: true },
+    );
+  });
+  await navigate();
+  await page.waitForFunction(
+    () =>
+      (window as unknown as { portfolioNavigationComplete: boolean })
+        .portfolioNavigationComplete,
+  );
+}
 
 const paths = [
   '/',
@@ -37,8 +61,8 @@ for (const path of paths) {
     await page
       .getByRole('link', {
         name: spanish
-          ? 'Read this page in English'
-          : 'Leer esta página en español',
+          ? 'EN — Read this page in English'
+          : 'ES — Leer esta página en español',
         exact: true,
       })
       .click();
@@ -89,14 +113,18 @@ test('project controls, theme, and language fragments survive repeated navigatio
   await expect(page).toHaveURL(/\/projects\/api-gateway\/$/u);
   await page.getByRole('button', { name: 'Simulate upstream failure' }).click();
   await expect(page.locator('[data-status]')).toHaveText('503');
-  await page.getByRole('link', { name: 'Leer esta página en español' }).click();
+  await page
+    .getByRole('link', { name: 'ES — Leer esta página en español' })
+    .click();
   await page
     .getByRole('button', { name: 'Simular fallo del servicio de destino' })
     .click();
   await expect(page.locator('[data-status]')).toHaveText('503');
   await page.locator('a[href="/es/#projects"]').click();
   await expect(page).toHaveURL(/\/es\/#projects$/u);
-  await page.getByRole('link', { name: 'Read this page in English' }).click();
+  await navigateAndWaitForPageLoad(page, () =>
+    page.getByRole('link', { name: 'EN — Read this page in English' }).click(),
+  );
   await expect(page).toHaveURL(/\/#projects$/u);
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   if (isMobile) {
@@ -107,9 +135,11 @@ test('project controls, theme, and language fragments survive repeated navigatio
       'open',
     );
   }
-  await page.goBack();
+  await navigateAndWaitForPageLoad(page, () => page.goBack());
+  await expect(page).toHaveURL(/\/es\/#projects$/u);
   await expect(page.locator('html')).toHaveAttribute('lang', 'es');
-  await page.goForward();
+  await navigateAndWaitForPageLoad(page, () => page.goForward());
+  await expect(page).toHaveURL(/\/#projects$/u);
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
 });
 

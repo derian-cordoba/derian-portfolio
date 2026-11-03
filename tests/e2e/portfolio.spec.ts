@@ -7,7 +7,9 @@ test('Spanish language switching preserves the project and fragment', async ({
   page,
 }) => {
   await page.goto('/projects/api-gateway/#main');
-  await page.getByRole('link', { name: 'Leer esta página en español' }).click();
+  await page
+    .getByRole('link', { name: 'ES — Leer esta página en español' })
+    .click();
   await expect(page).toHaveURL(/\/es\/projects\/api-gateway\/#main$/u);
   await expect(page.locator('html')).toHaveAttribute('lang', 'es');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
@@ -21,7 +23,9 @@ test('Spanish language switching preserves the project and fragment', async ({
     .getByRole('button', { name: 'Restablecer servicio de destino' })
     .click();
   await expect(page.locator('[data-circuit]')).toHaveText('Cerrado');
-  await page.getByRole('link', { name: 'Read this page in English' }).click();
+  await page
+    .getByRole('link', { name: 'EN — Read this page in English' })
+    .click();
   await expect(page).toHaveURL(/\/projects\/api-gateway\/#main$/u);
 });
 
@@ -71,7 +75,9 @@ test('Spanish content and language links work without JavaScript', async ({
   await expect(
     page.getByRole('heading', { name: 'El resultado', exact: true }),
   ).toBeVisible();
-  await page.getByRole('link', { name: 'Read this page in English' }).click();
+  await page
+    .getByRole('link', { name: 'EN — Read this page in English' })
+    .click();
   await expect(
     page.getByRole('heading', { name: 'The result', exact: true }),
   ).toBeVisible();
