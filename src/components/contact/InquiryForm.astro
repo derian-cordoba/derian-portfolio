@@ -6,8 +6,7 @@ import FormField from '@/components/ui/FormField.astro';
 import Icon from '@/components/ui/Icon.astro';
 const locale = getLocale(Astro.url.pathname);
 const copy = getFeatureCopy(locale);
-const enabled =
-  import.meta.env['PUBLIC_CONTACT_FORM_ENABLED'] === 'true';
+const enabled = import.meta.env['PUBLIC_CONTACT_FORM_ENABLED'] === 'true';
 ---
 
 {
