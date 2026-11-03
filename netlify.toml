@@ -5,6 +5,7 @@
 [build.environment]
   NODE_VERSION = "26.3.0"
   SITE_URL = "https://derian-cordoba.me"
+  PUBLIC_GOOGLE_SITE_VERIFICATION="NQSRXtb2hbhzkjny81eMs-q42W7M_ON-8QLplzb9w7o"
 
 [context.production.environment]
   PUBLIC_CONTACT_FORM_ENABLED = "true"
