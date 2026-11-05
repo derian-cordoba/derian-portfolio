@@ -13,6 +13,7 @@ import StudySidebar from '@/components/work/StudySidebar.astro';
 import GatewayWalkthrough from '@/components/work/GatewayWalkthrough.astro';
 import StudyEvidence from '@/components/work/StudyEvidence.astro';
 import GatewayDemo from '@/components/interactive/GatewayDemo.astro';
+import GatewayRecording from '@/components/work/GatewayRecording.astro';
 import Contact from '@/components/sections/Contact.astro';
 import RelatedNotes from '@/components/notes/RelatedNotes.astro';
 import { noteRepository } from '@/infrastructure/portfolio';
@@ -35,6 +36,9 @@ const relatedNotes = await createRelatedNotesViewModel(noteRepository, study);
   title={`${study.title} — Derian Córdoba`}
   description={study.description}
   languageHashMaps={languageHashMaps}
+  socialImagePath={`/social/${study.locale}/studies/${study.id}.png`}
+  socialImageAlt={`${study.title} — Derian Córdoba`}
+  entity={{ type: 'CreativeWork', keywords: study.tags }}
 >
   <StudyHeader study={study} />
   <div class="border-t border-line">
@@ -47,6 +51,7 @@ const relatedNotes = await createRelatedNotesViewModel(noteRepository, study);
           study.visual === 'gateway' && (
             <Fragment>
               <GatewayWalkthrough />
+              <GatewayRecording />
               <GatewayDemo />
             </Fragment>
           )

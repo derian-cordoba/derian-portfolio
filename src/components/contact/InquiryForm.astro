@@ -15,12 +15,17 @@ const enabled = import.meta.env['PUBLIC_CONTACT_FORM_ENABLED'] === 'true';
       <div class="mx-auto grid max-w-6xl overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_16px_64px_-32px_var(--color-line)] lg:grid-cols-[0.85fr_1.3fr]">
         <InquiryIntro locale={locale} />
         <inquiry-form lang={locale} class="block min-w-0 p-6 sm:p-9 lg:p-10">
-          <p class="mb-7 flex items-center gap-2 text-xs text-muted">
+          <p
+            id="inquiry-instructions"
+            class="mb-7 flex items-center gap-2 text-xs text-muted"
+          >
             <span aria-hidden="true" class="size-1.5 rounded-full bg-blue" />
             {copy.allFieldsRequired}
           </p>
           <form
             name={`portfolio-inquiry-${locale}`}
+            aria-labelledby="inquiry-heading"
+            aria-describedby="inquiry-instructions inquiry-privacy"
             method="POST"
             action={localizePath('/thanks/', locale)}
             data-netlify="true"
@@ -81,7 +86,10 @@ const enabled = import.meta.env['PUBLIC_CONTACT_FORM_ENABLED'] === 'true';
               hidden
               class="rounded-lg border border-line bg-blue-light p-4 text-sm leading-relaxed text-ink sm:col-span-2"
             />
-            <p class="border-t border-line pt-5 text-xs leading-relaxed text-muted sm:col-span-2">
+            <p
+              id="inquiry-privacy"
+              class="border-t border-line pt-5 text-xs leading-relaxed text-muted sm:col-span-2"
+            >
               {copy.privacy}
             </p>
           </form>

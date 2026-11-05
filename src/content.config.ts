@@ -23,6 +23,7 @@ const studies = defineCollection({
       'gateway',
       'experimentation',
       'secure-keys',
+      'delivery',
     ]),
     repository: z.url().optional(),
     relatedNotes: z

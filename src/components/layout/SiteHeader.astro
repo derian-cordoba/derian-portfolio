@@ -77,11 +77,13 @@ const links = [
         <summary
           class="flex min-h-11 min-w-11 list-none items-center justify-center rounded-md border border-line"
           aria-label={t.toggleNavigation}
+          aria-controls="mobile-navigation-panel"
           ><Icon name="menu" class="size-5" /></summary
         >
         <nav
+          id="mobile-navigation-panel"
           aria-label={t.mobileNavigation}
-          class="absolute top-14 right-0 flex w-52 flex-col rounded-lg border border-line bg-paper p-3 shadow-lg"
+          class="absolute top-14 right-0 flex max-h-[calc(100dvh-7rem)] w-52 flex-col overflow-y-auto rounded-lg border border-line bg-paper p-3 shadow-lg"
         >
           {
             links.map((link) => (

@@ -32,6 +32,17 @@ I optimized backend logic, SQL interactions, and application processing paths. M
 
 These were connected engineering concerns: application performance, service boundaries, and reusable building blocks all influence how confidently a team can extend a product.
 
+## The implementation scope
+
+The work covered three connected areas:
+
+| Area                        | My contribution                                                                                             | Why it mattered                                                         |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| Critical processing         | Refactored backend logic, SQL interactions, and Laravel processing paths                                    | Improved selected SaaS processing flows                                 |
+| Shared backend capabilities | Implemented reusable multi-tenancy mechanisms across Laravel microservices and maintained background queues | Supported multiple providers and automated business workflows           |
+| Developer tooling           | Built internal utilities and reusable React packages for Laravel and WordPress projects                     | Reduced repeated implementation work and improved interface consistency |
+
+These are documented responsibilities from my CV. The performance percentage belongs to the first row; it is not a measured outcome for every initiative in the table.
 
 ## Engineering considerations
 
@@ -41,6 +52,7 @@ Performance work needs a specific scope. A faster processing path is meaningful 
 
 Maintainability matters alongside speed. A localized improvement should leave the surrounding responsibilities clear, and reusable mechanisms should solve repeated needs without coupling unrelated services.
 
+Background jobs and shared tenancy mechanisms add their own boundaries: which work can happen outside a request, and which context must travel between services. They explain the breadth of my role here; I do not attribute the reported performance result to a particular queue design, tenancy model, index, or caching strategy without the underlying implementation evidence.
 
 ## The result
 

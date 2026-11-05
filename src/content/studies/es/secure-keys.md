@@ -13,6 +13,13 @@ result: Local → CI → iOS
 resultLabel: un flujo repetible de generación de frameworks
 visual: secure-keys
 repository: https://github.com/derian-cordoba/secure-keys
+media:
+  src: /images/secure-keys-xcode.png
+  alt: 'Xcode con SecureKeys.xcframework configurado como Embed and Sign'
+  caption: 'Captura de integración de la documentación del proyecto que muestra el framework generado añadido a un destino de Xcode.'
+  source: https://github.com/derian-cordoba/secure-keys/blob/20984ae482046ab2562726d38b2ba3646d782eb4/docs/assets/add-xcframework-to-ios-project/third-step-result.png
+  width: 1910
+  height: 376
 ---
 
 ## El problema
@@ -26,6 +33,25 @@ Secure Keys reúne el proceso de generación de configuración en una herramient
 La herramienta de Ruby lee los valores proporcionados desde macOS Keychain en el entorno local o desde variables de entorno en CI. Cifra los valores con AES-256-GCM, genera una API de Swift y construye un XCFramework para la aplicación de iOS.
 
 El proceso documentado permite conjuntos de configuración distintos, rutas de salida y comparación de listas de claves entre entornos. Las opciones de distribución incluyen RubyGems y Homebrew.
+
+## Prueba el flujo de generación
+
+En macOS con Ruby 3.3 o posterior y las herramientas de línea de comandos de Xcode, ejecuta este ejemplo desde el directorio de un proyecto iOS. Usa un origen de API ilustrativo y no requiere crear credenciales ni escribir en Keychain.
+
+```sh
+gem install secure-keys
+SECURE_KEYS_IDENTIFIER=apiOrigin APIORIGIN=https://example.invalid secure-keys --ci
+```
+
+La salida documentada es `.secure-keys/SecureKeys.xcframework`. Añade el framework al destino de la aplicación, como se muestra arriba, y lee el valor generado desde Swift:
+
+```swift
+import SecureKeys
+
+let apiOrigin = SecureKey.apiOrigin.decryptedValue
+```
+
+Es un ejemplo de uso reproducible de la [documentación fijada a una revisión](https://github.com/derian-cordoba/secure-keys/blob/20984ae482046ab2562726d38b2ba3646d782eb4/README.md), no una transcripción de compilación capturada. Crear un XCFramework requiere las herramientas de Apple; el portafolio no ejecuta comandos Ruby.
 
 ## Decisiones y límites
 

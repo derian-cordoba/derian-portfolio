@@ -3,6 +3,8 @@ export const engagementEvents = [
   'Contact opened',
   'Email copied',
   'Inquiry submitted',
+  'Inquiry accepted',
+  'Inquiry unconfirmed',
   'Walkthrough explored',
   'Project source opened',
 ] as const;

@@ -2,7 +2,9 @@ import type { InquiryTransport } from '@/application/ports/inquiry-transport';
 
 /** A successful HTTP response confirms handling, not inbox delivery. */
 export class NetlifyInquiryTransport implements InquiryTransport {
-  constructor(private readonly request: typeof fetch = fetch) {}
+  constructor(
+    private readonly request: typeof fetch = fetch.bind(globalThis),
+  ) {}
 
   async submit(
     url: string,

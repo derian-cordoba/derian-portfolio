@@ -2,6 +2,7 @@ import type { InquiryState } from '@/domain/inquiry';
 import { isLocale, type Locale } from '@/domain/locale';
 import { NetlifyInquiryTransport } from '@/infrastructure/netlify-inquiry-transport';
 import { createInquiryViewModel } from '../view-models/inquiry-view-model';
+import { trackEngagement } from '@/infrastructure/engagement';
 
 export class InquiryFormElement extends HTMLElement {
   private state: InquiryState = 'idle';
@@ -60,10 +61,12 @@ export class InquiryFormElement extends HTMLElement {
       return;
     }
     if (accepted) {
+      trackEngagement('Inquiry accepted');
       window.location.assign(form.action);
       return;
     }
     this.state = 'unconfirmed';
+    trackEngagement('Inquiry unconfirmed');
     this.render();
     this.querySelector<HTMLElement>('[data-inquiry-feedback]')?.focus();
   }

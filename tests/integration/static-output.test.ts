@@ -7,6 +7,59 @@ import { runInNewContext } from 'node:vm';
 import { parseEnv } from 'node:util';
 
 const output = resolve('dist');
+
+test('articles and projects expose matching structured data and generated social images', () => {
+  for (const { path, locale } of localizedRoutes) {
+    const note = path.includes('/notes/') && !path.endsWith('/notes/');
+    const study = path.includes('/work/') || path.includes('/projects/');
+    if (!note && !study) {
+      continue;
+    }
+    const html = readFileSync(join(output, path, 'index.html'), 'utf8');
+    const json = html.match(
+      /<script type="application\/ld\+json">(.*?)<\/script>/su,
+    )?.[1];
+    assert.ok(json, path);
+    const graph = JSON.parse(json)['@graph'];
+    const content = graph.find(
+      (entry: Record<string, unknown>) =>
+        entry['@type'] === (note ? 'BlogPosting' : 'CreativeWork'),
+    );
+    assert.ok(content, path);
+    assert.equal(content.inLanguage, locale);
+    assert.equal(content.author['@id'], graph[0]['@id']);
+    if (note) {
+      assert.match(content.datePublished, /^\d{4}-\d{2}-\d{2}$/u);
+      assert.ok(html.includes('property="og:type" content="article"'));
+    }
+    const image = html.match(/property="og:image" content="([^"]+)"/u)?.[1];
+    assert.equal(image, content.image);
+    assert.ok(image, path);
+    const png = readFileSync(join(output, new URL(image).pathname));
+    assert.equal(png.subarray(1, 4).toString(), 'PNG');
+    assert.equal(png.readUInt32BE(16), 1200);
+    assert.equal(png.readUInt32BE(20), 630);
+  }
+});
+
+test('hiring links to leadership evidence and gateway recordings have accessible transcripts', () => {
+  for (const prefix of ['', 'es/']) {
+    const hiring = readFileSync(
+      join(output, prefix, 'hiring/index.html'),
+      'utf8',
+    );
+    assert.ok(hiring.includes(`href="/${prefix}work/engineering-delivery/"`));
+    const gateway = readFileSync(
+      join(output, prefix, 'projects/api-gateway/index.html'),
+      'utf8',
+    );
+    assert.match(gateway, /<video\b[^>]*controls/u);
+    assert.ok(gateway.includes('id="recording-transcript"'));
+    assert.ok(gateway.includes('CIRCUIT_OPEN'));
+  }
+  const video = readFileSync(join(output, 'demos/gateway-recovery.webm'));
+  assert.ok(video.length > 1000);
+});
 // Match production build-file precedence; explicit shell/CI variables take priority.
 const buildEnvironment = Object.assign(
   {},
@@ -28,7 +81,43 @@ function htmlFiles(directory: string): string[] {
   });
 }
 
-test('all twenty-four generated pages include localized content and document metadata', () => {
+test('shared accessibility structure survives rendering on every page', () => {
+  for (const filename of htmlFiles(output)) {
+    const html = readFileSync(filename, 'utf8');
+    const headings = [...html.matchAll(/<h([1-6])\b/gu)].map((match) =>
+      Number(match[1]),
+    );
+    for (let index = 1; index < headings.length; index += 1) {
+      assert.ok(
+        (headings[index] ?? 0) <= (headings[index - 1] ?? 0) + 1,
+        `${filename}: heading level skipped`,
+      );
+    }
+    for (const image of html.matchAll(/<img\b[^>]*>/gu)) {
+      assert.match(
+        image[0],
+        /\balt="[^"]*"/u,
+        `${filename}: image alt missing`,
+      );
+    }
+    const ids = [...html.matchAll(/\bid="([^"]+)"/gu)].map((match) => match[1]);
+    assert.equal(new Set(ids).size, ids.length, `${filename}: duplicate IDs`);
+    for (const reference of html.matchAll(
+      /\baria-(?:controls|labelledby|describedby)="([^"]+)"/gu,
+    )) {
+      for (const id of (reference[1] ?? '').split(/\s+/u)) {
+        assert.ok(ids.includes(id), `${filename}: missing ARIA target ${id}`);
+      }
+    }
+    assert.match(
+      html,
+      /<main\b[^>]*\bid="main"[^>]*\btabindex="-1"/u,
+      filename,
+    );
+  }
+});
+
+test('all generated pages include localized content and document metadata', () => {
   const files = htmlFiles(output);
   assert.equal(files.length, localizedRoutes.length);
 
@@ -233,9 +322,10 @@ test('hiring, notes, and evidence are complete static documents in both language
       join(output, prefix, 'projects/experimentation/index.html'),
       'utf8',
     );
-    assert.ok(
-      experiment.includes('src="/images/experimentation-dashboard.png"'),
-    );
+    assert.match(experiment, /<picture\b/u);
+    assert.match(experiment, /type="image\/avif"/u);
+    assert.match(experiment, /type="image\/webp"/u);
+    assert.match(experiment, /srcset="[^"]+480w/u);
     const thanks = readFileSync(
       join(output, prefix, 'thanks/index.html'),
       'utf8',

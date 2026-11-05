@@ -2,7 +2,12 @@ import type { Locale } from './locale';
 
 export type StudyKind = 'experience' | 'project';
 export type StudyVisual =
-  'performance' | 'platform' | 'gateway' | 'experimentation' | 'secure-keys';
+  | 'performance'
+  | 'platform'
+  | 'gateway'
+  | 'experimentation'
+  | 'secure-keys'
+  | 'delivery';
 
 export interface Study {
   readonly id: string;

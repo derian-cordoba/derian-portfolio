@@ -1,0 +1,30 @@
+---
+import { getLocale } from '@/i18n/routing';
+const es = getLocale(Astro.url.pathname) === 'es';
+const steps = es
+  ? ['Diseño y revisión', 'Pruebas automatizadas', 'Publicación web y móvil']
+  : ['Design and review', 'Automated tests', 'Web and mobile releases'];
+---
+
+<p class="eyebrow text-muted">
+  {es ? 'Entrega de ingeniería' : 'Engineering delivery'}
+</p>
+
+<ol class="mt-6 grid gap-3">
+  {
+    steps.map((step, index) => (
+      <li class="flex items-center gap-4 rounded-md border border-line bg-paper px-4 py-3 text-xs font-medium">
+        <span class="font-mono text-blue">0{index + 1}</span>
+        {step}
+      </li>
+    ))
+  }
+</ol>
+
+<p class="mt-5 text-[10px] text-muted">
+  {
+    es
+      ? 'Flujo conceptual · All-Win Software'
+      : 'Conceptual workflow · All-Win Software'
+  }
+</p>

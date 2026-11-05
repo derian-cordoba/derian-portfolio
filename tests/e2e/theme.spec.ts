@@ -106,7 +106,7 @@ test('CSS follows a dark system preference without JavaScript', async ({
   ).toBe('rgb(11, 20, 32)');
   await expect(page.locator('theme-toggle button')).toBeHidden();
   await expect(page.getByRole('heading', { level: 1 })).toContainText(
-    'Buenos sistemas.',
+    'Modernizar sistemas.',
   );
   await context.close();
 });

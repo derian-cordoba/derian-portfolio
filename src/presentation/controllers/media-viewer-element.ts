@@ -1,3 +1,5 @@
+import { containFocus } from './focus-containment';
+
 export class MediaViewerElement extends HTMLElement {
   private listeners: AbortController | undefined;
   private previousOverflow = '';
@@ -18,7 +20,13 @@ export class MediaViewerElement extends HTMLElement {
         this.previousOverflow = document.documentElement.style.overflow;
         document.documentElement.style.overflow = 'hidden';
         dialog.showModal();
+        dialog.querySelector<HTMLButtonElement>('[data-media-close]')?.focus();
       },
+      options,
+    );
+    dialog.addEventListener(
+      'keydown',
+      (event) => containFocus(event, dialog),
       options,
     );
     this.querySelector('[data-media-close]')?.addEventListener(

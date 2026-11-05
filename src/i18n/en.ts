@@ -24,10 +24,12 @@ export const en = {
   footerNote: 'Thoughtfully built. Always evolving.',
   backToTop: 'Back to top',
   heroEyebrow: 'Senior software engineer',
-  heroTitle: 'Good systems.',
-  heroAccent: 'Better outcomes.',
+  heroTitle: 'Modernize systems.',
+  heroAccent: 'Help teams ship.',
   heroDescription:
-    'I’m Derian Córdoba, a senior software engineer specializing in backend systems and full-stack applications. I build reliable services and practical tools that help teams ship better software.',
+    'I’m Derian Córdoba. I modernize Laravel and TypeScript applications, design backend services, and build reusable tools for engineering teams.',
+  heroProof:
+    'Enterprise experience at Walmart · SaaS modernization · Public developer tools',
   exploreWork: 'Explore my work',
   letsTalk: 'Let’s talk',
   heroNote: 'Built to work. Designed to last.',

@@ -48,6 +48,8 @@ Create matching custom-event goals in Plausible:
 - `Contact opened` — opening email or LinkedIn.
 - `Email copied` — successful clipboard write.
 - `Inquiry submitted` — a valid form submission attempt; does not prove delivery.
+- `Inquiry accepted` — the POST returned a successful HTTP response; does not prove inbox delivery.
+- `Inquiry unconfirmed` — the response failed, the connection failed, or the request timed out; the message remains available for retry.
 - `Project source opened` — opening a GitHub link.
 
 Properties are limited to `locale` and an optional scenario ID. With no provider configured, the page only dispatches a transient `portfolio:engagement` browser event; nothing is stored or sent. Run Plausible's installation verifier and trigger each goal before relying on reports. Source: [installation](https://plausible.io/docs/plausible-script), [custom goals](https://plausible.io/docs/custom-event-goals).
@@ -58,4 +60,4 @@ The hiring overview makes no availability claim by default. Set `PORTFOLIO_AVAIL
 
 Engineering notes live in `src/content/notes/en` and `es`, with paired stable `noteId` values. They are editorial drafts for this portfolio, not claims of measured production results. Review their voice and technical reasoning before publishing.
 
-Gateway route examples and test links are pinned to a public repository commit. Update `src/content/gateway-scenarios.ts` when intentionally refreshing the evidence. The experiment dashboard screenshot is copied from the project's public documentation, with attribution and a caption distinguishing interface data from production evidence. A gateway dashboard recording remains a useful follow-up: local server restrictions prevented capturing it in this environment.
+Gateway route examples and test links are pinned to a public repository commit. Update `src/content/gateway-scenarios.ts` when intentionally refreshing the evidence. The experiment dashboard screenshot is copied from the project's public documentation, with attribution and a caption distinguishing interface data from production evidence. A separate gateway response replay is generated from an actual local failure-and-recovery run. Its transcript, recording date, configuration, and source revision are published with it. The replay is not a dashboard recording or a production benchmark.

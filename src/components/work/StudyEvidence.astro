@@ -3,26 +3,41 @@ import type { StudyViewModel } from '@/presentation/view-models/study-view-model
 import Link from '@/components/ui/Link.astro';
 import { getEnhancementCopy } from '@/i18n/enhancements';
 import { getFeatureCopy } from '@/i18n/features';
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 interface Props {
   study: StudyViewModel;
 }
 const { study } = Astro.props;
 const copy = getFeatureCopy(study.locale);
 const controls = getEnhancementCopy(study.locale);
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/studies/*.{png,jpg,jpeg,webp}',
+  { eager: true },
+);
+const image = study.media
+  ? images[study.media.src.replace('/images/', '/src/assets/studies/')]?.default
+  : undefined;
+if (study.media && !image) {
+  throw new Error(`Missing optimized study image: ${study.media.src}`);
+}
 ---
 
 {
-  study.media && (
+  study.media && image && (
     <media-viewer class="mb-12 block">
       <figure>
         <div class="relative overflow-hidden rounded-lg border border-line">
-          <img
-            src={study.media.src}
+          <Picture
+            src={image}
             alt={study.media.alt}
             width={study.media.width}
             height={study.media.height}
             loading="lazy"
             decoding="async"
+            formats={['avif', 'webp']}
+            widths={[480, 800, 1200, 1600]}
+            sizes="(max-width: 767px) calc(100vw - 3rem), (max-width: 1023px) calc(100vw - 5rem), 800px"
             class="h-auto w-full"
           />
           <button
@@ -31,6 +46,7 @@ const controls = getEnhancementCopy(study.locale);
             hidden
             class="absolute inset-0 rounded-lg text-ink"
             aria-haspopup="dialog"
+            aria-controls="study-media-dialog"
           >
             <span class="absolute right-3 bottom-3 rounded-md border border-line bg-paper px-3 py-2 text-xs font-semibold">
               {controls.enlarge}
@@ -48,7 +64,9 @@ const controls = getEnhancementCopy(study.locale);
         </figcaption>
       </figure>
       <dialog
+        id="study-media-dialog"
         aria-label={study.media.alt}
+        aria-describedby="study-media-caption"
         class="m-auto max-h-[90vh] w-[calc(100%-2rem)] max-w-6xl overflow-auto rounded-xl border border-line bg-paper p-4 text-ink shadow-xl backdrop:bg-black/70 sm:p-6"
       >
         <div class="mb-4 flex justify-end">
@@ -69,7 +87,10 @@ const controls = getEnhancementCopy(study.locale);
           decoding="async"
           class="h-auto w-full rounded-lg"
         />
-        <p class="mt-4 text-sm leading-relaxed text-muted">
+        <p
+          id="study-media-caption"
+          class="mt-4 text-sm leading-relaxed text-muted"
+        >
           {study.media.caption}
         </p>
       </dialog>
