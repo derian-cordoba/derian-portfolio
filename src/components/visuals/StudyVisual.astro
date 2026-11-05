@@ -5,6 +5,7 @@ import PlatformVisual from './PlatformVisual.astro';
 import GatewayVisual from './GatewayVisual.astro';
 import ExperimentVisual from './ExperimentVisual.astro';
 import SecureKeysVisual from './SecureKeysVisual.astro';
+import DeliveryVisual from './DeliveryVisual.astro';
 interface Props {
   visual: StudyVisual;
   compact?: boolean;
@@ -20,6 +21,7 @@ const visuals = {
   },
   experimentation: { component: ExperimentVisual, background: 'bg-experiment' },
   'secure-keys': { component: SecureKeysVisual, background: 'bg-tooling' },
+  delivery: { component: DeliveryVisual, background: 'bg-platform' },
 };
 const { component: Visual, background } = visuals[visual];
 ---

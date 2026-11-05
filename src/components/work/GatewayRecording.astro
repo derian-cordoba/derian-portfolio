@@ -1,0 +1,108 @@
+---
+import recording from '@/content/gateway-recording.json';
+import { getLocale } from '@/i18n/routing';
+import Link from '@/components/ui/Link.astro';
+const es = getLocale(Astro.url.pathname) === 'es';
+const labels: Record<string, string> = es
+  ? {
+      healthy: 'Servicio disponible',
+      'failure-1': 'Primer fallo',
+      'failure-2': 'Segundo fallo',
+      'failure-3': 'Tercer fallo',
+      open: 'Circuito abierto',
+      recovery: 'Sondeo de recuperación',
+    }
+  : {
+      healthy: 'Healthy service',
+      'failure-1': 'First failure',
+      'failure-2': 'Second failure',
+      'failure-3': 'Third failure',
+      open: 'Open circuit',
+      recovery: 'Recovery probe',
+    };
+---
+
+<section id="recorded-run" class="mt-12" aria-labelledby="recording-heading">
+  <p class="eyebrow text-blue">
+    {es ? 'Ejecución local registrada' : 'Recorded local run'}
+  </p>
+
+  <h2 id="recording-heading" class="mt-3 font-display text-2xl font-semibold">
+    {es ? 'Del fallo a la recuperación' : 'From failure to recovery'}
+  </h2>
+
+  <p class="mt-4 text-sm leading-relaxed text-muted">
+    {
+      es
+        ? 'Respuestas HTTP capturadas ejecutando el gateway con un servicio de prueba local. El umbral es de tres fallos y la espera de recuperación es de un segundo. La reproducción resume los pasos; no representa su duración real.'
+        : 'Actual HTTP responses captured from the gateway and a local test service. The failure threshold is three, with a one-second recovery delay. The replay summarizes the steps; its timing is not the original request timing.'
+    }
+  </p>
+
+  <video
+    controls
+    playsinline
+    preload="none"
+    width="1200"
+    height="750"
+    poster="/demos/gateway-recovery.png"
+    aria-label={es
+      ? 'Reproducción de respuestas HTTP; transcripción a continuación'
+      : 'HTTP response replay; transcript follows'}
+    aria-describedby="recording-caption"
+    class="mt-6 h-auto w-full rounded-lg border border-line"
+  >
+    <source src="/demos/gateway-recovery.webm" type="video/webm" />
+    <a href="#recording-transcript"
+      >{es ? 'Leer transcripción' : 'Read transcript'}</a
+    >
+  </video>
+
+  <p id="recording-caption" class="mt-3 text-xs leading-relaxed text-muted">
+    {es ? 'Sin audio. Grabado el' : 'No audio. Captured on'}
+    <time datetime={recording.recordedAt}
+      >{recording.recordedAt.slice(0, 10)}</time
+    >. <Link
+      href={`https://github.com/derian-cordoba/api-gateway/tree/${recording.revision}`}
+      class="text-blue underline underline-offset-4"
+      >{es ? 'Código de esta ejecución' : 'Source for this run'}</Link
+    >{
+      recording.dirty
+        ? es
+          ? ' · Copia local modificada'
+          : ' · Modified local checkout'
+        : ''
+    }.
+  </p>
+
+  <details
+    id="recording-transcript"
+    class="mt-5 rounded-lg border border-line p-5"
+  >
+    <summary class="cursor-pointer text-sm font-semibold"
+      >{
+        es
+          ? 'Respuestas capturadas y llamadas al servicio'
+          : 'Captured responses and upstream calls'
+      }</summary
+    >
+    <ol class="mt-5 grid gap-5">
+      {
+        recording.steps.map((step) => (
+          <li>
+            <h3 class="text-sm font-semibold">
+              {labels[step.id]} · HTTP {step.status}
+            </h3>
+            <p class="mt-1 text-xs text-muted">
+              {es ? 'Solicitudes al servicio:' : 'Upstream requests:'}{' '}
+              {step.upstreamRequests}
+            </p>
+            <pre class="mt-2 overflow-x-auto rounded-md bg-navy p-4 text-xs text-white">
+              <code>{JSON.stringify(step.body, null, 2)}</code>
+            </pre>
+          </li>
+        ))
+      }
+    </ol>
+  </details>
+</section>

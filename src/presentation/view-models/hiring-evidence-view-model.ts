@@ -2,7 +2,6 @@ import type { StudyRepository } from '@/application/ports/study-repository';
 import type { Locale } from '@/domain/locale';
 import { createStudyViewModel } from './study-view-model';
 import { getEnhancementCopy } from '@/i18n/enhancements';
-import { localizePath } from '@/i18n/routing';
 
 export async function createHiringEvidenceViewModel(
   repository: StudyRepository,
@@ -28,12 +27,7 @@ export async function createHiringEvidenceViewModel(
     { title: copy.fullstackEvidence, links: [studyLink('experimentation')] },
     {
       title: copy.leadershipEvidence,
-      links: [
-        {
-          label: copy.careerEvidence,
-          href: localizePath('/#experience', locale),
-        },
-      ],
+      links: [studyLink('engineering-delivery')],
     },
   ];
 }

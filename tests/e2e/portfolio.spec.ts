@@ -41,7 +41,7 @@ test('Spanish homepage is accessible and does not overflow narrow screens', asyn
   });
   expect(violations).toEqual([]);
   await expect(page.getByRole('heading', { level: 1 })).toContainText(
-    'Buenos sistemas.',
+    'Modernizar sistemas.',
   );
   if (isMobile) {
     await page.getByLabel('Abrir o cerrar navegación').click();
@@ -90,7 +90,7 @@ test('homepage is readable, linked, and free of critical accessibility findings'
 }) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText(
-    'Good systems.',
+    'Modernize systems.',
   );
   await page.addScriptTag({ path: require.resolve('axe-core/axe.min.js') });
   const violations = await page.evaluate(async () => {

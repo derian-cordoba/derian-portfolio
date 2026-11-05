@@ -1,0 +1,107 @@
+[
+  {
+    "company": "Walmart",
+    "start": "2026-07",
+    "en": {
+      "role": "Senior Full-Stack Engineer",
+      "description": "Building and modernizing enterprise applications, shared services, and reusable engineering tools.",
+      "technologies": ["Next.js", "NestJS", "TypeScript"]
+    },
+    "es": {
+      "role": "Ingeniero full-stack sénior",
+      "description": "Desarrollo y modernización de aplicaciones empresariales, servicios compartidos y herramientas de ingeniería reutilizables.",
+      "technologies": ["Next.js", "NestJS", "TypeScript"]
+    }
+  },
+  {
+    "company": "Netforemost",
+    "start": "2026-06",
+    "end": "2026-07",
+    "partTime": true,
+    "en": {
+      "role": "Senior Software Developer Consultant",
+      "description": "Modernized PHP/Laravel systems, expanded regression coverage, and automated delivery workflows.",
+      "technologies": ["Laravel", "Testing", "CI/CD"]
+    },
+    "es": {
+      "role": "Consultor sénior de desarrollo de software",
+      "description": "Modernización de sistemas PHP/Laravel, ampliación de pruebas de regresión y automatización de los flujos de entrega.",
+      "technologies": ["Laravel", "Pruebas", "CI/CD"]
+    }
+  },
+  {
+    "company": "Go Local Interactive",
+    "start": "2025-08",
+    "end": "2026-06",
+    "en": {
+      "role": "Senior Software Engineer II",
+      "description": "Improved critical SaaS processing flows and built reusable tenancy mechanisms across Laravel services.",
+      "technologies": ["Laravel", "React", "Multi-tenancy"]
+    },
+    "es": {
+      "role": "Ingeniero de software sénior II",
+      "description": "Mejora de flujos críticos de procesamiento SaaS y creación de mecanismos de multitenencia reutilizables entre servicios Laravel.",
+      "technologies": ["Laravel", "React", "Multitenencia"]
+    }
+  },
+  {
+    "company": "All-Win Software",
+    "start": "2022-08",
+    "end": "2025-08",
+    "en": {
+      "role": "Lead Software Engineer",
+      "description": "Led engineering initiatives across web, backend, and mobile, establishing testing and automated release practices.",
+      "technologies": ["System design", "CI/CD", "Technical leadership"]
+    },
+    "es": {
+      "role": "Líder de ingeniería de software",
+      "description": "Liderazgo de iniciativas de ingeniería web, backend y móvil, estableciendo prácticas de pruebas y publicación automatizada.",
+      "technologies": ["Diseño de sistemas", "CI/CD", "Liderazgo técnico"]
+    }
+  },
+  {
+    "company": "Quality Service Nicaragua",
+    "start": "2022-02",
+    "end": "2022-08",
+    "en": {
+      "role": "Software Engineer III",
+      "description": "Designed backend services and database structures for a platform used by 25+ agricultural companies.",
+      "technologies": ["PHP", "TypeScript", "DDD"]
+    },
+    "es": {
+      "role": "Ingeniero de software III",
+      "description": "Diseño de servicios backend y estructuras de bases de datos para una plataforma utilizada por más de 25 empresas agrícolas.",
+      "technologies": ["PHP", "TypeScript", "DDD"]
+    }
+  },
+  {
+    "company": "TiHouse",
+    "start": "2020-02",
+    "end": "2022-02",
+    "en": {
+      "role": "Backend Developer",
+      "description": "Built APIs, authentication, and relational and NoSQL data models for cross-functional product teams.",
+      "technologies": ["Node.js", "Laravel", "Databases"]
+    },
+    "es": {
+      "role": "Desarrollador backend",
+      "description": "Desarrollo de API, autenticación y modelos de datos relacionales y NoSQL para equipos de producto multidisciplinarios.",
+      "technologies": ["Node.js", "Laravel", "Bases de datos"]
+    }
+  },
+  {
+    "company": "Disanic S.A.",
+    "start": "2019-01",
+    "end": "2020-02",
+    "en": {
+      "role": "Junior Backend Developer",
+      "description": "Developed REST APIs and reusable backend components for web and mobile platforms.",
+      "technologies": ["TypeScript", "PHP", "REST APIs"]
+    },
+    "es": {
+      "role": "Desarrollador backend júnior",
+      "description": "Desarrollo de API REST y componentes backend reutilizables para plataformas web y móviles.",
+      "technologies": ["TypeScript", "PHP", "API REST"]
+    }
+  }
+]

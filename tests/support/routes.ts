@@ -6,6 +6,7 @@ export const englishPaths = [
   '/hiring/',
   '/work/saas-modernization/',
   '/work/agricultural-platform/',
+  '/work/engineering-delivery/',
   '/projects/api-gateway/',
   '/projects/experimentation/',
   '/projects/secure-keys/',

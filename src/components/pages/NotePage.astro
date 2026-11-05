@@ -22,6 +22,14 @@ const { Content } = await render(entry);
 <BaseLayout
   title={`${note.title} — Derian Córdoba`}
   description={note.description}
+  socialImagePath={`/social/${note.locale}/notes/${note.id}.png`}
+  socialImageAlt={`${note.title} — Derian Córdoba`}
+  entity={{
+    type: 'BlogPosting',
+    publishedAt: note.publishedAt,
+    ...(note.updatedAt ? { updatedAt: note.updatedAt } : {}),
+    keywords: note.tags,
+  }}
 >
   <PageHeading
     eyebrow={copy.notes}

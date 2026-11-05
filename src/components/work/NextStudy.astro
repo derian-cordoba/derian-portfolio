@@ -9,8 +9,11 @@ interface Props {
 const { study } = Astro.props;
 ---
 
-<aside class="mt-12 rounded-xl border border-line bg-blue-light p-6">
-  <h2 class="eyebrow text-blue">
+<aside
+  aria-labelledby="next-study-heading"
+  class="mt-12 rounded-xl border border-line bg-blue-light p-6"
+>
+  <h2 id="next-study-heading" class="eyebrow text-blue">
     {getEnhancementCopy(study.locale).continueExploring}
   </h2>
   <Link

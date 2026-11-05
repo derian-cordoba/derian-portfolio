@@ -41,6 +41,10 @@ export function createStudyNavigationViewModel(
       label: getFeatureCopy(study.locale).walkthrough,
       href: '#walkthrough',
     });
+    contents.push({
+      label: study.locale === 'es' ? 'Ejecución registrada' : 'Recorded run',
+      href: '#recorded-run',
+    });
   }
   const ordered = studies
     .filter(

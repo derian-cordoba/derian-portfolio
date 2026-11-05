@@ -21,26 +21,61 @@ interface Props {
   description?: string;
   noindex?: boolean;
   languageHashMaps?: LanguageHashMaps;
+  socialImagePath?: string;
+  socialImageAlt?: string;
+  entity?: {
+    type: 'BlogPosting' | 'CreativeWork';
+    publishedAt?: string;
+    updatedAt?: string;
+    keywords?: readonly string[];
+  };
 }
 const {
   title = t.pageTitle,
   description = t.pageDescription,
   noindex = false,
   languageHashMaps = {},
+  socialImagePath,
+  socialImageAlt = t.socialAlt,
+  entity,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const socialImage = new URL(
-  locale === 'es' ? '/social-card-es.png' : '/social-card.png',
+  socialImagePath ??
+    (locale === 'es' ? '/social-card-es.png' : '/social-card.png'),
   Astro.site,
 );
 const person = {
   '@context': 'https://schema.org',
   '@type': 'Person',
+  '@id': new URL('/#person', Astro.site).href,
   name: profile.name,
   jobTitle: t.jobTitle,
   url: new URL(localizePath('/', locale), Astro.site).href,
   sameAs: [profile.github, profile.linkedin],
 };
+const structuredData = entity
+  ? {
+      '@context': 'https://schema.org',
+      '@graph': [
+        person,
+        {
+          '@type': entity.type,
+          '@id': `${canonical.href}#content`,
+          url: canonical.href,
+          headline: title.replace(` — ${profile.name}`, ''),
+          description,
+          image: socialImage.href,
+          inLanguage: locale,
+          author: { '@id': person['@id'] },
+          mainEntityOfPage: { '@type': 'WebPage', '@id': canonical.href },
+          ...(entity.publishedAt && { datePublished: entity.publishedAt }),
+          ...(entity.updatedAt && { dateModified: entity.updatedAt }),
+          ...(entity.keywords && { keywords: entity.keywords.join(', ') }),
+        },
+      ],
+    }
+  : person;
 ---
 
 <!doctype html>
@@ -83,7 +118,20 @@ const person = {
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     {noindex && <meta name="robots" content="noindex, follow" />}
-    <meta property="og:type" content="website" />
+    <meta
+      property="og:type"
+      content={entity?.type === 'BlogPosting' ? 'article' : 'website'}
+    />
+    {
+      entity?.publishedAt && (
+        <meta property="article:published_time" content={entity.publishedAt} />
+      )
+    }
+    {
+      entity?.updatedAt && (
+        <meta property="article:modified_time" content={entity.updatedAt} />
+      )
+    }
     <meta property="og:locale" content={locale === 'es' ? 'es_NI' : 'en_US'} />
     <meta
       property="og:locale:alternate"
@@ -93,11 +141,13 @@ const person = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={socialImage} />
-    <meta property="og:image:alt" content={t.socialAlt} />
+    <meta property="og:image:alt" content={socialImageAlt} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <script
       type="application/ld+json"
-      set:html={JSON.stringify(person).replace(/</gu, '\\u003c')}
+      set:html={JSON.stringify(structuredData).replace(/</gu, '\\u003c')}
     />
   </head>
   <body id="top">

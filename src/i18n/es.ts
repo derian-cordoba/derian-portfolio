@@ -26,10 +26,12 @@ export const es = {
   footerNote: 'Creado con criterio. Siempre evolucionando.',
   backToTop: 'Volver arriba',
   heroEyebrow: 'Ingeniero de software sénior',
-  heroTitle: 'Buenos sistemas.',
-  heroAccent: 'Mejores resultados.',
+  heroTitle: 'Modernizar sistemas.',
+  heroAccent: 'Facilitar entregas.',
   heroDescription:
-    'Soy Derian Córdoba, ingeniero de software sénior especializado en sistemas backend y aplicaciones full-stack. Desarrollo servicios confiables y herramientas prácticas que ayudan a los equipos a entregar mejor software.',
+    'Soy Derian Córdoba. Modernizo aplicaciones Laravel y TypeScript, diseño servicios backend y creo herramientas reutilizables para equipos de ingeniería.',
+  heroProof:
+    'Experiencia empresarial en Walmart · Modernización SaaS · Herramientas públicas para desarrolladores',
   exploreWork: 'Conoce mi trabajo',
   letsTalk: 'Hablemos',
   heroNote: 'Creado para funcionar. Diseñado para durar.',

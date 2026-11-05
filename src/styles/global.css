@@ -141,6 +141,22 @@
   .case-prose a {
     @apply text-blue underline underline-offset-4;
   }
+  .case-prose ul {
+    @apply my-5 list-disc space-y-2 pl-6;
+  }
+  .case-prose pre {
+    @apply my-6 overflow-x-auto rounded-lg bg-navy p-5 text-sm leading-relaxed text-white;
+  }
+  .case-prose table {
+    @apply my-6 block max-w-full border-collapse overflow-x-auto text-left text-sm;
+  }
+  .case-prose th,
+  .case-prose td {
+    @apply min-w-36 border-b border-line px-3 py-3 align-top;
+  }
+  .case-prose th {
+    @apply font-semibold text-ink;
+  }
   .case-prose > :first-child {
     @apply mt-0;
   }

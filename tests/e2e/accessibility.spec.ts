@@ -56,7 +56,7 @@ test('mobile navigation contains focus, exposes state, and closes on Escape or o
   await expect(summary).toHaveAttribute('aria-expanded', 'false');
   await expect(summary).toBeFocused();
   await summary.click();
-  await page.locator('h1').click();
+  await page.mouse.click(8, 590);
   await expect(summary).toHaveAttribute('aria-expanded', 'false');
 });
 

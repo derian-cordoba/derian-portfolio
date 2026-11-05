@@ -18,7 +18,9 @@
     "test:e2e": "playwright test",
     "validate": "npm run check && npm run lint && npm run format:check && npm test && npm run build && npm run test:static",
     "test:static": "node --test tests/integration/static-output.test.ts",
-    "test:deployed": "node --test --test-concurrency=1 tests/deployment/*.test.ts"
+    "test:deployed": "node --test --test-concurrency=1 tests/deployment/*.test.ts",
+    "capture:gateway": "node scripts/capture-gateway.mjs",
+    "record:gateway": "node scripts/render-gateway-recording.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
@@ -40,6 +42,7 @@
     "prettier": "^3.7.0",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.7.0",
+    "sharp": "^0.35.5",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.72.1",
     "vitest": "^5.1.0"

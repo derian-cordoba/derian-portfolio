@@ -26,11 +26,25 @@ Optimicé lógica backend, interacciones SQL y rutas de procesamiento de la apli
 
 Eran aspectos relacionados: el rendimiento, los límites entre servicios y los componentes reutilizables influyen en la confianza con la que un equipo puede ampliar un producto.
 
+## El alcance de la implementación
+
+El trabajo abarcaba tres áreas relacionadas:
+
+| Área                            | Mi contribución                                                                                             | Su utilidad                                                              |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| Procesamiento crítico           | Refactoricé lógica backend, interacciones SQL y rutas de procesamiento Laravel                              | Mejoró flujos de procesamiento SaaS seleccionados                        |
+| Capacidades backend compartidas | Implementé mecanismos reutilizables de multitenencia entre microservicios Laravel y mantuve colas de tareas | Permitió admitir múltiples proveedores y automatizar procesos de negocio |
+| Herramientas de desarrollo      | Creé utilidades internas y paquetes React reutilizables para proyectos Laravel y WordPress                  | Redujo implementaciones repetidas y mejoró la consistencia de interfaces |
+
+Son responsabilidades documentadas en mi currículum. El porcentaje de rendimiento corresponde a la primera fila; no es un resultado medido para todas las iniciativas de la tabla.
+
 ## Consideraciones de ingeniería
 
 El trabajo de rendimiento necesita un alcance concreto. Una mejora de procesamiento resulta significativa cuando la comparación usa la misma carga de trabajo y una referencia clara. No debe presentarse como una mejora equivalente en toda la aplicación.
 
 La mantenibilidad importa tanto como la velocidad. Una mejora localizada debe dejar claras las responsabilidades del código que la rodea, y los mecanismos reutilizables deben resolver necesidades repetidas sin acoplar servicios que no tienen relación.
+
+Las tareas en segundo plano y la multitenencia compartida añaden sus propios límites: qué trabajo puede realizarse fuera de una solicitud y qué contexto debe viajar entre servicios. Explican la amplitud de mi función; no atribuyo el resultado de rendimiento a un diseño concreto de colas, modelo de multitenencia, índice o estrategia de caché sin evidencia de la implementación.
 
 ## El resultado
 
