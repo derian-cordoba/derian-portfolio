@@ -31,6 +31,7 @@ const controls = getEnhancementCopy(study.locale);
             hidden
             class="absolute inset-0 rounded-lg text-ink"
             aria-haspopup="dialog"
+            aria-controls="study-media-dialog"
           >
             <span class="absolute right-3 bottom-3 rounded-md border border-line bg-paper px-3 py-2 text-xs font-semibold">
               {controls.enlarge}
@@ -48,7 +49,9 @@ const controls = getEnhancementCopy(study.locale);
         </figcaption>
       </figure>
       <dialog
+        id="study-media-dialog"
         aria-label={study.media.alt}
+        aria-describedby="study-media-caption"
         class="m-auto max-h-[90vh] w-[calc(100%-2rem)] max-w-6xl overflow-auto rounded-xl border border-line bg-paper p-4 text-ink shadow-xl backdrop:bg-black/70 sm:p-6"
       >
         <div class="mb-4 flex justify-end">
@@ -69,7 +72,10 @@ const controls = getEnhancementCopy(study.locale);
           decoding="async"
           class="h-auto w-full rounded-lg"
         />
-        <p class="mt-4 text-sm leading-relaxed text-muted">
+        <p
+          id="study-media-caption"
+          class="mt-4 text-sm leading-relaxed text-muted"
+        >
           {study.media.caption}
         </p>
       </dialog>

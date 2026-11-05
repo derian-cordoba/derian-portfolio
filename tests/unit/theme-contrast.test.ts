@@ -57,6 +57,18 @@ const textPairs = [
 ] as const;
 
 for (const theme of ['light', 'dark'] as const) {
+  it.each(['paper', 'surface'])(
+    `${theme} form boundaries on %s meet 3:1 contrast`,
+    (background) => {
+      const values = [
+        luminance(color('control', theme)),
+        luminance(color(background, theme)),
+      ].sort((left, right) => right - left);
+      expect(
+        ((values[0] ?? 0) + 0.05) / ((values[1] ?? 0) + 0.05),
+      ).toBeGreaterThanOrEqual(3);
+    },
+  );
   describe(`${theme} palette text contrast`, () => {
     it.each(textPairs)(
       '%s on %s meets WCAG AA for normal text',

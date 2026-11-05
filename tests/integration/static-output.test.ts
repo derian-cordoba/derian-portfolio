@@ -28,6 +28,42 @@ function htmlFiles(directory: string): string[] {
   });
 }
 
+test('shared accessibility structure survives rendering on every page', () => {
+  for (const filename of htmlFiles(output)) {
+    const html = readFileSync(filename, 'utf8');
+    const headings = [...html.matchAll(/<h([1-6])\b/gu)].map((match) =>
+      Number(match[1]),
+    );
+    for (let index = 1; index < headings.length; index += 1) {
+      assert.ok(
+        (headings[index] ?? 0) <= (headings[index - 1] ?? 0) + 1,
+        `${filename}: heading level skipped`,
+      );
+    }
+    for (const image of html.matchAll(/<img\b[^>]*>/gu)) {
+      assert.match(
+        image[0],
+        /\balt="[^"]*"/u,
+        `${filename}: image alt missing`,
+      );
+    }
+    const ids = [...html.matchAll(/\bid="([^"]+)"/gu)].map((match) => match[1]);
+    assert.equal(new Set(ids).size, ids.length, `${filename}: duplicate IDs`);
+    for (const reference of html.matchAll(
+      /\baria-(?:controls|labelledby|describedby)="([^"]+)"/gu,
+    )) {
+      for (const id of (reference[1] ?? '').split(/\s+/u)) {
+        assert.ok(ids.includes(id), `${filename}: missing ARIA target ${id}`);
+      }
+    }
+    assert.match(
+      html,
+      /<main\b[^>]*\bid="main"[^>]*\btabindex="-1"/u,
+      filename,
+    );
+  }
+});
+
 test('all twenty-four generated pages include localized content and document metadata', () => {
   const files = htmlFiles(output);
   assert.equal(files.length, localizedRoutes.length);
