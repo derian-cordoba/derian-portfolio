@@ -42,25 +42,22 @@ import SystemMap from '../visuals/SystemMap.astro';
           class="size-3.5"
         />
       </a>
-      <div
-        class="mt-9 flex flex-wrap items-center gap-x-5 gap-y-3 text-[11px] text-muted"
-      >
-        <span
-          >{profile.location}
-          <span class="ml-1 text-muted">/ {profile.timezone}</span></span
-        ><Link
-          href={profile.github}
-          class="flex min-h-8 items-center gap-1.5 hover:text-blue"
-          ><Icon name="github" class="size-3.5" />GitHub<Icon
+      <div class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
+        <Link href={profile.github} class="text-link text-sm text-ink"
+          ><Icon name="github" class="size-4" />GitHub<Icon
             name="arrow-up-right"
             class="size-3"
           /></Link
-        ><Link
-          href={profile.linkedin}
-          class="flex min-h-8 items-center gap-1.5 hover:text-blue"
-          >LinkedIn<Icon name="arrow-up-right" class="size-3" /></Link
+        ><Link href={profile.linkedin} class="text-link text-sm text-ink"
+          ><Icon name="linkedin" class="size-4" />LinkedIn<Icon
+            name="arrow-up-right"
+            class="size-3"
+          /></Link
         >
       </div>
+      <p class="mt-3 text-[11px] text-muted">
+        {profile.location}<span class="ml-1">/ {profile.timezone}</span>
+      </p>
     </div>
     <div class="relative lg:pl-3">
       <SystemMap /><div

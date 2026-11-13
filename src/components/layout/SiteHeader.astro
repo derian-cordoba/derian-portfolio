@@ -2,17 +2,27 @@
 import { getTranslations } from '@/i18n';
 import { getLocale, localizePath, getResumePath } from '@/i18n/routing';
 import { getFeatureCopy } from '@/i18n/features';
+import { profile } from '@/content/profile';
 import ActionLink from '../ui/ActionLink.astro';
+import Link from '../ui/Link.astro';
 import Icon from '../ui/Icon.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import type { LanguageHashMaps } from '@/i18n/routing';
+
 interface Props {
   languageHashMaps?: LanguageHashMaps;
 }
+
 const { languageHashMaps = {} } = Astro.props;
 const locale = getLocale(Astro.url.pathname);
 const t = getTranslations(locale);
+
+const socialLinks = [
+  { label: 'GitHub', href: profile.github, icon: 'github' },
+  { label: 'LinkedIn', href: profile.linkedin, icon: 'linkedin' },
+] as const;
+
 const links = [
   { label: t.navWork, href: localizePath('/#work', locale) },
   { label: t.navAbout, href: localizePath('/#about', locale) },
@@ -63,6 +73,20 @@ const links = [
       }
     </nav>
     <div class="flex items-center gap-2 sm:gap-3">
+      <div class="hidden items-center border-r border-line pr-2 sm:flex">
+        {
+          socialLinks.map((link) => (
+            <Link
+              href={link.href}
+              aria-label={link.label}
+              title={link.label}
+              class="flex size-11 items-center justify-center rounded-md text-ink transition-colors hover:bg-blue-light hover:text-blue"
+            >
+              <Icon name={link.icon} class="size-5" />
+            </Link>
+          ))
+        }
+      </div>
       <ThemeToggle />
       <LanguageSwitcher languageHashMaps={languageHashMaps} />
       <ActionLink
@@ -95,6 +119,21 @@ const links = [
               </a>
             ))
           }
+          <div
+            class="mt-2 grid grid-cols-2 border-t border-line pt-2 sm:hidden"
+          >
+            {
+              socialLinks.map((link) => (
+                <Link
+                  href={link.href}
+                  class="flex min-h-11 items-center justify-center gap-2 rounded-md text-xs font-medium hover:bg-blue-light hover:text-blue"
+                >
+                  <Icon name={link.icon} class="size-4" />
+                  {link.label}
+                </Link>
+              ))
+            }
+          </div>
           <ActionLink
             href={getResumePath(locale)}
             variant="secondary"
