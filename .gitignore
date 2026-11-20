@@ -7,5 +7,6 @@ dist/
 .sites-runtime/
 test-results/
 playwright-report/
+performance-results/
 .DS_Store
 

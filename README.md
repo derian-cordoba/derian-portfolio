@@ -99,6 +99,10 @@ GitHub Actions runs the complete validation command and Chromium desktop/mobile 
 
 See [SEO content and measurement](docs/seo.md) for editorial dates, Search Console verification, optional analytics on the active Netlify host, and interpretation of contact/CV signals. Public HTTP checks run separately from source validation using `DEPLOYMENT_URL=... npm run test:deployed`, or the manually triggered Public deployment checks workflow.
 
+## Performance testing
+
+HTTP load profiles use k6 with shared route selection, response checks, and latency/error budgets. Install k6, build and serve the production output, then run `npm run perf:smoke`, `npm run perf:load`, or `npm run perf:spike`. Set `BASE_URL` for staging or a deployed target. See [performance testing](docs/performance-testing.md) for scenarios, Grafana Cloud setup, result handling, and operating guidance.
+
 ## Hiring and interaction improvements
 
 The mobile menu includes the localized CV, and the hero links directly to the hiring overview. Case studies show a summary before their article, offer section navigation, and suggest another study in the same language and category. The hiring overview links each role area to existing evidence. See [interaction behavior and validation](docs/interactions.md) for form recovery, theme preferences, screenshot previews, and browser coverage.
